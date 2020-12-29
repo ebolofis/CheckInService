@@ -1,0 +1,32 @@
+{
+  "ConnectionString": "Data Source=sisifos; Initial Catalog=CheckinService;User id=sqladmin; Password=111111;",
+  "ApkPassword": "HITSA2020",
+  "PDF_Location": "C:\\logs",
+  "ClientValidationEnabled": true,
+  "UnobtrusiveJavaScriptEnabled": true,
+  "GeneratePassbook": true,
+  "PassbookURL": "http://192.168.15.93/CheckInPassBook/",
+  "PassbookURLInternal": "http://192.168.15.93/CheckInPassBook/",
+  "BOMinVersion": "4.0.23.0",
+
+  "SignalRController": {
+    "IsEnabled": true,
+    "Threashold1": 60,
+    "Interval1": 5,
+    "Threashold2": 120,
+    "Interval2": 10
+  },
+
+  "InMemoryDBController": {
+    "IsEnabled": true,
+    "MinLoggingLevel": "Debug",
+    "LoggingDebugDuration": 20000000,
+    "Url": "192.168.15.18",
+    "Port": 6399,
+    "Password": "jsudjmfNgHEr9345%$2@#Rkm-#$56pjkm232",
+    "DB": 3,
+    "Ssl": false,
+    "ExpireModels": 6,
+    "ExpireMessages": 100
+  }
+}

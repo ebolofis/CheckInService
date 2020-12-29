@@ -1,0 +1,23 @@
+[
+  {
+    "Id": "1002",
+    "Description": "Messaging",
+    "Url": "http://192.168.14.126:9000/chat/index?h=<h>&re=<re>&a=<a>&d=<d>",
+    "IsHotelDirectory": true,
+    "Order": 1
+  },
+  {
+    "Id": "1003",
+    "Description": "House Keeping",
+    "Url": "http://192.168.14.126:9000/housekeeping/index?h=<h>&z=<z>&r=<r>&a=<a>&d=<d>",
+    "IsHotelDirectory": true,
+    "Order": 2
+  },
+  {
+    "Id": "1004",
+    "Description": "View Bill",
+    "Url": "http://192.168.14.126:9000/viewbill/index?h=<h>&le=<le>&a=<a>&d=<d>",
+    "IsHotelDirectory": true,
+    "Order": 3
+  }
+]

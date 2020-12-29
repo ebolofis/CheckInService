@@ -1,0 +1,691 @@
+﻿@using CheckInService.Controllers;
+@using CheckInService.Models;
+@using CheckinBack.Models;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var config = ViewBag.Config as SettingsModel;
+    var format = ViewBag.Format as GlobalAttributesModel;
+    var privacy = ViewBag.Privacy as PrivacyPolicyModel;
+    var configurationform = ViewBag.ConfigurationForm as ConfigurationFormModel;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/css/miscalleneous/Styling.css">
+    <script src="~/js/nicescroll.js"></script>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/lib/jquery/dist/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+</head>
+<body data-bind="with: LanguageHandler" class="custom-full-height custom-flex-column ">
+
+    <div class="custom-flex-row custom-flex-10 custom-flex-center headerstyling" style="margin-bottom: 10px;">
+        <figure> <img style="height:120px;" data-bind="attr: { 'src' : tmp2.HotelLogo() }" id="headimg" /> </figure>
+    </div>
+    <div class="container" style="width:100%;">
+        <div class="row">
+            <div class="col-xs-12" id="colpdf">
+                <br />
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h1 style="text-align:left;">Fast Check-In</h1>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <hr class="dotted" style="background-color:rgb(175,208,220); height:2px;">
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-bottom:5px;">
+                        <h2 style="color:black;">Privacy Policy</h2>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-bottom:5px;">
+                        <p data-bind="html: selectedDictionary() != null?selectedDictionary().privacyPolicyDescription:null"></p>
+                    </div>
+                    <div class="container" data-bind="visible: tmp2.baseInfoModel() != null && tmp2.baseInfoModel().Mode != 4">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="text-center">
+                                    <canvas id="sig-canvas" style="border: 1px solid black;">
+                                    </canvas>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="text-center">
+                                    <label id="signheretxtcss" data-bind="text: selectedDictionary() != null?selectedDictionary().SignHereTxt:null"> Please Sign Above the Line</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="1strow" data-bind="visible: tmp2.baseInfoModel() != null && tmp2.baseInfoModel().Mode != 4">
+                        <div class="col-md-12">
+                            <div class="custom-flex-column custom-flex-center" style="margin-top:20px;">
+                                <button class="btn btn--custom btn--animated custom-flex-center custom-flex-row custom-flex-40 ld-ext-right" id="sig-submitBtn" style="color:black; margin-bottom:20px;border:1px solid black;" data-bind="click: CheckInCustomer, enable: !tmp2.Loading()">
+                                    Check-In
+                                    <span data-bind="visible: tmp2.Loading()" class="ld ld-ring ld-spin"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row" id="2ndrow" data-bind="visible: tmp2.baseInfoModel() != null && tmp2.baseInfoModel().Mode != 4">
+                        <div class="col-md-12 custom-flex-center">
+                            <button style="margin-top:10px;width:200px;  color:black;border:1px solid black;color:black !important;" class="btn" id="sig-clearBtn" data-bind="click: clearCanvas, text: selectedDictionary() != null && selectedDictionary().ClearBtnTxt != undefined && selectedDictionary().ClearBtnTxt != null && selectedDictionary().ClearBtnTxt != '' ? selectedDictionary().ClearBtnTxt : 'Clear'"></button>
+                            <button style="margin-top:10px;width:200px;  color:black;border:1px solid black;color:black !important;" class="btn" id="sig-clearBtn" data-bind="click: CancelFunction, text: selectedDictionary() != null && selectedDictionary().CancelBtnTxt != undefined && selectedDictionary().CancelBtnTxt != null && selectedDictionary().CancelBtnTxt != '' ? selectedDictionary().CancelBtnTxt : 'Cancel'"></button>
+                        </div>
+                    </div>
+                    <div class="row" id="2ndrow" data-bind="visible: tmp2.baseInfoModel() != null && tmp2.baseInfoModel().Mode == 4">
+                        <div class="col-md-12 custom-flex-center">
+                            <button style="margin-top:10px;width:200px;  color:black;border:1px solid black;color:black !important;" class="btn" id="sig-clearBtn" data-bind="click: CancelFunction, text: selectedDictionary() != null && selectedDictionary().CancelBtnTxt != undefined && selectedDictionary().CancelBtnTxt != null && selectedDictionary().CancelBtnTxt != '' ? selectedDictionary().CancelBtnTxt : 'Cancel'"></button>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="test"></div>
+</body>
+</html>
+
+<script>
+    var tmp2 = this;
+    tmp2.HotelLogo = ko.observable(null);
+    tmp2.Loading = ko.observable(false);
+    tmp2.Signature = null;
+    tmp2.baseInfoModel = ko.observable(null);
+    var myhtml = document.querySelector("html");
+    var xhr = new XMLHttpRequest();
+
+    function GetHotelLogo() {
+        $.ajax({
+            url: "/FC/GetHotelLogo?hotelId=" + localStorage.ConfigHotelName,
+            cache: false,
+            type: "GET",
+            crossdomain: false,
+            dataType: "json",
+            ContentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (response !== undefined && response !== null) {
+                    let hotelLogo = "data:image/png;base64," + response.Logo;
+                    tmp2.HotelLogo(hotelLogo);
+                } else {
+                    console.log("Unable to get hotelLogo with id: " + localStorage.ConfigHotelName + "!");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    };
+
+    $(document).ready(function () {
+        LanguageHandler.SetHotelID(localStorage.ConfigHotelName);
+        LanguageHandler.SetApi(localStorage.ConfigURL);
+        LanguageHandler.GetTranslations();
+        GetHotelLogo();
+        var baseInfoModelTmp = JSON.parse(localStorage.baseinfo);
+        tmp2.baseInfoModel(baseInfoModelTmp);
+
+        if (tmp2.baseInfoModel().Mode != 2 || tmp2.baseInfoModel().Mode != 4) {
+            cleanCustomerForm();
+        }
+    });
+
+    var languageChoosed = setInterval(function () {
+        if (LanguageHandler.availableLanguages().length > 0) {
+            clearInterval(languageChoosed);
+            var customerData = JSON.parse(localStorage.CustomerInput);
+            LanguageHandler.ChangeLanguage(customerData[0].LanguageCode);
+        }
+    }, 1100);
+
+    function CancelFunction() {
+        if (tmp2.baseInfoModel().Mode == 2 || tmp2.baseInfoModel().Mode == 4) {
+            localStorage.backButtonFlag = true;
+            var link = localStorage.ConfigURL + "FC/redirect?u=&str=" + tmp2.baseInfoModel().String1Encrypted + "&h=" + localStorage.ConfigHotelName;
+            window.location.href = link;
+        }
+        else {
+            localStorage.backButtonFlag = true;
+            var link = localStorage.ConfigURL + "FC/GetSettings?u=&g=" + localStorage.ConfigGroupName + "&h=" + localStorage.ConfigHotelName;
+            window.location.href = link;
+        }
+    }
+
+    window.requestAnimFrame = (function (callback) {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimaitonFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 60);
+            };
+    })();
+
+    var canvas = document.getElementById("sig-canvas");
+    var ctx = canvas.getContext("2d");
+    ctx.strokeStyle = "#222222";
+    ctx.lineWidth = 4;
+    var drawing = false;
+    var mousePos = {
+        x: 0,
+        y: 0
+    };
+    var lastPos = mousePos;
+
+    canvas.addEventListener("mousedown", function (e) {
+        drawing = true;
+        lastPos = getMousePos(canvas, e);
+        e.preventDefault();
+    }, false);
+
+    canvas.addEventListener("mouseup", function (e) {
+        drawing = false;
+    }, false);
+
+    canvas.addEventListener("mousemove", function (e) {
+        mousePos = getMousePos(canvas, e);
+    }, false);
+
+    // Add touch event support for mobile
+    canvas.addEventListener("touchstart", function (e) {
+        e.preventDefault();
+    }, false);
+
+    canvas.addEventListener("touchmove", function (e) {
+        var touch = e.touches[0];
+        var me = new MouseEvent("mousemove", {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        canvas.dispatchEvent(me);
+    }, false);
+
+    canvas.addEventListener("touchstart", function (e) {
+        mousePos = getTouchPos(canvas, e);
+        var touch = e.touches[0];
+        var me = new MouseEvent("mousedown", {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        canvas.dispatchEvent(me);
+    }, false);
+
+    canvas.addEventListener("touchend", function (e) {
+        var me = new MouseEvent("mouseup", {});
+        canvas.dispatchEvent(me);
+    }, false);
+
+    function getMousePos(canvasDom, mouseEvent) {
+        var rect = canvasDom.getBoundingClientRect();
+        return {
+            x: mouseEvent.clientX - rect.left,
+            y: mouseEvent.clientY - rect.top
+        }
+    }
+
+    function getTouchPos(canvasDom, touchEvent) {
+        var rect = canvasDom.getBoundingClientRect();
+        return {
+            x: touchEvent.touches[0].clientX - rect.left,
+            y: touchEvent.touches[0].clientY - rect.top
+        }
+    }
+
+    function renderCanvas() {
+        if (drawing) {
+            ctx.moveTo(lastPos.x, lastPos.y);
+            ctx.lineTo(mousePos.x, mousePos.y);
+            ctx.stroke();
+            lastPos = mousePos;
+        }
+    }
+    // Prevent scrolling when touching the canvas
+    document.body.addEventListener("touchstart", function (e) {
+        if (e.target == canvas) {
+            e.preventDefault();
+        }
+    }, false);
+    document.body.addEventListener("touchend", function (e) {
+        if (e.target == canvas) {
+            e.preventDefault();
+        }
+    }, false);
+    document.body.addEventListener("touchmove", function (e) {
+        if (e.target == canvas) {
+            e.preventDefault();
+        }
+    }, false);
+
+    (function drawLoop() {
+        requestAnimFrame(drawLoop);
+        renderCanvas();
+    })();
+
+    function clearCanvas() {
+        canvas.width = canvas.width;
+        var ctx = canvas.getContext("2d");
+        ctx.strokeStyle = "#222222";
+        ctx.lineWidth = 4;
+    }
+
+    function CheckInCustomer() {
+        tmp2.Loading(true);
+        var dataUrl = canvas.toDataURL();
+        if (dataUrl.length > 2500) {
+            var dataToPost = JSON.parse(localStorage.CustomerInput);
+            ko.utils.arrayForEach(dataToPost, function (customer) {
+                if (customer.DateOfBirth == "Invalid date" || customer.DateOfBirth == null || customer.DateOfBirth == "") {
+                    customer.DateOfBirth = "1900-01-01T00:00:00";
+                }
+            });
+            dataToPost[0].Signature = dataUrl;
+            tmp2.Signature = dataUrl;
+            dataToPost[0].Status = 2;
+            PostCustomer(dataToPost);
+        }
+        else {
+            tmp2.Loading(false);
+            iziToast.error({
+                title: name,
+                message: 'Please sign, the signature is too small'
+            });
+            return;
+        }
+    }
+
+    function cleanCustomerForm() {
+        setTimeout(function () {
+            //Delete Customer From Dictionary
+            const urldeletestring1 = localStorage.ConfigURL + 'api/MainActions/Delete/' + localStorage.ConfigHotelName + "/" + tmp2.baseInfoModel().String1;
+            xhr.open("GET", urldeletestring1);
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.send();
+            //Delete Localstorage
+            SignalRHandler.customer(null);
+            tmp2.baseInfoModel().Mode = 0;
+            tmp2.baseInfoModel().String1 = "";
+            localStorage.baseinfo = JSON.stringify(tmp2.baseInfoModel());
+            var link = localStorage.ConfigURL + "FC/GetSettings?u=" + localStorage.ConfigURL + "&g=" + localStorage.ConfigGroupName + "&h=" + localStorage.ConfigHotelName;
+            window.location.href = link;
+            console.log("Customer has been Deleted from Form because was created more than 30 minutes before!");
+        }, 1800000);
+    };
+
+    function PostCustomer(FastCheckInModel) {
+        FastCheckInModel[0].ClientName = localStorage.ConfigGroupName;
+        FastCheckInModel[0].User = "Android";
+        var FastCheckInExtModel = {};
+        FastCheckInExtModel = JSON.parse(localStorage.baseinfo);
+        FastCheckInExtModel.FormFastCheckInModelList = FastCheckInModel;
+        $.ajax({
+            url: localStorage.ConfigURL + "api/MainActions/PostFromMobile",
+            cache: false,
+            type: "POST",
+            crossdomain: false,
+            dataType: "json",
+            ContentType: "application/json",
+            data: FastCheckInExtModel,
+            success: function (response) {
+                if (response !== undefined && response !== null) {
+                    tmp2.Loading(false);
+                    //Navigate To Thank You Page
+                    setTimeout(function () {
+                        var link = localStorage.ConfigURL + "ThankYou/GetSettings?hotelId=" + localStorage.ConfigHotelName;
+                        window.location.href = link;
+                    }, 1500);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+                SendClientError(error);
+                iziToast.error({
+                    title: 'Post Error',
+                    message: error.responseJSON.title,
+                    timeout: 5000
+                });
+                tmp2.Loading(false);
+            }
+        }).fail(function (message) {
+            if (message.status != 200) {
+                console.log(message);
+            }
+        });
+    };
+
+    //Send Error Message to Api If PostCustomer Failed
+    function SendClientError(error) {
+        var ClentErrorModel = {};
+        ClentErrorModel.HotelId = tmp2.baseInfoModel().HotelId;
+        ClentErrorModel.String1 = tmp2.baseInfoModel().String1;
+        ClentErrorModel.Group = tmp2.baseInfoModel().Group;
+        ClentErrorModel.Description = "Error Posting Customer Data in Signature: ";
+        ClentErrorModel.Error = error.responseText;
+        $.ajax({
+            url: localStorage.ConfigURL + "api/MainActions/ClientError",
+            cache: false,
+            type: "POST",
+            crossdomain: false,
+            dataType: "json",
+            ContentType: "application/json",
+            data: ClentErrorModel,
+            success: function (response) {
+                console.log("Post Customer Data Error Send Successfully!");
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        }).fail(function (message) {
+            if (message.status != 200) {
+                console.log(message);
+            }
+        });
+    }
+</script>
+
+
+<style>
+    .entrystyling {
+        color: @format.entryAttributes.textColor;
+        font-family: @format.entryAttributes.fontFamily;
+    }
+    .hiddenstyling {
+        visibility: hidden;
+        width: 0%;
+        height: 0px;
+        height: 0px;
+        margin: 0px;
+        padding: 0px;
+    }
+    .labelstyling {
+        font-family: @format.labelAttributes.fontFamily;
+        color:@format.labelAttributes.textColor;
+    }
+    .headerstyling{
+        background-color:@format.headerAttributes.headerBackgroundColor;
+        font-weight:@format.headerAttributes.headerFontWeight;
+        color:@format.headerAttributes.headerFontColor;
+        font-family:@format.headerAttributes.headerfontFamily;
+    }
+    #inputFirstName:focus {
+        outline: none !important;
+        border: 1px solid gray;
+        box-shadow: 0 0 10px gray;
+    }
+    #inputLastName:focus {
+        outline: none !important;
+        border: 1px solid gray;
+        box-shadow: 0 0 10px gray;
+    }
+
+    .btn, .btn:link, .btn:visited {
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 1.5rem ;
+        display: inline-block;
+        border-radius: 10rem;
+        transition: all .2s;
+        position: relative;
+        border: none;
+        cursor: pointer;
+    }
+
+    btn btn--custom btn--animated
+
+
+
+.btn--custom {
+    background-color: @format.headerAttributes.headerBackgroundColor;
+    /*color: #fff;*/
+}
+
+.btn--custom::after {
+        background-color: @format.headerAttributes.headerBackgroundColor;
+}
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+        }
+
+            .btn:hover::after {
+                transform: scaleX(1.4) scaleY(1.6);
+                opacity: 0;
+            }
+
+        .btn:active, .btn:focus {
+            outline: none;
+            transform: translateY(-1px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+        }
+
+    .btn--white {
+        background-color: #fff;
+        color: #777;
+    }
+
+        .btn--white::after {
+            background-color: #fff;
+        }
+
+    .btn--green {
+        background-color: #55c57a;
+        color: #fff;
+    }
+        .btn--green::after {
+            background-color: #55c57a;
+        }
+
+    .btn::after {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        border-radius: 10rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        transition: all .4s;
+    }
+
+    .btn--animated {
+        animation: moveInBottom .5s ease-out .75s;
+        animation-fill-mode: backwards;
+    }
+
+    .btn-text:link, .btn-text:visited {
+
+        color: #55c57a;
+        display: inline-block;
+        text-decoration: none;
+        border-bottom: 1px solid #55c57a;
+        padding: 3px;
+        transition: all .2s;
+    }
+
+    .btn-text:hover {
+        background-color: #55c57a;
+        color: #fff;
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+    }
+
+    .btn-text:active {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        transform: translateY(0);
+    }
+
+    select {
+        width: 7%;
+        margin: 0;
+        font-size: 100%;
+        padding: 5px 10px 5px 10px;
+        font-family: Segoe UI, Helvetica, sans-serif;
+        border: 0;
+        border: 1px solid #D0D0D0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        outline: none;
+    }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    html,
+    body {
+        background-color: #fff;
+        color: #555;
+        font-family: 'Lato', 'Arial', sans-serif;
+        font-weight: 300;
+        font-size: 16px;
+        text-rendering: optimizeLegibility;
+        overflow-x: hidden;
+        width: 100%;
+    }
+    h1 {
+        text-align: center;
+    }
+    /*.container {
+        margin-left:initial;
+    }*/
+    .btn:link,
+    .btn:hover
+    .btn:visited {
+        display: flex;
+        padding: 10px 30px;
+        font-weight: 300;
+        text-decoration: none;
+        border-radius: 0px;
+        -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
+        transition: background-color 0.2s, border 0.2s, color 0.2s;
+    }
+    .btn{
+        background-color:@format.headerAttributes.headerBackgroundColor;
+        color:#fff;
+        width:300px;
+    }
+    .btn-full:link,
+    .btn-full:visited
+   {
+        background-color: @format.headerAttributes.headerBackgroundColor;
+        border: 1px solid @format.headerAttributes.headerBackgroundColor;
+        color: #fff;
+        margin-right: 15px;
+        border-radius:3%;
+    }
+        .btn:hover,
+        .btn:active
+         {
+            background-color: @format.headerAttributes.headerBackgroundColor;
+              filter: brightness(85%);
+               color:#fff;
+        }
+    .btn-full:hover,
+    .btn-full:active {
+        border: 1px solid #cf6d17;
+         color:#fff;
+
+    }
+  .header-photo {
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    background-color: @format.headerAttributes.headerBackgroundColor;
+}
+    .header-photo img {
+        opacity: 0.9;
+        width: 25%;
+        height: 75%;
+        -webkit-transform: scale(1.15);
+        -ms-transform: scale(1.15);
+        transform: scale(1.15);
+        -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
+        transition: transform 0.5s, opacity 0.5s;
+    }
+        .header-photo img:hover {
+            opacity: 1;
+            -webkit-transform: scale(1.03);
+            -ms-transform: scale(1.03);
+            transform: scale(1.03);
+        }
+.dotted{
+    background-color:@format.sectionBackgroundColor;
+    height:2px;
+}
+:root {
+    --color-primary: @format.headerAttributes.headerBackgroundColor;
+    --color-primary-light: @format.headerAttributes.headerBackgroundColor;
+    --color-primary-dark:#ac9766;
+    --color-grey-light-1: #faf9f9;
+    --color-grey-light-2: #f4f2f2;
+    --color-grey-light-3: #f0eeee;
+    --color-grey-light-4: #ccc;
+    --color-grey-dark-1: #333;
+    --color-grey-dark-2: #777;
+    --color-grey-dark-3: #999;
+    --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+    --shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+    --line: 1px solid var(--color-grey-light-2);
+}
+.batton {
+  font-size: 1rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  border: none;
+  background-image: -webkit-gradient(linear,  left top,  right top,  from(var(--color-primary-light)),  to(var(--color-primary-dark)));
+  background-image: linear-gradient(to right,  var(--color-primary-light),  var(--color-primary-dark));
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.batton>* {
+  display: inline-block;
+  height: 100%;
+  width: 300px;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+.batton__visible {
+  padding: 2rem 7.5rem;
+}
+.batton__invisible {
+  position: absolute;
+  padding: 2rem 0;
+  left: 0;
+  top: -100%}
+.batton:hover {
+  background-image: -webkit-gradient(linear,  right top,  left top,  from(var(--color-primary-light)),  to(var(--color-primary-dark)));
+  background-image: linear-gradient(to left,  var(--color-primary-light),  var(--color-primary-dark));
+}
+.batton:hover .batton__visible {
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+}
+.batton:hover .batton__invisible {
+  top: 0;
+}
+.batton:focus {
+  outline: none;
+  -webkit-animation: pulsate 1s infinite;
+  animation: pulsate 1s infinite;
+}
+
+    /*body {
+        width: 800px;
+        margin-left: 550px;
+    }*/
+</style>
+
+
+
+

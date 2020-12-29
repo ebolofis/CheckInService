@@ -1,0 +1,54 @@
+﻿@media only screen and (max-width: 1025px) {
+    .logo-image-container {
+        width: 90%;
+        height: 90%;
+    }
+
+    .chat-container {
+        width: 95%;
+        height: 90%;
+    }
+
+    .chat-header-container {
+        width: 60%;
+        height: 80%;
+    }
+
+    .chat-header {
+        font-size: 30px;
+    }
+
+    .chat-history-container {
+        padding: 1% 2%;
+    }
+
+    .chat-history-message-container {
+        margin: 0.2%;
+    }
+
+    .chat-history-message {
+        min-width: 30%;
+        max-width: 70%;
+    }
+
+    .chat-history-message-self {
+        padding-right: 1%;
+    }
+
+    .view-Bill-Details-Header {
+        font-weight: bold;
+        color: black;
+        font-size: 14px;
+    }
+
+    .view-Bill-Details-Items {
+        font-size: 14px;
+    }
+    .title-View-Bill {
+        border-bottom: 1px solid #000000;
+    }
+    .viewBill-header {
+        color: #475859;
+        font-size: 16px;
+    }
+}

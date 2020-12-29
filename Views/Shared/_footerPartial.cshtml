@@ -1,0 +1,30 @@
+﻿@using CheckInService.Controllers;
+@using CheckInService.Models;
+@using CheckinBack.Models;
+
+
+
+@{
+    ViewData["Title"] = "Custom";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var config = ViewBag.Config as SettingsModel;
+    var format = ViewBag.Format as GlobalAttributesModel;
+    var privacy = ViewBag.Privacy as PrivacyPolicyModel;
+}
+
+<div class="custom-flex-row custom-flex-100 custom-flex-center" style="background-color:aqua;">
+    FOOTER SECTION
+</div>
+
+@*<img src="@Url.Content("~/content/images" + Model.ImageUrl)" />*@
+
+<style>
+    #imgdiv {
+        width: 20%;
+        height: 10%;
+        align-self: center;
+    }
+</style>
+
+

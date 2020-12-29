@@ -1,0 +1,140 @@
+﻿@{
+    Layout = null;
+    string hotelIdVB = ViewBag.HotelId;
+    string reservationIdVB = ViewBag.ReservationId;
+    int buchnr = ViewBag.Buchnr;
+    string room = ViewBag.Room;
+    string string1 = ViewBag.String1;
+    int kdnr = ViewBag.kdnr;
+}
+<!DOCTYPE html>
+
+<html class="main-html" id="mainHtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <!-- Library Styling -->
+    <link href="~/lib/jqueryui/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/css/sweet_alert_Izi_Toast/iziToast.min.css" rel="stylesheet" />
+    <link href="~/WindowDatePicker/window-date-picker.min.css" rel="stylesheet" />
+    <!-- Basic Styling -->
+    <link href="~/css/General/Flex.css" rel="stylesheet" />
+    <link href="~/css/General/Fontawesome.css" rel="stylesheet" />
+    <link href="~/css/General/Fonts.css" rel="stylesheet" />
+    <link href="~/css/General/General.css" rel="stylesheet" />
+    <!-- View Styling -->
+    <link href="~/css/PreCheckIn/PreCheckIn.css" rel="stylesheet" />
+    <!-- Resolution Styling -->
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_1280px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_1024px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_960px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_640px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_480px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_320px.css" rel="stylesheet" />
+</head>
+<body class="main-body" id="mainBody">
+    <div class="custom-flex-column custom-full-height">
+        <div class="custom-flex-20 custom-flex-horizontal-center custom-flex-vertical-center precheckin-service-header-container">
+            <div class="custom-flex-horizontal-center custom-flex-vertical-center logo-image-container" data-bind="with: $root.hotel()">
+                <img class="logo-image" data-bind="attr: { 'src' : RelativeLogoPath() }" />
+            </div>
+        </div>
+        <div class="custom-flex-80 custom-flex-horizontal-center custom-flex-vertical-center precheckin-service-body-container">
+            <div class="custom-flex-column precheckin-container" id="mainContainer" style="width:300px !important;">
+                <div class="custom-flex-15 custom-flex-horizontal-center custom-flex-vertical-center">
+                    <div class="custom-flex-horizontal-center custom-flex-vertical-center precheckin-header-container">
+                        <span class="custom-text-black custom-text-bold precheckin-header " id="mainHeader" data-bind="text: 'Wallet'"></span>
+                    </div>
+                </div>
+                @if (Model == null)
+                {
+            <span style="font-size:12px;">
+                &nbsp; Reservation not found or reservation is not active
+                <i style="color:red;" class="fas fa-exclamation-triangle"></i>
+            </span>
+                }
+                else
+                {
+                    <br />
+                    <br />
+                    <div class="custom-flex-100 custom-flex-column" style="width:100%;" onclick="getpassbook()">
+                        <div style="background-color:black; width:68%;border-radius:5%; height:19.5%; margin-left:40px;">
+                            <img style="width:70px;" src="~/images/Resources/Wallet_App_icon_iOS_12.png" alt="download wallet image not loaded" />
+                            <span style="color:white;"> Add   to my Wallet</span>
+                        </div>
+                        <br />
+                        <br />
+                        <ul>
+                            <li style="list-style-type: none;">
+                                Frequently Asked Questions  <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            </li>
+                            <hr style="margin-right:50px; border:1px solid lightgray;">
+                            <li>
+                                <a style="font-size:12px;" href="https://support.apple.com/en-us/HT204003">How to use Wallet into my smart phone</a>
+                            </li>
+                            <li>
+                                <a style="font-size:12px;" href="https://play.google.com/store/apps/details?id=io.walletpasses.android">Recemented Wallet applications for Android smart  phones </a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <br />
+
+
+                }
+            </div>
+            <div>
+                <div class="wdp-dark" id="datePicker"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Library Code -->
+    <script src="~/knockout/knockout-latest.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/moment.js/moment.min.js"></script>
+    <script src="~/lib/sweet_alert_Izi_Toast/iziToast.min.js"></script>
+    <script src="~/WindowDatePicker/window-date-picker.min.js"></script>
+    <!-- Enumerator Code -->
+    <script src="~/js/General/Enumerators/DateTimePickerEnumerators.js"></script>
+    <script src="~/js/General/Enumerators/HotelEnumerators.js"></script>
+    <!-- Model Code -->
+    <script src="~/js/General/Models/HotelModels.js"></script>
+    <script src="~/js/General/Models/ReservationModels.js"></script>
+    <script src="~/js/General/Models/SettingsModels.js"></script>
+    <!-- Module Code -->
+    <script src="~/js/General/Modules/date-time-picker-module.js"></script>
+    <!-- View Code -->
+    <script src="~/js/PreCheckIn/PreCheckIn.js"></script>
+    <script type="text/javascript">
+        var hotelIdHTML = '@hotelIdVB';
+        var reservationIdHTML = '@reservationIdVB';
+        var ViewHandler = new PreCheckInViewModel();
+        ko.applyBindings(ViewHandler);
+        ViewHandler.InitializeView();
+        $(document).ready(function () {
+            $("body").keyup(function (e) {
+                if (e.keyCode == 10) { // Control + Enter
+                }
+                else if (e.keyCode == 13) { // Enter & Shift + Enter
+                }
+                else {
+                }
+            });
+        });
+
+        function getpassbook() {
+            const currentUrl = (window.location.protocol) + "//" + (window.location.hostname) + (window.location.port != "" ? ":" + window.location.port : "") + "/";
+            
+            var url_for_getpassbook = currentUrl + 'ThankYou/GetPassbook?string1=' + '@string1' + "&buchnr=" + @buchnr + "&room=" +@room + "&kdnr=" + @kdnr + "&hotelId=" + hotelIdHTML;
+            window.location.href = url_for_getpassbook;
+        }
+    </script>
+</body>
+</html>

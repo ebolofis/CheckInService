@@ -1,0 +1,121 @@
+﻿@{
+    Layout = null;
+    string hotelIdVB = ViewBag.HotelId;
+    string reservationIdVB = ViewBag.ReservationId;
+    bool result = ViewBag.result;
+}
+<!DOCTYPE html>
+
+<html class="main-html" id="mainHtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <!-- Library Styling -->
+    <link href="~/lib/jqueryui/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/css/sweet_alert_Izi_Toast/iziToast.min.css" rel="stylesheet" />
+    <link href="~/WindowDatePicker/window-date-picker.min.css" rel="stylesheet" />
+    <!-- Basic Styling -->
+    <link href="~/css/General/Flex.css" rel="stylesheet" />
+    <link href="~/css/General/Fontawesome.css" rel="stylesheet" />
+    <link href="~/css/General/Fonts.css" rel="stylesheet" />
+    <link href="~/css/General/General.css" rel="stylesheet" />
+    <!-- View Styling -->
+    <link href="~/css/PreCheckIn/PreCheckIn.css" rel="stylesheet" />
+    <!-- Resolution Styling -->
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_1280px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_1024px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_960px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_640px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_480px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_320px.css" rel="stylesheet" />
+</head>
+<body class="main-body" id="mainBody">
+    <div class="custom-flex-column custom-full-height">
+        <div class="custom-flex-15 custom-flex-horizontal-center custom-flex-vertical-center precheckin-service-header-container">
+            <div class="custom-flex-horizontal-center custom-flex-vertical-center logo-image-container" data-bind="with: $root.hotel()">
+                <img class="logo-image" data-bind="attr: { 'src' : RelativeLogoPath() }" />
+            </div>
+        </div>
+        <div class="custom-flex-85 custom-flex-horizontal-center custom-flex-vertical-center precheckin-service-body-container">
+            <div class="custom-flex-column precheckin-container" id="mainContainer" style="height:40%;">
+                <div class="custom-flex-15 custom-flex-horizontal-center custom-flex-vertical-center">
+                    <div class="custom-flex-horizontal-center custom-flex-vertical-center precheckin-header-container">
+                        <span class="custom-text-black custom-text-bold precheckin-header" style="font-family:Montserrat;" id="mainHeader" data-bind="text: 'Email Confirmation'">     </span>
+                    </div>
+                </div>
+                <div class="custom-flex-85 precheckin-body-container">
+                    <div class="custom-flex-column custom-full-width">
+                        <div class="custom-flex-13" data-bind="visible: $root.hotel() != null && ($root.hotel().PreCheckinMode == preCheckInModeEnumerator.AllFields || $root.hotel().PreCheckinMode == preCheckInModeEnumerator.OnlyReservationId)">
+                            <div class="custom-flex-row custom-full-width ">
+                                @if (result == true)
+                                {
+                                    <span class="custom-flex-100 custom-flex-center mitsis" style="text-align:center;font-size:14px;font-weight:400 !important;font-family:Montserrat;color:#4a4a4a !important">  &nbsp Your personal email address was verified successfully    &nbsp  <i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i></span>
+                                }
+                                else
+                                {
+                                    <span class="custom-flex-100 custom-flex-center mitsis" style="text-align:center;font-size:14px;font-weight:400;font-family:Montserrat;color:#4a4a4a !important">  &nbsp Your personal email address was not verified   &nbsp  <i class="fa fa-exclamation-triangle" style="color:red;" aria-hidden="true"></i></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="wdp-dark" id="datePicker"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Library Code -->
+    <script src="~/knockout/knockout-latest.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/moment.js/moment.min.js"></script>
+    <script src="~/lib/sweet_alert_Izi_Toast/iziToast.min.js"></script>
+    <script src="~/WindowDatePicker/window-date-picker.min.js"></script>
+    <!-- Enumerator Code -->
+    <script src="~/js/General/Enumerators/DateTimePickerEnumerators.js"></script>
+    <script src="~/js/General/Enumerators/HotelEnumerators.js"></script>
+    <!-- Model Code -->
+    <script src="~/js/General/Models/HotelModels.js"></script>
+    <script src="~/js/General/Models/ReservationModels.js"></script>
+    <script src="~/js/General/Models/SettingsModels.js"></script>
+    <!-- Module Code -->
+    <script src="~/js/General/Modules/date-time-picker-module.js"></script>
+    <!-- View Code -->
+    <script src="~/js/PreCheckIn/PreCheckIn.js"></script>
+    <script type="text/javascript">
+        var hotelIdHTML = '@hotelIdVB';
+        var reservationIdHTML = '@reservationIdVB';
+        var ViewHandler = new PreCheckInViewModel();
+        ko.applyBindings(ViewHandler);
+        ViewHandler.InitializeView();
+        $(document).ready(function () {
+            $("body").keyup(function (e) {
+                if (e.keyCode == 10) { // Control + Enter
+                }
+                else if (e.keyCode == 13) { // Enter & Shift + Enter
+                }
+                else {
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+<style>
+    .mitsis {
+        Font: Montserrat;
+        font-size: 14px;
+        line-height : 1.8;
+        font-weight : 400;
+       word-spacing:1px;
+        /*Logo size: 120*100*/
+        color : #4a4a4a;
+    }
+</style>

@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - CheckInService</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/jqueryui/jquery-ui.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/knockout/knockout-latest.min.js"></script>
+    <link href="~/css/flexbox/Flex.css" rel="stylesheet" />
+    <link href="~/css/miscalleneous/General.css" rel="stylesheet" />
+    <link href="~/css/sweet_alert_Izi_Toast/swalstyle.css">
+    <link href="~/css/miscalleneous/Styling.css">
+    <link href="~/css/miscalleneous/style.css">
+    <script src="~/lib/sweet_alert_Izi_Toast/iziToast.min.js"></script>
+    <link href="~/css/sweet_alert_Izi_Toast/iziToast.min.css">
+    <script src="~/lib/qrcode/QrBarcode.js"></script>
+    <script src="~/js/qrcode.min.js"></script>
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script src="~/lib/signalr/signalr.min.js"></script>
+    <script src="~/lib/signalr/SignalREnums.js"></script>
+    <script src="~/lib/signalr/SignalRModels.js"></script>
+    <script src="~/lib/signalr/BaseInfoModel.js"></script>
+    <script src="~/lib/signalr/signal-r-module.js"></script>
+    <script src="~/Language/language-module.js"></script>
+    <script src="~/Language/LanguageModels.js"></script>
+    <script src="~/js/html2pdf.bundle.min.js"></script>
+    <script src="~/Resource/resource-module.js"></script>
+    <script src="~/Resource/ResourceModels.js"></script>
+    <link href="~/css/Mitsis/Page1.css" rel="stylesheet" />
+    <script src="~/js/General/Models/HotelModels.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="~/css/Mitsis/loading.min.css" rel="stylesheet" />
+    <script src="~/moment.js/moment.min.js"></script>
+</head>
+
+<body style="margin-bottom: 30px;padding: 0 25px;">
+    @RenderBody()
+
+    <script type="text/javascript">
+        var SignalRHandler = new CustomSignalR();
+        var LanguageHandler = new CustomLanguage();
+        var ResourceHandler = new CustomResource();
+        ko.applyBindings();
+    </script>
+
+    @RenderSection("scripts", false)
+    @RenderSection("styles", false)
+</body>
+</html>
+

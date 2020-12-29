@@ -1,0 +1,71 @@
+﻿#sig-canvas {
+    border: 2px dotted #CCCCCC;
+    border-radius: 15px;
+    cursor: crosshair;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.fullcontainer {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+    .fullcontainer frame {
+        width: 100%;
+        border: 1px #000000 solid;
+        padding: 10px;
+        order: 3;
+    }
+
+.container-1 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.container-2 {
+    display: flex;
+}
+
+
+/*.pagecontainer div {
+    border: 1px #ccc solid;
+    padding: 10px;
+    order: 3;
+    flex-basis: 100%;
+}
+.linerow div {
+    flex-basis: 100%;
+}*/
+
+
+    .container-1 div, .container-2 div {
+        border: 1px #ccc solid;
+        padding: 10px;
+        order: 3;
+        flex-basis:100%;
+    }
+
+.container-2-box {
+    flex-basis: 25%;
+}
+
+.box-1 {
+    flex: 1;
+    order: 1;
+}
+
+.box-2 {
+    flex: 1;
+}
+
+.box-3 {
+    flex: 1;
+    order: 2;
+}

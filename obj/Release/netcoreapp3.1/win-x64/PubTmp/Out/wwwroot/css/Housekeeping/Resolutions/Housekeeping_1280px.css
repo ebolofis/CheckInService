@@ -1,0 +1,46 @@
+﻿@media only screen and (max-width: 1281px) {
+    .logo-image-container {
+        width: 90%;
+        height: 90%;
+    }
+
+    .housekeeping-container {
+        width: 25%;
+        height: 75%;
+    }
+
+    .housekeeping-header-container {
+        width: 99%;
+        height: 80%;
+    }
+
+    .housekeeping-header {
+        font-size: 1.75rem;
+    }
+
+    .housekeeping-room-status-container {
+        padding: 1% 10%;
+    }
+
+    .housekeeping-room-text-container {
+        width: 55%;
+        height: 55%;
+    }
+
+    .housekeeping-room-text {
+        font-size: 3.5rem;
+    }
+
+    .housekeeping-room-status-text {
+        font-size: 1.5rem;
+    }
+
+    .housekeeping-button {
+        width: 80%;
+        height: 70%;
+    }
+
+    .housekeeping-button-text {
+        font-size: 1.1875rem;
+    }
+}

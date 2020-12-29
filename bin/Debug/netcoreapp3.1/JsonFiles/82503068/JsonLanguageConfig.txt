@@ -1,0 +1,1 @@
+[{"LanguageId":1,"LanguageName":"English","Code":"English","IsDefault":true},{"LanguageId":16,"LanguageName":"Greek","Code":"Greek","IsDefault":false},{"LanguageId":4,"LanguageName":"German","Code":"German","IsDefault":false},{"LanguageId":2,"LanguageName":"French","Code":"French","IsDefault":false},{"LanguageId":7,"LanguageName":"Russian","Code":"Russian","IsDefault":false}]

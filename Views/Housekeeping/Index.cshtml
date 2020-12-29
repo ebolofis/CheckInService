@@ -1,0 +1,129 @@
+﻿@{
+    Layout = null;
+    string hotelIdVB = ViewBag.HotelId;
+    string roomIdVB = ViewBag.RoomId;
+    string roomVB = ViewBag.Room;
+    string arrivalVB = ViewBag.Arrival;
+    string departureVB = ViewBag.Departure;
+}
+
+<!DOCTYPE html>
+
+<html class="main-html" id="mainHtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <!-- Library Styling -->
+    <link href="~/css/sweet_alert_Izi_Toast/iziToast.min.css" rel="stylesheet" />
+    <!-- Basic Styling -->
+    <link href="~/css/General/Flex.css" rel="stylesheet" />
+    <link href="~/css/General/Fontawesome.css" rel="stylesheet" />
+    <link href="~/css/General/Fonts.css" rel="stylesheet" />
+    <link href="~/css/General/General.css" rel="stylesheet" />
+    <!-- View Styling -->
+    <link href="~/css/Housekeeping/Housekeeping.css" rel="stylesheet" />
+    <!-- Resolution Styling -->
+    <link href="~/css/Housekeeping/Resolutions/Housekeeping_1280px.css" rel="stylesheet" />
+    <link href="~/css/Housekeeping/Resolutions/Housekeeping_1024px.css" rel="stylesheet" />
+    <link href="~/css/Housekeeping/Resolutions/Housekeeping_960px.css" rel="stylesheet" />
+    <link href="~/css/Housekeeping/Resolutions/Housekeeping_640px.css" rel="stylesheet" />
+    <link href="~/css/Housekeeping/Resolutions/Housekeeping_480px.css" rel="stylesheet" />
+    <link href="~/css/Housekeeping/Resolutions/Housekeeping_320px.css" rel="stylesheet" />
+</head>
+<body class="main-body" id="mainBody">
+    <div class="custom-flex-column custom-full-height">
+        <div class="custom-flex-15 custom-flex-horizontal-center custom-flex-vertical-center housekeeping-service-header-container">
+            <div class="custom-flex-horizontal-center custom-flex-vertical-center logo-image-container" data-bind="with: $root.hotel()">
+                <img class="logo-image" data-bind="attr: { 'src' : RelativeLogoPath() }" />
+            </div>
+        </div>
+        <div class="custom-flex-85 custom-flex-horizontal-center custom-flex-vertical-center housekeeping-service-body-container">
+            <div class="custom-flex-column housekeeping-container" id="mainContainer">
+                <div class="custom-flex-15 custom-flex-horizontal-center custom-flex-vertical-center">
+                    <div class="custom-flex-horizontal-center custom-flex-vertical-center housekeeping-header-container">
+                        <span class="custom-text-black custom-text-bold housekeeping-header" id="mainHeader" data-bind="text: 'Housekeeping Service'"></span>
+                    </div>
+                </div>
+                <div class="custom-flex-70 housekeeping-room-status-container">
+                    <div class="custom-flex-column custom-full-width">
+                        <div class="custom-flex-40 custom-flex-horizontal-center custom-flex-vertical-center">
+                            <div class="custom-flex-horizontal-center custom-flex-vertical-center housekeeping-room-text-container">
+                                <span class="custom-text-black custom-text-bold housekeeping-room-text" data-bind="text: $root.room()"></span>
+                            </div>
+                        </div>
+                        <div class="custom-flex-30 custom-flex-horizontal-center custom-flex-vertical-center">
+                            <div class="custom-flex-row custom-full-width">
+                                <div class="custom-flex-40 custom-flex-horizontal-start custom-flex-vertical-center">
+                                    <span class="custom-text-black custom-text-bold housekeeping-room-status-text label-element" data-bind="text: 'Room Status:'"></span>
+                                </div>
+                                <div class="custom-flex-60 custom-flex-horizontal-end custom-flex-vertical-center">
+                                    <span class="custom-text-black housekeeping-room-status-text semi-entry-element" data-bind="text: $root.roomStatus() != null ? $root.hygieneStatusOptions()[$root.roomStatus().CleanStatus()] : ''"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-flex-30 custom-flex-horizontal-center custom-flex-vertical-center">
+                            <div class="custom-flex-row custom-full-width">
+                                <div class="custom-flex-40 custom-flex-horizontal-start custom-flex-vertical-center">
+                                    <span class="custom-text-black custom-text-bold housekeeping-room-status-text label-element" data-bind="text: 'Occupation Status:'"></span>
+                                </div>
+                                <div class="custom-flex-60 custom-flex-horizontal-end custom-flex-vertical-center">
+                                    <span class="custom-text-black housekeeping-room-status-text semi-entry-element" data-bind="text: $root.roomStatus() != null ? $root.occupationStatusOptions()[$root.roomStatus().OccupationStatus()] : ''"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-flex-15">
+                    <div class="custom-flex-row custom-full-width">
+                        <div class="custom-flex-50 custom-flex-horizontal-center custom-flex-vertical-center">
+                            <button class="custom-default-button custom-info-button housekeeping-button" data-bind="click: $root.CleanRoom, clickBubble: false, attr: { 'disabled' : !$root.checkedIn() || $root.updatingRoomStatus() || ($root.roomStatus() != null && $root.roomStatus().CleanStatus() != hygieneStatusEnumerator.Dirty) }" tabindex="-1">
+                                <span class="custom-text-white housekeeping-button-text" data-bind="text: 'Make Room'"></span>
+                            </button>
+                        </div>
+                        <div class="custom-flex-50 custom-flex-horizontal-center custom-flex-vertical-center">
+                            <button class="custom-default-button custom-info-button housekeeping-button" data-bind="click: $root.OccupyVacateRoom, clickBubble: false, attr: { 'disabled' : !$root.checkedIn() || $root.updatingRoomStatus() }" tabindex="-1">
+                                <span class="custom-text-white housekeeping-button-text" data-bind="text: $root.roomStatus() != null ? $root.roomStatus().OccupationStatus() == occupationStatusEnumerator.Vacant ? 'Occupy' : $root.roomStatus().OccupationStatus() == occupationStatusEnumerator.Occupied ? 'Vacate' : '' : ''"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Library Code -->
+    <script src="~/knockout/knockout-latest.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/moment.js/moment.min.js"></script>
+    <script src="~/lib/sweet_alert_Izi_Toast/iziToast.min.js"></script>
+    <!-- Enumerator Code -->
+    <script src="~/js/General/Enumerators/HotelEnumerators.js"></script>
+    <script src="~/js/General/Enumerators/RoomEnumerators.js"></script>
+    <!-- Model Code -->
+    <script src="~/js/General/Models/HotelModels.js"></script>
+    <script src="~/js/General/Models/RoomModels.js"></script>
+    <script src="~/js/General/Models/SettingsModels.js"></script>
+    <!-- View Code -->
+    <script src="~/js/Housekeeping/Housekeeping.js"></script>
+    <script type="text/javascript">
+        var hotelIdHTML = '@hotelIdVB';
+        var roomIdHTML = '@roomIdVB';
+        var roomHTML = '@roomVB';
+        var arrivalHTML = '@arrivalVB';
+        var departureHTML = '@departureVB';
+        var ViewHandler = new HousekeepingViewModel();
+        ko.applyBindings(ViewHandler);
+        ViewHandler.InitializeView();
+        $(document).ready(function () {
+            $("body").keyup(function (e) {
+                if (e.keyCode == 10) { // Control + Enter
+                }
+                else if (e.keyCode == 13) { // Enter & Shift + Enter
+                }
+                else {
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+﻿#qrcode {
+    width: 100px;
+    height: 100px;
+  
+}
+
+.qrdatastyling {
+    visibility:hidden;
+}
+
+qrbtn:hover {
+    color:white;
+    text-decoration:none;
+    list-style:none;
+}
+.h3cls {
+    letter-spacing: 1px;
+    text-decoration: wavy;
+    font-weight: 300;
+    height:50%;
+}
+
+h1,h3 {
+    text-align: center;
+}
+#pleasescan {
+    visibility: hidden;
+    margin-top: -8rem;
+    height: 50%;
+}
+
+.barcodestyling {
+    display: flex;
+    flex-basis: 100;
+    z-index:10;
+    width:200px;
+    align-self: center;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+#qrcode {
+    /*visibility: hidden;*/
+
+   margin-top:-10rem;
+   margin-bottom:10rem;
+}
+.labelstyling {
+    font-weight:bold;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+
+
+.spacing {
+    height: 1vh;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.mainframe {
+   width:100%;
+    box-sizing: border-box;
+    border: 2px solid #ac9766;
+    display: flex;
+    flex-direction: column;
+    overflow:hidden;
+}
+
+.bulbstyle {
+    color: forestgreen;
+    height:5rem;
+
+}
+
+.imgstyle {
+    height: 10vh;
+    width: 30vh;
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap');
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/*body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+}*/
+
+
+
+
+.loader {
+    height: 100px;
+    width: 95px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.line--1,
+.line--2,
+.line--3,
+.line--4,
+.line--5 {
+    height: 50px;
+    width: 15px;
+    background: #ac9766;
+    animation: animate 2.5s ease infinite;
+}
+
+@keyframes animate {
+    0%,100% {
+        transform: scaleY(1);
+    }
+
+    50% {
+        transform: scaleY(2);
+    }
+}
+
+.line--2 {
+    animation-delay: .3s
+}
+
+.line--3 {
+    animation-delay: .6s
+}
+
+.line--4 {
+    animation-delay: .9s
+}
+
+.line--5 {
+    animation-delay: 1.2s
+}
+.qrframe {
+    border: 1px dotted #ac9766;
+    overflow:hidden;
+}
+.box {
+    position: relative;
+    height: 45vh;
+    margin-top: 50rem;
+}
+
+.qricon {
+    height: 50px;
+    color :#ac9766 ;
+}
+
+.box .imgBx {
+    width: 500px;
+    height: 400px;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: reveal 1s ease-in-out forwards;
+}
+
+        .box .imgBx img {
+            
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+.exclamationcolor{
+    color:red;
+    opacity:0.8;
+}
+
+input:focus {
+    outline: none !important;
+    border: 1px solid #ac9766;
+    box-shadow: 0 0 10px #ac9766;
+}
+
+.directionsclass {
+    width: 25rem;
+    height: 15rem;
+    
+}
+
+directionsclass:hover {
+    box-shadow: 0 0 10px #ac9766;
+}
+
+
+.box .imgBx::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: whitesmoke;
+    z-index: 1;
+    transform-origin: left;
+    animation: reveal 1s ease-in-out reverse forwards;
+    animation-delay: 3s;
+}
+
+        .box .imgBx h2 {
+            position: absolute;
+            right: -80px;
+            bottom: -55px;
+            padding: 10px;
+            background: whitesmoke;
+            z-index: 2;
+            box-shadow: 0 10px 15px rgba(0,0,0, .2);
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: reveal 1s ease-in-out forwards;
+            animation-delay: 1s;
+            transition: bottom .5s;
+        }
+
+            .box .imgBx h2::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: whitesmoke;
+                z-index: 1;
+                transform-origin: right;
+                animation: reveal 1s ease-in-out reverse forwards;
+                animation-delay: 2s;
+            }
+
+@keyframes reveal {
+    0% {
+        transform: scaleX(0);
+    }
+
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+
+a {
+    color: white;
+    padding: 30px 60px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    /*text-transform: uppercase;*/
+    text-decoration: none;
+    box-shadow: 0 20px 50px rgba(0,0,0, .5);
+    overflow: hidden;
+    position: relative;
+    width: 45%;
+    height: 50%;
+    background-color: #ac9766;
+    text-decoration: none !important;
+}
+
+    a::before {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        bottom: 2px;
+        width: 50%;
+        background: rgba(255,255,255, .05);
+    text-decoration:none;
+        }
+
+
+    a span:nth-child(1) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to right, #0c002b, #b29700);
+        animation: animate1 2s linear infinite;
+    }
+
+    a span:nth-child(2) {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(to bottom, #0c002b, #b29700);
+        animation: animate2 2s linear infinite;
+        animation-delay: 1s;
+    }
+
+    a span:nth-child(3) {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to left, #0c002b, #b29700);
+        animation: animate3 2s linear infinite;
+    }
+
+    a span:nth-child(4) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(to top, #0c002b, #b29700);
+        animation: animate4 2s linear infinite;
+        animation-delay: 1s;
+    }
+
+@keyframes animate1 {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes animate2 {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes animate3 {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes animate4 {
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}}

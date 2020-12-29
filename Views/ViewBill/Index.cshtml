@@ -1,0 +1,99 @@
+﻿@using CheckinBack.Models;
+@{
+    Layout = null;
+    string hotelIdVB = ViewBag.HotelId;
+    string reservationIdVB = ViewBag.ReservationId;
+    string arrivalVB = ViewBag.Arrival;
+    string departureVB = ViewBag.Departure;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <!-- Library Styling -->
+    <link href="~/css/sweet_alert_Izi_Toast/iziToast.min.css" rel="stylesheet" />
+    <!-- Basic Styling -->
+    <link href="~/css/General/Flex.css" rel="stylesheet" />
+    <link href="~/css/General/Fontawesome.css" rel="stylesheet" />
+    <link href="~/css/General/Fonts.css" rel="stylesheet" />
+    <link href="~/css/General/General.css" rel="stylesheet" />
+    <!-- View Styling -->
+    <link href="~/css/ViewBill/ViewBill.css" rel="stylesheet" />
+    <!-- Resolution Styling -->
+    <link href="~/css/ViewBill/Resolutions/ViewBill_1280px.css" rel="stylesheet" />
+    <link href="~/css/ViewBill/Resolutions/ViewBill_1024px.css" rel="stylesheet" />
+    <link href="~/css/ViewBill/Resolutions/ViewBill_960px.css" rel="stylesheet" />
+    <link href="~/css/ViewBill/Resolutions/ViewBill_640px.css" rel="stylesheet" />
+    <link href="~/css/ViewBill/Resolutions/ViewBill_480px.css" rel="stylesheet" />
+    <link href="~/css/ViewBill/Resolutions/ViewBill_320px.css" rel="stylesheet" />
+</head>
+<body class="main-body" id="mainBody">
+    <div class="custom-flex-column custom-full-height">
+        <div class="custom-flex-15 custom-flex-horizontal-center custom-flex-vertical-center chat-service-header-container">
+            <div class="custom-flex-horizontal-center custom-flex-vertical-center logo-image-container">
+                <img class="logo-image" data-bind="attr: { 'src' : $root.HotelLogo() }" />
+            </div>
+        </div>
+        <div class="custom-flex-85 custom-flex-horizontal-center custom-flex-vertical-center chat-service-body-container">
+            <div class="custom-flex-column chat-container" id="mainContainer">
+                <div class="custom-flex-10 custom-flex-horizontal-center custom-flex-vertical-center">
+                    <div class="custom-flex-horizontal-center custom-flex-vertical-center chat-header-container">
+                        <span class="custom-text-black custom-text-bold chat-header" id="mainHeader" data-bind="text: 'View Bill'"></span>
+                    </div>
+                </div>
+                <div class="custom-flex-10" style="justify-content: flex-end;align-items: center;margin-right: 2%;">
+                    <div class="custom-flex-70 custom-text-black custom-text-bold viewBill-header label-element" data-bind="text: 'General Total:'" style="justify-content: flex-end;"></div>
+                    <div class="custom-flex-30 custom-text-black custom-text-bold viewBill-header label-element" data-bind="text: $root.accountBallance() ? $root.accountBallance().toFixed(2)+'€' : 0+'€'" style="justify-content: flex-end;"></div>
+                </div>
+                <div class="custom-flex-80 custom-flex-column chat-history-container vertical-scroll-viewBill" style="overflow-y: auto;">
+                    <div class="custom-flex-row custom-flex-center selected-customer-info-row custom-label-info-ViewBill title-View-Bill">
+                        <div class="custom-flex-25 view-Bill-Details-Header label-element" data-bind="text: 'Date'"></div>
+                        <div class="custom-flex-65 view-Bill-Details-Header label-element" style="margin-left:2px;" data-bind="text: 'Description'"></div>
+                        <div class="custom-flex-10 view-Bill-Details-Header label-element" style="justify-content: flex-end; margin-left:2px;" data-bind="text: 'Total'"></div>
+                    </div>
+                    <div class="custom-flex-column" id="chatHistory" data-bind="foreach: $root.analyticBills()">
+                        <div class="custom-flex-row custom-flex-center selected-customer-info-row custom-label-info-ViewBill">
+                            <div class="custom-flex-25 view-Bill-Details-Items label-element" data-bind="text: Date"></div>
+                            <div class="custom-flex-65 view-Bill-Details-Items label-element" style="margin-left:2px;" data-bind="text:Text"></div>
+                            <div class="custom-flex-10 view-Bill-Details-Items label-element" style="justify-content: flex-end; margin-left:2px;" data-bind="text: Total.toFixed(2) +'€'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Library Code -->
+    <script src="~/knockout/knockout-latest.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/moment.js/moment.min.js"></script>
+    <script src="~/lib/sweet_alert_Izi_Toast/iziToast.min.js"></script>
+    <!-- Model Code -->
+    <script src="~/js/General/Models/HotelModels.js"></script>
+    <script src="~/js/General/Models/SettingsModels.js"></script>
+    <!-- View Code -->
+    <script src="~/js/ViewBill/ViewBill.js"></script>
+    <script type="text/javascript">
+        var hotelIdHTML = '@hotelIdVB';
+        var reservationIdHTML = '@reservationIdVB';
+        var arrivalHTML = '@arrivalVB';
+        var departureHTML = '@departureVB';
+        var ViewHandler = new ViewBillViewModel();
+        ko.applyBindings(ViewHandler);
+        ViewHandler.InitializeView();
+        $(document).ready(function () {
+            $("body").keyup(function (e) {
+                if (e.keyCode == 10) { // Control + Enter
+                }
+                else if (e.keyCode == 13) { // Enter & Shift + Enter
+                }
+                else {
+                }
+            });
+        });
+    </script>
+</body>
+</html>

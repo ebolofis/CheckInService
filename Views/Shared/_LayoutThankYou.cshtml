@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - CheckInService</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/jqueryui/jquery-ui.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+    <script src="~/knockout/knockout-latest.min.js"></script>
+    <script src="~/js/modernizr-2.8.3.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Language/language-module.js"></script>
+    <script src="~/Language/LanguageModels.js"></script>
+    <script src="~/js/html2pdf.bundle.min.js"></script>
+    <script src="~/Resource/resource-module.js"></script>
+    <script src="~/Resource/ResourceModels.js"></script>
+    <link href="~/css/Mitsis/Page3.css" rel="stylesheet" />
+    <script src="~/js/General/Models/HotelModels.js"></script>
+</head>
+
+<body>
+    @RenderBody()
+
+    <script type="text/javascript">
+        var LanguageHandler = new CustomLanguage();
+        ko.applyBindings();
+    </script>
+</body>
+</html>

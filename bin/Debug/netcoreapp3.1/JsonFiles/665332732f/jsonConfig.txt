@@ -1,0 +1,2468 @@
+{
+  "MemberId": {
+    "ControlType": 1,
+    "ControlName": "MemberId",
+    "Description": "MemberTest",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 44,
+    "Width": 25,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "MemberId",
+      "Greek": "Κωδικός Μέλους",
+      "German": "MemberId",
+      "French": "MemberId",
+      "Russian": "MemberId"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "FirstName": {
+    "ControlType": 1,
+    "ControlName": "FirstName",
+    "Description": "First Name",
+    "IsVisible": true,
+    "IsReadOnly": false,
+    "IsMandatory": true,
+    "IsBold": true,
+    "IsUpperCase": true,
+    "OrderField": 1,
+    "Width": 50,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "First Name",
+      "Greek": "Όνομα",
+      "German": "German_Name",
+      "French": "First Name",
+      "Russian": "First Name"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "LastName": {
+    "ControlType": 1,
+    "ControlName": "LastName",
+    "Description": "Last Name",
+    "IsVisible": true,
+    "IsReadOnly": false,
+    "IsMandatory": true,
+    "IsBold": true,
+    "IsUpperCase": false,
+    "OrderField": 2,
+    "Width": 50,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Last Name",
+      "Greek": "Επώνυμο",
+      "German": "Last Name",
+      "French": "Last Name",
+      "Russian": "Last Name"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "Company": {
+    "ControlType": 1,
+    "ControlName": "Company",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 42,
+    "Width": 67,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Company",
+      "Greek": "Εταιρεία",
+      "German": "Company",
+      "French": "Company",
+      "Russian": "Company"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "DateOfBirth": {
+    "ControlType": 1,
+    "ControlName": "DateOfBirth",
+    "Description": "Date of birth",
+    "IsVisible": true,
+    "IsReadOnly": false,
+    "IsMandatory": true,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 5,
+    "Width": 50,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Date of birth",
+      "Greek": "Ημ/νία Γέννησης",
+      "German": "Geburtstag",
+      "French": "Date of Birth",
+      "Russian": "Date of Birth"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "Street": {
+    "ControlType": 1,
+    "ControlName": "Street",
+    "Description": "",
+    "IsVisible": true,
+    "IsReadOnly": false,
+    "IsMandatory": true,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 7,
+    "Width": 75,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Home address",
+      "Greek": "Οδός",
+      "German": "Street",
+      "French": "Street",
+      "Russian": "Street"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "ZipCode": {
+    "ControlType": 1,
+    "ControlName": "ZipCode",
+    "Description": "Zip Code",
+    "IsVisible": true,
+    "IsReadOnly": false,
+    "IsMandatory": true,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 8,
+    "Width": 25,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Zip Code",
+      "Greek": "Τ.Κ.",
+      "German": "Zip Code",
+      "French": "Zip Code",
+      "Russian": "Zip Code"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "City": {
+    "ControlType": 1,
+    "ControlName": "City",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 55,
+    "Width": 50,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "City/Town",
+      "Greek": "Πόλη",
+      "German": "City",
+      "French": "City",
+      "Russian": "City"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "Passport": {
+    "ControlType": 1,
+    "ControlName": "Passport",
+    "Description": "Pass",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": true,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 34,
+    "Width": 75,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Passport",
+      "Greek": "Διαβατήριο",
+      "German": "Passport",
+      "French": "Passport",
+      "Russian": "Passport"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "Nationality": {
+    "ControlType": 1,
+    "ControlName": "Nationality",
+    "Description": "Nations",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 12,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Nationality",
+      "Greek": "Εθνικότητα",
+      "German": "Nationality",
+      "French": "Nationality",
+      "Russian": "Nationality"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "MethodOfPayment": {
+    "ControlType": 1,
+    "ControlName": "MethodOfPayment",
+    "Description": "Payment",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 30,
+    "Width": 50,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Payment Method",
+      "Greek": "Τρόπος Πληρωμής",
+      "German": "Payment Method",
+      "French": "Payment Method",
+      "Russian": "Payment Method"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "Country": {
+    "ControlType": 1,
+    "ControlName": "Country",
+    "Description": "Xora",
+    "IsVisible": true,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 10,
+    "Width": 50,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Country",
+      "Greek": "Χώρα",
+      "German": "Country",
+      "French": "Country",
+      "Russian": "Country"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "CountryId": {
+    "ControlType": 1,
+    "ControlName": "CountryId",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 45,
+    "Width": 50,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "CountryId",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "Email": {
+    "ControlType": 1,
+    "ControlName": "Email",
+    "Description": "",
+    "IsVisible": true,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 6,
+    "Width": 50,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Email address",
+      "Greek": "Email",
+      "German": "Email",
+      "French": "Email",
+      "Russian": "Email"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "Phone": {
+    "ControlType": 1,
+    "ControlName": "Phone",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 46,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Phone",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "Mobile": {
+    "ControlType": 1,
+    "ControlName": "Mobile",
+    "Description": "",
+    "IsVisible": true,
+    "IsReadOnly": false,
+    "IsMandatory": true,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 9,
+    "Width": 50,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Mobile  ",
+      "Greek": "Κινητό",
+      "German": "Mobile",
+      "French": "Mobile",
+      "Russian": "Mobile"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "ReservationNo": {
+    "ControlType": 1,
+    "ControlName": "ReservationNo",
+    "Description": "Res No",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 40,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "ReservationNo",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "Arrival": {
+    "ControlType": 1,
+    "ControlName": "Arrival",
+    "Description": "",
+    "IsVisible": true,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 3,
+    "Width": 50,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Arrival",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "Departure": {
+    "ControlType": 1,
+    "ControlName": "Departure",
+    "Description": "",
+    "IsVisible": true,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 4,
+    "Width": 50,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Departure date",
+      "Greek": "Ημ/νια Αναχώρησης",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "Room": {
+    "ControlType": 1,
+    "ControlName": "Room",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 47,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Room",
+      "Greek": "Δωμάτιο",
+      "German": "Room",
+      "French": "Room",
+      "Russian": "Room"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "Signature": {
+    "ControlType": 1,
+    "ControlName": "Signature",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 46,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Signature",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "ShowPrice": {
+    "ControlType": 1,
+    "ControlName": "ShowPrice",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 48,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "ShowPrice",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "Price": {
+    "ControlType": 1,
+    "ControlName": "Price",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 49,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Price",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "IsInvoice": {
+    "ControlType": 1,
+    "ControlName": "IsInvoice",
+    "Description": "In inv",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 50,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "IsInvoice",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "Afm": {
+    "ControlType": 1,
+    "ControlName": "Afm",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 51,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Afm",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "CreditCard": {
+    "ControlType": 1,
+    "ControlName": "CreditCard",
+    "Description": "credit",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": true,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 37,
+    "Width": 33,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Credit Card",
+      "Greek": "Πιστωτική Κάρτα",
+      "German": "Credit Card",
+      "French": "Credit Card",
+      "Russian": "Credit Card"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "AcceptanceText": {
+    "ControlType": 1,
+    "ControlName": "AcceptanceText",
+    "Description": "Acc Text",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 21,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "AcceptanceText",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "InvoiceAfm": {
+    "ControlType": 1,
+    "ControlName": "InvoiceAfm",
+    "Description": "inv afm",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 60,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Invoice Afm",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "InvoiceCompany": {
+    "ControlType": 1,
+    "ControlName": "InvoiceCompany",
+    "Description": "Inv company",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 13,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Invoice Company",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "InvoiceOccupation": {
+    "ControlType": 1,
+    "ControlName": "InvoiceOccupation",
+    "Description": "Inv Occupation",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 14,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Invoice Occupation",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "InvoiceStreet": {
+    "ControlType": 1,
+    "ControlName": "InvoiceStreet",
+    "Description": "Inv Street",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 15,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "InvoiceStreet",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "InvoiceZipCode": {
+    "ControlType": 1,
+    "ControlName": "InvoiceZipCode",
+    "Description": "Inv Zipcode",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 16,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Invoice ZipCode",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "InvoiceCity": {
+    "ControlType": 1,
+    "ControlName": "InvoiceCity",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 17,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "InvoiceCity",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "InvoiceCountry": {
+    "ControlType": 1,
+    "ControlName": "InvoiceCountry",
+    "Description": "Inv Country",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 18,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Invoice Country",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "SendLetter": {
+    "ControlType": 3,
+    "ControlName": "SendLetter",
+    "Description": "Send Letter",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 29,
+    "Width": 50,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Send Letter",
+      "Greek": "Αποστολή Γράμματος",
+      "German": "Send Letter",
+      "French": "Send Letter",
+      "Russian": "Send Letter"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "SendPhone": {
+    "ControlType": 3,
+    "ControlName": "SendPhone",
+    "Description": "Send Phone",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 32,
+    "Width": 67,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Send Phone",
+      "Greek": "Αποστολή Τηλεφώνου",
+      "German": "Send Phone",
+      "French": "Send Phone",
+      "Russian": "Send Phone"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "SendEmail": {
+    "ControlType": 3,
+    "ControlName": "SendEmail",
+    "Description": "Send Email",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 28,
+    "Width": 25,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Do you agree to receive newsletters, marketing and other promotional material, featured specials, relevant messages or satisfaction & customer surveys from Mitsis Hotels in your e-mail address?",
+      "Greek": "Do you agree to receive newsletters, marketing and other promotional material, featured specials, relevant messages or satisfaction & customer surveys from Mitsis Hotels in your e-mail address?",
+      "German": "Do you agree to receive newsletters, marketing and other promotional material, featured specials, relevant messages or satisfaction & customer surveys from Mitsis Hotels in your e-mail address?",
+      "French": "Do you agree to receive newsletters, marketing and other promotional material, featured specials, relevant messages or satisfaction & customer surveys from Mitsis Hotels in your e-mail address?",
+      "Russian": "Do you agree to receive newsletters, marketing and other promotional material, featured specials, relevant messages or satisfaction & customer surveys from Mitsis Hotels in your e-mail address?"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "SendTextMessage": {
+    "ControlType": 3,
+    "ControlName": "SendTextMessage",
+    "Description": "Send Message",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 19,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "SendTextMessage",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "CheckAllAds": {
+    "ControlType": 1,
+    "ControlName": "CheckAllAds",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 20,
+    "Width": 33,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "CheckAllAds",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "CheckedItem1": {
+    "Link": "",
+    "IsMandatoryLink": false,
+    "MetadataKey": "1",
+    "IsMailing": false,
+    "ControlType": 0,
+    "ControlName": "CheckedItem1",
+    "Description": "fdsfdsfsdfsdfdsfdsfsdf",
+    "IsVisible": true,
+    "IsReadOnly": true,
+    "IsMandatory": true,
+    "IsBold": true,
+    "IsUpperCase": false,
+    "OrderField": 11,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "Do you agree to allow Hotels to and process your personal data relating to your preferences ",
+      "Greek": "Do you agree to allow Mitsis Hotels to collect, use, share, store and process your personal data relating to your preferences and profile as set out in our Special Terms <font color='#FF0000'>Privacy Statement</font> (Annex) and in our website",
+      "German": "Do you agree to allow Mitsis Hotels to collect, use, share, store and process your personal data relating to your preferences and profile as set out in our Special Terms <font color='#FF0000'>Privacy Statement</font> (Annex) and in our website",
+      "French": "Do you agree to allow Mitsis Hotels to collect, use, share, store and process your personal data relating to your preferences and profile as set out in our Special Terms <font color='#FF0000'>Privacy Statement</font> (Annex) and in our website",
+      "Russian": "Do you agree to allow Mitsis Hotels to collect, use, share, store and process your personal data relating to your preferences and profile as set out in our Special Terms <font color='#FF0000'>Privacy Statement</font> (Annex) and in our website"
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "CheckedItem2": {
+    "Link": "",
+    "IsMandatoryLink": false,
+    "MetadataKey": "2",
+    "IsMailing": false,
+    "ControlType": 0,
+    "ControlName": "CheckedItem2",
+    "Description": "ddd",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 22,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "CheckedItem2",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "CheckedItem3": {
+    "Link": "",
+    "IsMandatoryLink": false,
+    "MetadataKey": "3",
+    "IsMailing": false,
+    "ControlType": 0,
+    "ControlName": "CheckedItem3",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 23,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "CheckedItem3",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "CheckedItem4": {
+    "Link": "",
+    "IsMandatoryLink": false,
+    "MetadataKey": "4",
+    "IsMailing": false,
+    "ControlType": 0,
+    "ControlName": "CheckedItem4",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 24,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "CheckedItem4",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "CheckedItem5": {
+    "Link": "",
+    "IsMandatoryLink": false,
+    "MetadataKey": "5",
+    "IsMailing": false,
+    "ControlType": 0,
+    "ControlName": "CheckedItem5",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 25,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "CheckedItem5",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "CheckedItem6": {
+    "Link": "",
+    "IsMandatoryLink": false,
+    "MetadataKey": "6",
+    "IsMailing": false,
+    "ControlType": 0,
+    "ControlName": "CheckedItem6",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 26,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "CheckedItem6",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  },
+  "CheckedItem7": {
+    "Link": "",
+    "IsMandatoryLink": false,
+    "MetadataKey": "7",
+    "IsMailing": false,
+    "ControlType": 0,
+    "ControlName": "CheckedItem7",
+    "Description": "",
+    "IsVisible": false,
+    "IsReadOnly": false,
+    "IsMandatory": false,
+    "IsBold": false,
+    "IsUpperCase": false,
+    "OrderField": 27,
+    "Width": 100,
+    "UnvisibleIfTrue": false,
+    "Language": {
+      "English": "CheckedItem7",
+      "Greek": "",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    },
+    "AvailableLanguages": [
+      {
+        "LanguageId": 1,
+        "LanguageName": "English",
+        "Code": "English",
+        "IsDefault": true
+      },
+      {
+        "LanguageId": 16,
+        "LanguageName": "Greek",
+        "Code": "Greek",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 4,
+        "LanguageName": "German",
+        "Code": "German",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 2,
+        "LanguageName": "French",
+        "Code": "French",
+        "IsDefault": false
+      },
+      {
+        "LanguageId": 7,
+        "LanguageName": "Russian",
+        "Code": "Russian",
+        "IsDefault": false
+      }
+    ],
+    "CustomerLanguageId": "-1"
+  }
+}

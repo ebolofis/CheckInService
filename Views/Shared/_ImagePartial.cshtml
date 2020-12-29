@@ -1,0 +1,34 @@
+﻿@using CheckInService.Controllers;
+@using CheckInService.Models;
+@using CheckinBack.Models;
+
+
+@{
+    ViewData["Title"] = "Custom";
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    var config = ViewBag.Config as SettingsModel;
+    var format = ViewBag.Format as GlobalAttributesModel;
+    var privacy = ViewBag.Privacy as PrivacyPolicyModel;
+}
+
+<div id="headerclass" class="custom-flex-row custom-flex-100 custom-flex-center">
+    <img id="imgdiv" src="~/Resources/image.png" /><img />
+
+</div>
+
+@*<img src="@Url.Content("~/content/images" + Model.ImageUrl)" />*@
+
+<style>
+    #headerclass
+    {
+        background-color:@format.headerAttributes.headerBackgroundColor;
+    }
+    #imgdiv {
+       width:20%;
+        height:10%;
+        align-self:center;
+    }
+
+</style>
+

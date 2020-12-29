@@ -1,0 +1,181 @@
+﻿@{
+    Layout = null;
+    string hotelIdVB = ViewBag.HotelId;
+    string reservationIdVB = ViewBag.ReservationId;
+}
+<!DOCTYPE html>
+
+<html class="main-html" id="mainHtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <!-- Library Styling -->
+    <link href="~/lib/jqueryui/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/css/sweet_alert_Izi_Toast/iziToast.min.css" rel="stylesheet" />
+    <link href="~/WindowDatePicker/window-date-picker.min.css" rel="stylesheet" />
+    <!-- Basic Styling -->
+    <link href="~/css/General/Flex.css" rel="stylesheet" />
+    <link href="~/css/General/Fontawesome.css" rel="stylesheet" />
+    <link href="~/css/General/Fonts.css" rel="stylesheet" />
+    <link href="~/css/General/General.css" rel="stylesheet" />
+    <!-- View Styling -->
+    <link href="~/css/PreCheckIn/PreCheckIn.css" rel="stylesheet" />
+    <!-- Resolution Styling -->
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_1280px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_1024px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_960px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_640px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_480px.css" rel="stylesheet" />
+    <link href="~/css/PreCheckIn/Resolutions/PreCheckIn_320px.css" rel="stylesheet" />
+</head>
+<body class="main-body" id="mainBody">
+    <div class="custom-flex-column custom-full-height">
+        <div class="custom-flex-20 custom-flex-horizontal-center custom-flex-vertical-center precheckin-service-header-container">
+            <div class="custom-flex-horizontal-center custom-flex-vertical-center logo-image-container" data-bind="with: $root.hotel()">
+                <img class="logo-image" data-bind="attr: { 'src' : RelativeLogoPath() }" />
+            </div>
+        </div>
+        <div class="custom-flex-80 custom-flex-horizontal-center custom-flex-vertical-center precheckin-service-body-container">
+            <div class="custom-flex-column precheckin-container" id="mainContainer">
+                <div class="custom-flex-15 custom-flex-horizontal-center custom-flex-vertical-center">
+                    <div class="custom-flex-horizontal-center custom-flex-vertical-center precheckin-header-container">
+                        <span class="custom-text-black custom-text-bold precheckin-header" id="mainHeader" data-bind="text: 'Pre-CheckIn'"></span>
+                    </div>
+                </div>
+                <div class="custom-flex-85 precheckin-body-container">
+                    <div class="custom-flex-column custom-full-width">
+                        <div class="custom-flex-13" data-bind="visible: $root.hotel() != null && ($root.hotel().PreCheckinMode == preCheckInModeEnumerator.AllFields || $root.hotel().PreCheckinMode == preCheckInModeEnumerator.OnlyReservationId)">
+                            <div class="custom-flex-row custom-full-width">
+                                <div class="custom-flex-30 custom-flex-horizontal-start custom-flex-vertical-center">
+                                    <span class="custom-text-black custom-text-bold precheckin-text label-element" data-bind="text: 'Reservation Id:'"></span>
+                                </div>
+                                <div class="custom-flex-70 custom-flex-horizontal-center custom-flex-vertical-center">
+                                    <input class="custom-input custom-text-black precheckin-input entry-element" data-bind="value: $root.reservationIdInput" type="text" placeholder="Reservation Id" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-flex-13" data-bind="visible: $root.hotel() != null && ($root.hotel().PreCheckinMode == preCheckInModeEnumerator.AllFields || $root.hotel().PreCheckinMode == preCheckInModeEnumerator.OnlyReservationId)">
+                            <div class="custom-flex-horizontal-center custom-flex-vertical-center custom-full-width">
+                                <button class="custom-default-button custom-info-button precheckin-button" data-bind="click: $root.SearchCustomerByCode, clickBubble: false, attr: { 'disabled' : $root.searchingCustomer() }" tabindex="-1">
+                                    <span class="custom-text-white precheckin-button-text" data-bind="text: 'Search'"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="custom-flex-9" data-bind="visible: $root.hotel() != null && $root.hotel().PreCheckinMode == preCheckInModeEnumerator.AllFields">
+                            <div class="custom-flex-row custom-flex-vertical-center custom-full-width">
+                                <div class="custom-flex-45 custom-divider-left"></div>
+                                <span class="custom-flex-10 custom-flex-horizontal-center custom-text-black precheckin-text"><i class="fas fa-arrows-alt-v"></i></span>
+                                <div class="custom-flex-45 custom-divider-right"></div>
+                            </div>
+                        </div>
+                        <div class="custom-flex-13" data-bind="visible: $root.hotel() != null && ($root.hotel().PreCheckinMode == preCheckInModeEnumerator.AllFields || $root.hotel().PreCheckinMode == preCheckInModeEnumerator.OnlyCustomerInfo)">
+                            <div class="custom-flex-row custom-full-width">
+                                <div class="custom-flex-30 custom-flex-horizontal-start custom-flex-vertical-center">
+                                    <span class="custom-text-black custom-text-bold precheckin-text label-element" data-bind="text: 'Last Name:'"></span>
+                                </div>
+                                <div class="custom-flex-70 custom-flex-horizontal-center custom-flex-vertical-center">
+                                    <input class="custom-input custom-text-black precheckin-input entry-element" data-bind="value: $root.lastNameInput" type="text" placeholder="Last name" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-flex-13" data-bind="visible: $root.hotel() != null && ($root.hotel().PreCheckinMode == preCheckInModeEnumerator.AllFields || $root.hotel().PreCheckinMode == preCheckInModeEnumerator.OnlyCustomerInfo)">
+                            <div class="custom-flex-row custom-full-width">
+                                <div class="custom-flex-30 custom-flex-horizontal-start custom-flex-vertical-center">
+                                    <span class="custom-text-black custom-text-bold precheckin-text label-element" data-bind="text: 'First Name:'"></span>
+                                </div>
+                                <div class="custom-flex-70 custom-flex-horizontal-center custom-flex-vertical-center">
+                                    <input class="custom-input custom-text-black precheckin-input entry-element" data-bind="value: $root.firstNameInput" type="text" placeholder="First name" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-flex-13" data-bind="visible: $root.hotel() != null && ($root.hotel().PreCheckinMode == preCheckInModeEnumerator.AllFields || $root.hotel().PreCheckinMode == preCheckInModeEnumerator.OnlyCustomerInfo)">
+                            <div class="custom-flex-row custom-full-width">
+                                <div class="custom-flex-30 custom-flex-horizontal-start custom-flex-vertical-center">
+                                    <span class="custom-text-black custom-text-bold precheckin-text label-element" data-bind="text: 'Arrival:'"></span>
+                                </div>
+                                <div class="custom-flex-70 custom-flex-horizontal-center custom-flex-vertical-center">
+                                    <input class="custom-input custom-text-black precheckin-input entry-element" id="arrivalDatePickerInputInput" data-bind="value: $root.arrivalDateInputInput" type="text" placeholder="DD/MM/YYYY" autocomplete="off" />
+                                    @*<label class="custom-label custom-flex-horizontal-center custom-flex-vertical-center custom-text-black precheckin-label entry-element" data-bind="text: $root.arrivalDateInput() != null ? moment($root.arrivalDateInput()).format('DD/MM/YYYY') : ''" tabindex="-1"></label>*@
+                                    @*<input class="custom-invisible" id="arrivalDatePickerInput" tabindex="-1" />*@
+                                </div>
+                                @*<div class="custom-flex-20 custom-flex-horizontal-center custom-flex-vertical-center">
+                    <button class="custom-default-button precheckin-date-button" id="arrivalDatePickerToggle" data-bind="click: $root.SelectDate.bind($data, 'datePicker', 'arrivalDatePickerInput', 'arrivalDatePickerToggle', $root.arrivalDateInput(), 'arrivalDateInput'), clickBubble: false" tabindex="-1">
+                        <span class="custom-text-black precheckin-text"><i class="far fa-calendar-alt"></i></span>
+                    </button>
+                </div>*@
+                            </div>
+                        </div>
+                        <div class="custom-flex-13" data-bind="visible: $root.hotel() != null && ($root.hotel().PreCheckinMode == preCheckInModeEnumerator.AllFields || $root.hotel().PreCheckinMode == preCheckInModeEnumerator.OnlyCustomerInfo)">
+                            <div class="custom-flex-row custom-full-width">
+                                <div class="custom-flex-30 custom-flex-horizontal-start custom-flex-vertical-center">
+                                    <span class="custom-text-black custom-text-bold precheckin-text label-element" data-bind="text: 'Departure:'"></span>
+                                </div>
+                                <div class="custom-flex-70 custom-flex-horizontal-center custom-flex-vertical-center">
+                                    <input class="custom-input custom-text-black precheckin-input entry-element" id="departureDatePickerInputInput" data-bind="value: $root.departureDateInputInput" type="text" placeholder="DD/MM/YYYY" autocomplete="off" />
+                                    @*<label class="custom-label custom-flex-horizontal-center custom-flex-vertical-center custom-text-black precheckin-label entry-element" data-bind="text: $root.departureDateInput() != null ? moment($root.departureDateInput()).format('DD/MM/YYYY') : ''" tabindex="-1"></label>*@
+                                    @*<input class="custom-invisible" id="departureDatePickerInput" tabindex="-1" />*@
+                                </div>
+                                @*<div class="custom-flex-20 custom-flex-horizontal-center custom-flex-vertical-center">
+                    <button class="custom-default-button precheckin-date-button" id="departureDatePickerToggle" data-bind="click: $root.SelectDate.bind($data, 'datePicker', 'departureDatePickerInput', 'departureDatePickerToggle', $root.departureDateInput(), 'departureDateInput'), clickBubble: false" tabindex="-1">
+                        <span class="custom-text-black precheckin-text"><i class="far fa-calendar-alt"></i></span>
+                    </button>
+                </div>*@
+                            </div>
+                        </div>
+                        <div class="custom-flex-13" data-bind="visible: $root.hotel() != null && ($root.hotel().PreCheckinMode == preCheckInModeEnumerator.AllFields || $root.hotel().PreCheckinMode == preCheckInModeEnumerator.OnlyCustomerInfo)">
+                            <div class="custom-flex-horizontal-center custom-flex-vertical-center custom-full-width">
+                                <button class="custom-default-button custom-info-button precheckin-button" data-bind="click: $root.SearchCustomerByName, clickBubble: false, attr: { 'disabled' : $root.searchingCustomer() }" tabindex="-1">
+                                    <span class="custom-text-white precheckin-button-text" data-bind="text: 'Search'"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="wdp-dark" id="datePicker"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Library Code -->
+    <script src="~/knockout/knockout-latest.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/moment.js/moment.min.js"></script>
+    <script src="~/lib/sweet_alert_Izi_Toast/iziToast.min.js"></script>
+    <script src="~/WindowDatePicker/window-date-picker.min.js"></script>
+    <!-- Enumerator Code -->
+    <script src="~/js/General/Enumerators/DateTimePickerEnumerators.js"></script>
+    <script src="~/js/General/Enumerators/HotelEnumerators.js"></script>
+    <!-- Model Code -->
+    <script src="~/js/General/Models/HotelModels.js"></script>
+    <script src="~/js/General/Models/ReservationModels.js"></script>
+    <script src="~/js/General/Models/SettingsModels.js"></script>
+    <!-- Module Code -->
+    <script src="~/js/General/Modules/date-time-picker-module.js"></script>
+    <!-- View Code -->
+    <script src="~/js/PreCheckIn/PreCheckIn.js"></script>
+    <script type="text/javascript">
+        var hotelIdHTML = '@hotelIdVB';
+        var reservationIdHTML = '@reservationIdVB';
+        var ViewHandler = new PreCheckInViewModel();
+        ko.applyBindings(ViewHandler);
+        ViewHandler.InitializeView();
+        $(document).ready(function () {
+            $("body").keyup(function (e) {
+                if (e.keyCode == 10) { // Control + Enter
+                }
+                else if (e.keyCode == 13) { // Enter & Shift + Enter
+                }
+                else {
+                }
+            });
+        });
+    </script>
+</body>
+</html>

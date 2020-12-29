@@ -1,0 +1,14 @@
+{
+  "fontSize": 12,
+  "textColor": "#800000",
+  "fontFamily": "Arial",
+  "fontWeight": "0",
+  "privacyPolicyDescription": {
+    "English": " I have read the Privacy Notice to guests and/or in the information booket in my room. I hereby consent to use of my personal data mentioned in the present registration form for the purposes of:",
+    "Greek": " I have read the Privacy Notice to guests and/or in the information booket in my room. I hereby consent to use of my personal data mentioned in the present registration form for the purposes of:",
+    "German": "",
+    "French": "",
+    "Russian": ""
+  },
+  "IsVisible": false
+}

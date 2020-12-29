@@ -1,0 +1,32 @@
+﻿@using CheckinBack.Models
+@inject SystemInfoModel systemInfo
+@{
+    ViewData["Title"] = "CheckIn Service";
+}
+
+<div class="text-center service">
+    <div class="ctn">
+        <h1 class="display-4 header">CheckIn Service - <span class="versionstyle"> @systemInfo.Version - <small>@systemInfo.ServiceId</small></span></h1>
+    </div>
+</div>
+
+
+<style>
+    .service {
+        background-color: powderblue;
+    }
+
+    .ctn {
+        border: 2px solid dodgerblue;
+    }
+
+    .header {
+        color: #000;
+        text-align: start;
+        background-color: powderblue;
+    }
+
+    .versionstyle {
+        color: orangered;
+    }
+</style>

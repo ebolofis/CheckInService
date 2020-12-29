@@ -1,0 +1,1386 @@
+﻿@using CheckInService.Controllers;
+@using CheckInService.Models;
+@using CheckinBack.Models;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var config = ViewBag.Config as SettingsModel;
+    var format = ViewBag.Format as GlobalAttributesModel;
+    var privacy = ViewBag.Privacy as PrivacyPolicyModel;
+    var configurationform = ViewBag.ConfigurationForm as ConfigurationFormModel;
+    List<LanguagesMessagesModel> langmessages = new List<LanguagesMessagesModel>();
+    langmessages = ViewBag.langmessages;
+    var sumwidth = 0;
+    var changeLine = false;
+    List<CheckedBoxItemModel> templist = new List<CheckedBoxItemModel>();
+    List<CheckedBoxItemModel> hiddentemplist = new List<CheckedBoxItemModel>();
+    var decryptedstring = ViewBag.DecryptedString as string;
+    var encryptedstring = ViewBag.EncryptedString as string;
+    var datepickerreadonly = "" as string;
+}
+
+<link rel="stylesheet" href="~/css/CustomTemplate/imgstyle.css">
+<link rel="stylesheet" href="~/css/CustomTemplate/style.css">
+<link rel="stylesheet" href="~/js/Custom/Custom.css" />
+<script src="~/js/html2pdf.bundle.min.js"></script>
+<script src="~/js/formpage.js"></script>
+<script src="~/js/Custom/Functions.js"></script>
+
+<div class="wdp-dark custom-datepicker" id="datePicker"></div>
+<div id="contactless" class="custom-flex-column  custom-flex-center " style=" border:4px solid #ac9766; width:100%; height:900px;margin-left: 100px;" data-bind="visible: tmp1.IsContactless()">
+    <div class="box custom-flex-row custom-flex-10 custom-flex-center" style="margin-top:-0.8rem; height:40%;margin-bottom:20px;border:2px medium #B8860B;">
+        <div class="imgBx custom-flex-100 custom-flex-center">
+            <img class="imgstyle" style="height:120px;" data-bind="attr: { 'src' : tmp1.HotelLogo() }" id="headimg" />
+            <h2 style="margin-right:7.4rem;margin-bottom:-9.1rem;background-color:#ac9766;  font-size:16px;width: 100%; ">Enjoy your stay </h2>
+        </div>
+    </div>
+    <div class="custom-flex-row custom-flex-10 custom-flex-center custom-full-width " style="background-color:#ac9766; text-shadow: -0.5px 0 gray, 0 0.5px gray, 0.5px 0 gray, 0 -0.5px gray;border: 2px solid gold;margin-top: 25px"> <h1>&nbsp;Contactless Fast Check-In </h1></div>
+    <div class="custom-flex-column custom-flex-10 custom-flex-center" style="margin-top:20px; background-color:#ac9766; border:1px solid #ac9766">
+        <div class=" custom-flex-100 custom-flex-start custom-full-width custom-flex-column" style="background-color:whitesmoke; margin-top:50px; width:400px;">
+            <h3 class="custom-flex-100  custom-flex-start labelstyling" style="align-self:start; " id="firstname">First name:</h3>
+            <h3 class="custom-flex-100   custom-flex-start labelstyling" style="align-self:start;" id="lastname">Last name:</h3>
+            <div id="qrcode" class=" custom-flex-center " style="background-color: #ac9766;margin-top: 25px !important;margin-bottom: 15px;border: 1px solid #B8860B;"></div>
+        </div>
+    </div>
+    <div class="custom-flex-row custom-flex-5 custom-flex-start" style="margin-top: 20px;margin-bottom: 10px;">
+    </div>
+    <div class="custom-flex-row custom-flex-5 custom-flex-start">
+        <div class="custom-flex-row custom-flex-50 custom-flex-start">
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formIdStyling", action = "" }))
+{
+    <div class="custom-flex-row custom-flex-10 custom-flex-center headerstyling" id="imgdiv" style="margin-top:10px;">
+        <div class="custom-flex-5"></div>
+        <div class="custom-flex-90 custom-flex-center">
+            <figure> <img style="" class="logo" data-bind="attr: { 'src' : tmp1.HotelLogo() }" id="headimg" /> </figure>
+        </div>
+        <div class="custom-flex-5">
+            <div class="text-center badge" data-bind="visible:SignalRHandler.showTimerFlag()" style="background-color:blue; color:white; font-size:15px; font-family:Montserrat">
+                <span id="countdowntimer">5</span>
+            </div>
+        </div>
+    </div>
+    <div id="contentMainForm" class="custom-full-height custom-flex-column custom-header" style="padding: 15px;" data-bind="visible: !tmp1.IsContactless()">
+        <div class="custom-flex-row custom-flex-start" style="margin: 1% 0%;">
+            <div style="display:flex;flex-grow:4">
+                <div class="custom-flex-row custom-flex-100 custom-flex-start  heading-primary">
+                    <label class="heading-primary--main  custom-flex-100  labelstyling" style="height:100%; font-size:140%; text-align:left; margin-top:5px; margin-left:10px; color:black; margin-bottom:5px;"><i class="fa fa-user userlogo" aria-hidden="true">&nbsp; <span class="labelstyling" id="clientindex">0</span> / <span class="labelstyling" id="totalclientsindex ">0</span></i></label>
+                </div>
+            </div>
+            <div style="display:flex;flex-grow:1;justify-content:flex-end;">
+                <div>
+                    <a class="selection-button  mrglf" href="#" id="DecreaseFont_Clicked" style="font-size:14px;background-color:white; text-decoration:none; border:1px solid black;color:black;">&nbsp; A-</a>
+                </div>
+                <div>
+                    <a class="selection-button " href="#" id="IncreaseFont_Clicked" style="margin-left: 5px;color:black;background-color:white;font-size:14px;text-decoration:none; border:1px solid black;">&nbsp; A+</a>
+                </div>
+            </div>
+        </div>
+        <div class="custom-flex-row custom-flex-start" style="margin: 1% 0%;">
+            <div class="custom-flex-row custom-flex-1 custom-flex-start">
+            </div>
+            <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().ChooseTitle:null"></label>
+            <div class="custom-flex-row custom-flex-1 custom-flex-start">
+            </div>
+            <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().ChooseLanguage:null">Choose language </label>
+        </div>
+        <div data-bind="if: SignalRHandler.customer() != null">
+            <div class="custom-flex-row custom-flex-start" style="margin: 1% 0%;">
+                <div class="custom-flex-row custom-flex-1 custom-flex-center">
+                </div>
+                <!-- ko if: SignalRHandler.baseinfo() && SignalRHandler.baseinfo().Mode != 4 -->
+                <div class="custom-flex-row custom-flex-75 custom-flex-start">
+                    <select class="custom-flex-100 custom-flex-end entrystyling" id="inputAnrede" placeholder="Select"
+                            data-bind="options: ResourceHandler.titles(),
+                    optionsText: 'Description', optionsValue: 'Id', value: inputAnrede, event: { change: GetSelectedAnrede.bind($data) }">
+                    </select>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: SignalRHandler.baseinfo() && SignalRHandler.baseinfo().Mode == 4 -->
+                <div class="custom-flex-row custom-flex-75 custom-flex-start">
+                    <select class="custom-flex-100 custom-flex-end entrystyling" id="inputAnrede" placeholder="Select"
+                            data-bind="options: ResourceHandler.titles(),
+                    optionsText: 'Description', optionsValue: 'Id', value: inputAnrede, event: { change: GetSelectedAnrede.bind($data) }" disabled>
+                    </select>
+                </div>
+                <!-- /ko -->
+                <div class="custom-flex-row custom-flex-80 custom-flex-center">
+                    <div class="custom-flex-row custom-flex-3 custom-flex-start">
+                    </div>
+                    <!-- ko if: SignalRHandler.baseinfo() && SignalRHandler.baseinfo().Mode != 4 -->
+                    <select style="align-self: center; font-weight:bold;" class="custom-flex-95 custom-flex-end  entrystyling" id="availableLanguages" data-bind="options: LanguageHandler.availableLanguages(), optionsText: 'Name', optionsValue: 'Code', value: (LanguageHandler.selectedLanguage() != null ? LanguageHandler.selectedLanguage() : null), event: { change: GetSelectedLanguage.bind($data) }">
+                    </select>
+                    <!-- /ko -->
+                    <!-- ko if: SignalRHandler.baseinfo() && SignalRHandler.baseinfo().Mode == 4 -->
+                    <select style="align-self: center; font-weight:bold;" class="custom-flex-95 custom-flex-end  entrystyling" id="availableLanguages" data-bind="options: LanguageHandler.availableLanguages(), optionsText: 'Name', optionsValue: 'Code', value: (LanguageHandler.selectedLanguage() != null ? LanguageHandler.selectedLanguage() : null), event: { change: GetSelectedLanguage.bind($data) }" disabled>
+                    </select>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+        <div data-bind="if: SignalRHandler.customer() == null">
+            <div class="custom-flex-row custom-flex-start" style="margin: 1% 0%;">
+                <div class="custom-flex-row custom-flex-1 custom-flex-center">
+                </div>
+                <!-- ko if: SignalRHandler.baseinfo() == null -->
+                <div class="custom-flex-row custom-flex-75 custom-flex-start">
+                    <select style="" class="custom-flex-100 custom-flex-end entrystyling" id="inputAnrede" placeholder="Select"
+                            data-bind="options: ResourceHandler.titles(),
+                    optionsText: 'Description', optionsValue: 'Id', value: ResourceHandler.titles()[0], event: { change: GetSelectedAnrede.bind($data) }">
+                    </select>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: SignalRHandler.baseinfo() && SignalRHandler.baseinfo().Mode == 4 -->
+                <div class="custom-flex-row custom-flex-75 custom-flex-start">
+                    <select style="" class="custom-flex-100 custom-flex-end entrystyling" id="inputAnrede" placeholder="Select"
+                            data-bind="options: ResourceHandler.titles(),
+                    optionsText: 'Description', optionsValue: 'Id', value: ResourceHandler.titles()[0], event: { change: GetSelectedAnrede.bind($data) }" disabled>
+                    </select>
+                </div>
+                <!-- /ko -->
+                <div class="custom-flex-row custom-flex-80 custom-flex-center">
+                    <div class="custom-flex-row custom-flex-3 custom-flex-start">
+                    </div>
+                    <!-- ko if: SignalRHandler.baseinfo() == null -->
+                    <select style="align-self: center; font-weight:bold;" class="custom-flex-95 custom-flex-end  entrystyling" id="availableLanguages" data-bind="options: LanguageHandler.availableLanguages(), optionsText: 'Name', optionsValue: 'Code', value: (LanguageHandler.selectedLanguage() != null ? LanguageHandler.selectedLanguage() : null), event: { change: GetSelectedLanguage.bind($data) }">
+                    </select>
+                    <!-- /ko -->
+                    <!-- ko if: SignalRHandler.baseinfo() && SignalRHandler.baseinfo().Mode == 4 -->
+                    <select style="align-self: center; font-weight:bold;" class="custom-flex-95 custom-flex-end  entrystyling" id="availableLanguages" data-bind="options: LanguageHandler.availableLanguages(), optionsText: 'Name', optionsValue: 'Code', value: (LanguageHandler.selectedLanguage() != null ? LanguageHandler.selectedLanguage() : null), event: { change: GetSelectedLanguage.bind($data) }" disabled>
+                    </select>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+        <table style="width: 100%;">
+            <!-- ko if: SignalRHandler.customer() == null -->
+            <!-- ko if: SignalRHandler.baseinfo() == null -->
+            <tbody style="width: 100%;" id="fakepage">
+                <tr>
+                    <td class="custom-flex-column" style="">
+                        @Html.Raw(" <div class='custom-flex-row  custom-flex-start ' style=' padding:0;'>")
+                        @foreach (var model in Model)
+                        {
+                            sumwidth = sumwidth + model.Width;
+                            if (sumwidth > 100 || changeLine)
+                            {
+                                @Html.Raw("</div>")
+                                @Html.Raw(" <div class='custom-flex-row  custom-flex-start' style='padding:0;'>")
+                                sumwidth = model.Width;
+                                changeLine = false;
+                            }
+                            if (model is DateTimeModel && model.IsVisible)
+                            {
+                                DoDateTimeNull(model);
+                            }
+                            else if (model is ComboBoxModel && model.IsVisible)
+                            {
+                                DoComboBoxNull(model);
+                            }
+                            else if (model is CheckedBoxItemModel && model.IsVisible)
+                            {
+                                DoCheckBoxNull(model);
+                            }
+                            else if (model is LabelModel && model.IsVisible)
+                            {
+                                DoLabelBoxNull(model);
+                            }
+                            else if (model is ItemModel && model.IsVisible)
+                            {
+                                DoTextBoxNull(model);
+                            }
+                            changeLine = model.NewLineAfter;
+                        }
+                        @if (sumwidth < 100)@Html.Raw("</div>")
+                    </td>
+                </tr>
+            </tbody>
+            <!-- /ko -->
+            <!-- ko if: SignalRHandler.baseinfo() && SignalRHandler.baseinfo().Mode == 4 -->
+            <tbody style="width: 100%;" id="fakepage">
+                <tr>
+                    <td class="custom-flex-column" style="">
+                        @Html.Raw(" <div class='custom-flex-row  custom-flex-start ' style=' padding:0;'>")
+                        @foreach (var model in Model)
+                        {
+                            sumwidth = sumwidth + model.Width;
+                            if (sumwidth > 100 || changeLine)
+                            {
+                                @Html.Raw("</div>")
+                                @Html.Raw(" <div class='custom-flex-row  custom-flex-start' style='padding:0;'>")
+                                sumwidth = model.Width;
+                                changeLine = false;
+                            }
+                            if (model is DateTimeModel && model.IsVisible)
+                            {
+                                DoDateTimeNullReadOnly(model);
+                            }
+                            else if (model is ComboBoxModel && model.IsVisible)
+                            {
+                                DoComboBoxNullReadOnly(model);
+                            }
+                            else if (model is CheckedBoxItemModel && model.IsVisible)
+                            {
+                                DoCheckBoxNullReadOnly(model);
+                            }
+                            else if (model is LabelModel && model.IsVisible)
+                            {
+                                DoLabelBoxNullReadOnly(model);
+                            }
+                            else if (model is ItemModel && model.IsVisible)
+                            {
+                                DoTextBoxNullReadOnly(model);
+                            }
+                            changeLine = model.NewLineAfter;
+                        }
+                        @if (sumwidth < 100)@Html.Raw("</div>")
+                    </td>
+                </tr>
+            </tbody>
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: SignalRHandler.customer() != null -->
+            <!-- ko if: SignalRHandler.baseinfo() && SignalRHandler.baseinfo().Mode != 4 -->
+            <tbody data-bind="foreach: SignalRHandler.customer()" style="width: 100%;">
+                <tr class="tab">
+                    <td class="custom-flex-column" style="">
+                        @Html.Raw(" <div class='custom-flex-row  custom-flex-start ' style=' padding:0;'>")
+                        @foreach (var model in Model)
+                        {
+                            sumwidth = sumwidth + model.Width;
+                            if (sumwidth > 100 || changeLine)
+                            {
+                                @Html.Raw("</div>")
+                                @Html.Raw("<div class='custom-flex-row  custom-flex-start' style='padding:0;'>")
+                                sumwidth = model.Width;
+                                changeLine = false;
+                            }
+                            if (model is DateTimeModel && model.IsVisible)
+                            {
+                                DoDateTime(model);
+                            }
+                            else if (model is ComboBoxModel && model.IsVisible)
+                            {
+                                DoComboBox(model);
+                            }
+                            else if (model is CheckedBoxItemModel && model.IsVisible)
+                            {
+                                DoCheckBox(model);
+                            }
+                            else if (model is LabelModel && model.IsVisible)
+                            {
+                                DoLabelBox(model);
+                            }
+                            else if (model is ItemModel && model.IsVisible)
+                            {
+                                DoTextBox(model);
+                            }
+                            changeLine = model.NewLineAfter;
+                        }
+                        @if (sumwidth < 100)@Html.Raw("</div>")
+                    </td>
+                </tr>
+            </tbody>
+            <!-- /ko -->
+            <!-- ko if: SignalRHandler.baseinfo() && SignalRHandler.baseinfo().Mode == 4 -->
+            <tbody data-bind="foreach: SignalRHandler.customer()" style="width: 100%;">
+                <tr class="tab">
+                    <td class="custom-flex-column" style="">
+                        @Html.Raw(" <div class='custom-flex-row  custom-flex-start ' style=' padding:0;'>")
+                        @foreach (var model in Model)
+                        {
+                            sumwidth = sumwidth + model.Width;
+                            if (sumwidth > 100 || changeLine)
+                            {
+                                @Html.Raw("</div>")
+                                @Html.Raw("<div class='custom-flex-row  custom-flex-start' style='padding:0;'>")
+                                sumwidth = model.Width;
+                                changeLine = false;
+                            }
+                            if (model is DateTimeModel && model.IsVisible)
+                            {
+                                DoDateTimeReadOnly(model);
+                            }
+                            else if (model is ComboBoxModel && model.IsVisible)
+                            {
+                                DoComboBoxReadOnly(model);
+                            }
+                            else if (model is CheckedBoxItemModel && model.IsVisible)
+                            {
+                                DoCheckBoxReadOnly(model);
+                            }
+                            else if (model is LabelModel && model.IsVisible)
+                            {
+                                DoLabelBoxReadOnly(model);
+                            }
+                            else if (model is ItemModel && model.IsVisible)
+                            {
+                                DoTextBoxReadOnly(model);
+                            }
+                            changeLine = model.NewLineAfter;
+                        }
+                        @if (sumwidth < 100)@Html.Raw("</div>")
+                    </td>
+                </tr>
+            </tbody>
+            <!-- /ko -->
+            <!-- /ko -->
+        </table>
+        <div style="margin: 1% 0%; overflow:hidden;">
+            <div class="custom-flex-row">
+                <div class="custom-flex-50 custom-flex-center" style="overflow: hidden;" data-bind="css: { 'custom-flex-50' : (SignalRHandler.customer() != null && SignalRHandler.customer().length > 1), 'custom-flex-0' : (SignalRHandler.customer() == null || SignalRHandler.customer().length <= 1) }">
+                    <button type="button" class="btn btn--custom btn--animated custom-flex-center ld-ext-right footer-button" id="prevBtn" onclick="tmp1.nextPrev(-1)" data-bind="enable: !tmp1.Loading()">Previous</button>
+                </div>
+                <div class="custom-flex-50 custom-flex-center" style="overflow: hidden;" data-bind="css: { 'custom-flex-50' : (SignalRHandler.customer() != null && SignalRHandler.customer().length > 1), 'custom-flex-100' : (SignalRHandler.customer() == null || SignalRHandler.customer().length <= 1) }">
+                    <button type="button" class="btn btn--custom btn--animated custom-flex-center ld-ext-right footer-button ld-ext-right" onclick="tmp1.nextPrev(1)" data-bind="enable: !tmp1.Loading() && SignalRHandler.customer() != null">
+                        <span id="nextBtn" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().Next:'NEXT'"></span>
+                        <span data-bind="visible: tmp1.Loading()" class="ld ld-ring ld-spin"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div style="text-align:center;margin-top:20px;">
+            <div data-bind="foreach: SignalRHandler.customer()">
+                <span class="step"></span>
+            </div>
+        </div>
+    </div>
+}
+
+@{
+    void DoDateTime(DateTimeModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-25 custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"html: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+        if (item.IsMandatory)
+        {
+            attr.Add("required", "required");
+        }
+        if (item.IsReadOnly)
+        {
+            attr.Add("disabled", "");
+        }
+        attr.Add("class", $"custom-flex-100 custom-flex-start entrystyling heightclass datePickerElement");
+        attr.Add("style", $"text-align:start;width:100%;align-self: start;");
+        attr.Add("id", $"{item.ControlName}");
+        attr.Add("data-bind", $"value: ({item.ControlName} != null ? moment({item.ControlName}).format('DD/MM/YYYY') : null)");
+        attr.Add("placeholder", $"DD/MM/YYYY");
+
+        if (item.IsReadOnly)
+        {
+            datepickerreadonly = "pointer-events:none;";
+        }
+        else
+        {
+            datepickerreadonly = "";
+        }
+        <div class="custom-flex-@item.Width custom-flex-start custom-flex-column entrybox" style="padding:0px; margin: 0.5% 0%;">
+            @Html.Label(item.ControlName, item.ControlName, attrlb)
+            <div class="custom-flex-row" style="width: 100%;">
+                @Html.TextBox("50", null, attr)
+            </div>
+        </div>
+    }
+}
+@{
+    void DoComboBox(ItemModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width} custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"text: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+        if (item.IsMandatory) attrlb.Add("required", "required");
+        if (item.IsReadOnly) attrlb.Add("readonly", "");
+        attr.Add("class", $"custom-flex-100 custom-flex-start entrystyling heightclass comboBoxClasses");
+        attr.Add("style", $"text-align:start;width:100%;");
+        attr.Add("id", $"{item.ControlName}");
+        attr.Add("data-bind", $"value: {item.ControlName}");
+        <div class="custom-flex-@item.Width custom-flex-start custom-flex-column entrybox" style="margin: 0.5% 0%;">
+            @Html.Label(item.ControlName, item.ControlName, attrlb)
+
+            <select style="height:22px;align-self:center;width:100%;margin-bottom:1px" class="custom-flex-100 custom-flex-end entrystyling comboBoxClasses" id="@( $"{item.ControlName}")" placeholder="Select" data-bind="options: ResourceHandler.@( $"{item.ControlName}")(), optionsText: 'Description', optionsValue: 'Id',value: @( $"{item.ControlName}"), event: { change: GetSelectedValue.bind($data, $data, '@( $"{item.ControlName}")') }">
+            </select>
+
+        </div>
+    }
+}
+@{
+    void DoCheckBox(ItemModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width} custom-flex-start  heightclass labelLanguageChange");
+        if (item.IsBold)
+            attrlb.Add("style", "font-weight:900 !important;");
+
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"html: LanguageHandler.selectedDictionary().{item.ControlName}");
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+        if (item.IsMandatory) { attrlb.Add("required", "required"); }
+        if (item.IsReadOnly) attrlb.Add("readonly", "");
+
+        attr.Add("class", $" custom-flex-20 custom-flex-start  ");
+        attr.Add("style", $"text-align:start;width:100%;");
+        attr.Add("type", "checkbox");
+        attr.Add("id", $"{item.ControlName}Value");
+        attr.Add("name", $"{item.ControlName}");
+        attr.Add("data-bind", $"checked: {item.ControlName}Value");
+        if (item.IsMandatory) attr.Add("required", "required");
+        <div class="custom-flex-@item.Width custom-flex-row entrybox" style="margin: 0.5% 0%;">
+            @if (item.IsMandatory)
+            {
+                @Html.Label(Convert.ToString(item.ControlName), "", attrlb)
+                <i class="fa fa-asterisk" aria-hidden="true" style="font-size:10px;"></i>
+            }
+            else
+            {
+
+                @Html.Label(Convert.ToString(item.ControlName), "", attrlb)
+            }
+            @Html.CheckBox(item.ControlName, false, attr)
+
+
+        </div>
+    }
+}
+@{
+    void DoLabelBox(LabelModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width} custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start; display: inline;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"html: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        <div class="custom-flex-@item.Width custom-flex-start entrybox" style="padding:0px; margin: 0.5% 0%;">
+            @Html.Label(item.ControlName, item.ControlName, attrlb)
+        </div>
+    }
+}
+@{
+    void DoTextBox(ItemModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width / 1.5} custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"text: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+        if (item.IsMandatory) { attr.Add("required", null); }
+        if (item.IsReadOnly) attr.Add("readonly", "");
+        attr.Add("class", $"custom-flex-100 custom-flex-start entrystyling heightclass textBoxesClass");
+        attr.Add("style", $"text-align:start;width:100%;");
+        attr.Add("id", $"{item.ControlName}");
+        attr.Add("data-bind", $"value: {item.ControlName}");
+        if (item.IsUpperCase)
+        {
+            object value = "";
+            object value2 = "";
+
+            if (attr.TryGetValue("style", out value))
+            {
+                value = value + "text-transform:uppercase;";
+                attr.Remove("style");
+                attr.Add("style", value);
+            }
+            if (attr.TryGetValue("class", out value2))
+            {
+                value2 = value2 + " " + "toUp";
+                attr.Remove("class");
+                attr.Add("class", value2);
+            }
+        }
+
+        <div class="custom-flex-@item.Width custom-flex-start custom-flex-column entrybox" style="padding:3px; margin: 0.5% 0%;">
+            @if (item.IsMandatory)
+            {
+                <div class="custom-flex-row custom-flex-100" style="width:100%">
+                    @Html.Label(item.ControlName, item.ControlName, attrlb)
+                    <i class="fa fa-asterisk" aria-hidden="true" style="font-size:8px;"></i>
+                </div>
+            }
+            else
+            {
+                @Html.Label(item.ControlName, item.ControlName, attrlb)
+            }
+            @Html.TextBox(item.ControlName, null, attr)
+        </div>
+    }
+}
+
+@{
+    void DoDateTimeReadOnly(DateTimeModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-25 custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"html: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+
+        attr.Add("disabled", "");
+        attr.Add("class", $"custom-flex-100 custom-flex-start entrystyling heightclass datePickerElement");
+        attr.Add("style", $"text-align:start;width:100%;align-self: start;");
+        attr.Add("id", $"{item.ControlName}");
+        attr.Add("data-bind", $"value: ({item.ControlName} != null ? moment({item.ControlName}).format('DD/MM/YYYY') : null)");
+        attr.Add("placeholder", $"DD/MM/YYYY");
+
+        datepickerreadonly = "pointer-events:none;";
+
+        <div class="custom-flex-@item.Width custom-flex-start custom-flex-column entrybox" style="padding:0px; margin: 0.5% 0%;">
+            @Html.Label(item.ControlName, item.ControlName, attrlb)
+            <div class="custom-flex-row" style="width: 100%;">
+                @Html.TextBox("50", null, attr)
+            </div>
+        </div>
+    }
+}
+@{
+    void DoComboBoxReadOnly(ItemModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width} custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"text: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+        attrlb.Add("readonly", "");
+        attr.Add("class", $"custom-flex-100 custom-flex-start entrystyling heightclass");
+        attr.Add("style", $"text-align:start;width:100%;");
+        attr.Add("id", $"{item.ControlName}");
+        attr.Add("data-bind", $"value: {item.ControlName}");
+        <div class="custom-flex-@item.Width custom-flex-start custom-flex-column entrybox" style="margin: 0.5% 0%;">
+            @Html.Label(item.ControlName, item.ControlName, attrlb)
+
+            <select style="height:22px;align-self:center;width:100%;margin-bottom:1px" class="custom-flex-100 custom-flex-end entrystyling" id="@( $"{item.ControlName}")" placeholder="Select" data-bind="options: ResourceHandler.@( $"{item.ControlName}")(), optionsText: 'Description', optionsValue: 'Id',value: @( $"{item.ControlName}"), event: { change: GetSelectedValue.bind($data, $data, '@( $"{item.ControlName}")') }" disabled>
+            </select>
+
+        </div>
+    }
+}
+@{
+    void DoCheckBoxReadOnly(ItemModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width} custom-flex-start  heightclass labelLanguageChange");
+        if (item.IsBold)
+            attrlb.Add("style", "font-weight:900 !important;");
+
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"html: LanguageHandler.selectedDictionary().{item.ControlName}");
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+        attr.Add("disabled", "");
+
+        attr.Add("class", $" custom-flex-20 custom-flex-start  ");
+        attr.Add("style", $"text-align:start;width:100%;");
+        attr.Add("type", "checkbox");
+        attr.Add("id", $"{item.ControlName}Value");
+        attr.Add("name", $"{item.ControlName}");
+        attr.Add("data-bind", $"checked: {item.ControlName}Value");
+        <div class="custom-flex-@item.Width custom-flex-row entrybox" style="margin: 0.5% 0%;">
+            @Html.Label(Convert.ToString(item.ControlName), "", attrlb)
+            @Html.CheckBox(item.ControlName, false, attr)
+        </div>
+    }
+}
+@{
+    void DoLabelBoxReadOnly(LabelModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width} custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start; display: inline;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"html: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        <div class="custom-flex-@item.Width custom-flex-start entrybox" style="padding:0px; margin: 0.5% 0%;">
+            @Html.Label(item.ControlName, item.ControlName, attrlb)
+        </div>
+    }
+}
+@{
+    void DoTextBoxReadOnly(ItemModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width / 1.5} custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"text: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+        attr.Add("readonly", "");
+        attr.Add("class", $"custom-flex-100 custom-flex-start entrystyling heightclass textBoxesClass");
+        attr.Add("style", $"text-align:start;width:100%;");
+        attr.Add("id", $"{item.ControlName}");
+        attr.Add("data-bind", $"value: {item.ControlName}");
+
+        <div class="custom-flex-@item.Width custom-flex-start custom-flex-column entrybox" style="padding:3px; margin: 0.5% 0%;">
+            @Html.Label(item.ControlName, item.ControlName, attrlb)
+            @Html.TextBox(item.ControlName, null, attr)
+        </div>
+    }
+}
+
+@{
+    void DoDateTimeNull(DateTimeModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-25 custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"html: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+        if (item.IsMandatory) attr.Add("required", "required");
+        if (item.IsReadOnly)
+        {
+            attr.Add("disabled", "");
+        }
+        attr.Add("class", $"custom-flex-100 custom-flex-start entrystyling heightclass datePickerElement");
+        attr.Add("style", $"text-align:start;width:100%;align-self: start;");
+        attr.Add("id", $"{item.ControlName}");
+        attr.Add("placeholder", $"DD/MM/YYYY");
+
+        if (item.IsReadOnly)
+        {
+            datepickerreadonly = "pointer-events:none;";
+        }
+        else
+        {
+            datepickerreadonly = "";
+        }
+        <div class="custom-flex-@item.Width custom-flex-start custom-flex-column entrybox" style="padding:0px; margin: 0.5% 0%;">
+            @Html.Label(item.ControlName, item.ControlName, attrlb)
+            <div class="custom-flex-row" style="width: 100%;">
+                @Html.TextBox("50", null, attr)
+            </div>
+        </div>
+    }
+}
+@{
+    void DoComboBoxNull(ItemModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width} custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"text: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+        if (item.IsMandatory) attrlb.Add("required", "required");
+        if (item.IsReadOnly) attrlb.Add("readonly", "");
+        attr.Add("class", $"custom-flex-100 custom-flex-start entrystyling heightclass");
+        attr.Add("style", $"text-align:start;width:100%;");
+        attr.Add("id", $"{item.ControlName}");
+        <div class="custom-flex-@item.Width custom-flex-start custom-flex-column entrybox" style="margin: 0.5% 0%;">
+            @Html.Label(item.ControlName, item.ControlName, attrlb)
+
+            <select style="height:22px;align-self:center;width:100%;margin-bottom:1px" class="custom-flex-100 custom-flex-end entrystyling" id="@( $"{item.ControlName}")" placeholder="Select" data-bind="options: ResourceHandler.@( $"{item.ControlName}")(), optionsText: 'Description', optionsValue: 'Id',value: @( $"{item.ControlName}"), event: { change: GetSelectedValue.bind($data) }">
+            </select>
+
+        </div>
+    }
+}
+@{
+    void DoCheckBoxNull(ItemModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width} custom-flex-start  heightclass labelLanguageChange");
+        if (item.IsBold)
+            attrlb.Add("style", "font-weight:900 !important;");
+
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"html: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+        if (item.IsMandatory) { attrlb.Add("required", "required"); }
+        if (item.IsReadOnly) attrlb.Add("readonly", "");
+
+        attr.Add("class", $" custom-flex-20 custom-flex-start  ");
+        attr.Add("style", $"text-align:start;width:100%;");
+        attr.Add("type", "checkbox");
+        attr.Add("id", $"{item.ControlName}");
+        attr.Add("name", $"{item.ControlName}");
+        if (item.IsMandatory) attr.Add("required", "required");
+        <div class="custom-flex-@item.Width custom-flex-row entrybox" style="margin: 0.5% 0%;">
+
+            @if (item.IsMandatory)
+            {
+                @Html.Label(Convert.ToString(item.ControlName), "", attrlb)
+                <i class="fa fa-asterisk" aria-hidden="true" style="font-size:10px;"></i>
+            }
+            else
+            {
+
+                @Html.Label(Convert.ToString(item.ControlName), "", attrlb)
+            }
+            @Html.CheckBox(item.ControlName, false, attr)
+
+
+        </div>
+    }
+}
+@{
+    void DoLabelBoxNull(LabelModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width} custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start; display: inline;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"html: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        <div class="custom-flex-@item.Width custom-flex-start entrybox" style="padding:0px; margin: 0.5% 0%;">
+            @Html.Label(item.ControlName, item.ControlName, attrlb)
+        </div>
+    }
+}
+@{
+    void DoTextBoxNull(ItemModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width / 1.5} custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"text: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+        if (item.IsMandatory) { attr.Add("required", null); }
+        if (item.IsReadOnly) attr.Add("readonly", "");
+        attr.Add("class", $"custom-flex-100 custom-flex-start entrystyling heightclass");
+        attr.Add("style", $"text-align:start;width:100%;");
+        attr.Add("id", $"{item.ControlName}");
+        if (item.IsUpperCase)
+        {
+            object value = "";
+            object value2 = "";
+
+            if (attr.TryGetValue("style", out value))
+            {
+                value = value + "text-transform:uppercase;";
+                attr.Remove("style");
+                attr.Add("style", value);
+            }
+            if (attr.TryGetValue("class", out value2))
+            {
+                value2 = value2 + " " + "toUp";
+                attr.Remove("class");
+                attr.Add("class", value2);
+            }
+
+        }
+
+        <div class="custom-flex-@item.Width custom-flex-start custom-flex-column entrybox" style="padding:3px; margin: 0.5% 0%;">
+            @if (item.IsMandatory)
+            {
+                <div class="custom-flex-row custom-flex-100" style="width:100%">
+                    @Html.Label(item.ControlName, item.ControlName, attrlb)
+                    <i class="fa fa-asterisk" aria-hidden="true" style="font-size:8px;"></i>
+                </div>
+            }
+            else
+            {
+                @Html.Label(item.ControlName, item.ControlName, attrlb)
+            }
+            @Html.TextBox(item.ControlName, null, attr)
+        </div>
+    }
+}
+@{
+    void DoDateTimeNullReadOnly(DateTimeModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-25 custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"html: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+        attr.Add("disabled", "");
+        attr.Add("class", $"custom-flex-100 custom-flex-start entrystyling heightclass datePickerElement");
+        attr.Add("style", $"text-align:start;width:100%;align-self: start;");
+        attr.Add("id", $"{item.ControlName}");
+        attr.Add("placeholder", $"DD/MM/YYYY");
+
+        datepickerreadonly = "pointer-events:none;";
+
+        <div class="custom-flex-@item.Width custom-flex-start custom-flex-column entrybox" style="padding:0px; margin: 0.5% 0%;">
+            @Html.Label(item.ControlName, item.ControlName, attrlb)
+            <div class="custom-flex-row" style="width: 100%;">
+                @Html.TextBox("50", null, attr)
+            </div>
+        </div>
+    }
+}
+@{
+    void DoComboBoxNullReadOnly(ItemModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width} custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"text: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+        attrlb.Add("readonly", "");
+        attr.Add("class", $"custom-flex-100 custom-flex-start entrystyling heightclass");
+        attr.Add("style", $"text-align:start;width:100%;");
+        attr.Add("id", $"{item.ControlName}");
+        <div class="custom-flex-@item.Width custom-flex-start custom-flex-column entrybox" style="margin: 0.5% 0%;">
+            @Html.Label(item.ControlName, item.ControlName, attrlb)
+
+            <select style="height:22px;align-self:center;width:100%;margin-bottom:1px" class="custom-flex-100 custom-flex-end entrystyling" id="@( $"{item.ControlName}")" placeholder="Select" data-bind="options: ResourceHandler.@( $"{item.ControlName}")(), optionsText: 'Description', optionsValue: 'Id',value: @( $"{item.ControlName}"), event: { change: GetSelectedValue.bind($data) }">
+            </select>
+
+        </div>
+    }
+}
+@{
+    void DoCheckBoxNullReadOnly(ItemModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width} custom-flex-start  heightclass labelLanguageChange");
+        if (item.IsBold)
+            attrlb.Add("style", "font-weight:900 !important;");
+
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"html: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+         attr.Add("disabled", "");
+        attr.Add("class", $" custom-flex-20 custom-flex-start  ");
+        attr.Add("style", $"text-align:start;width:100%;");
+        attr.Add("type", "checkbox");
+        attr.Add("id", $"{item.ControlName}");
+        attr.Add("name", $"{item.ControlName}");
+        <div class="custom-flex-@item.Width custom-flex-row entrybox" style="margin: 0.5% 0%;">
+            @Html.Label(Convert.ToString(item.ControlName), "", attrlb)
+            @Html.CheckBox(item.ControlName, false, attr)
+        </div>
+    }
+}
+@{
+    void DoLabelBoxNullReadOnly(LabelModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width} custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start; display: inline;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"html: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        <div class="custom-flex-@item.Width custom-flex-start entrybox" style="padding:0px; margin: 0.5% 0%;">
+            @Html.Label(item.ControlName, item.ControlName, attrlb)
+        </div>
+    }
+}
+@{
+    void DoTextBoxNullReadOnly(ItemModel item)
+    {
+        Dictionary<string, object> attrlb = new Dictionary<string, object>();
+        attrlb.Add("class", $"custom-flex-{item.Width / 1.5} custom-flex-start labelstyling heightclass labelLanguageChange");
+        attrlb.Add("style", "align-self: start;");
+        attrlb.Add("id", $"{item.ControlName}lbl");
+        attrlb.Add("data_bind", $"text: LanguageHandler.selectedDictionary() != null ? LanguageHandler.selectedDictionary().{item.ControlName} : null");
+
+        Dictionary<string, object> attr = new Dictionary<string, object>();
+        attr.Add("readonly", "");
+        attr.Add("class", $"custom-flex-100 custom-flex-start entrystyling heightclass");
+        attr.Add("style", $"text-align:start;width:100%;");
+        attr.Add("id", $"{item.ControlName}");
+
+        <div class="custom-flex-@item.Width custom-flex-start custom-flex-column entrybox" style="padding:3px; margin: 0.5% 0%;">
+            @Html.Label(item.ControlName, item.ControlName, attrlb)
+            @Html.TextBox(item.ControlName, null, attr)
+        </div>
+    }
+}
+
+<script>
+    var tmp1 = this;
+    tmp1.HotelLogo = ko.observable(null);
+    tmp1.IsContactless = ko.observable(false);
+    tmp1.Loading = ko.observable(false);
+    tmp1.String1Tmp = "";
+    tmp1.pageLoadInterval = null;
+    tmp1.AnredeInterval = null;
+    tmp1.timeoutCleanForm = null;
+    tmp1.currentTab = 0; // Current tab is set to be the first tab (0)
+    tmp1.customerIndex = ko.observable(0);
+    var customerList = [];
+    var myhtml = document.getElementById("contentMainForm");
+    var xhr = new XMLHttpRequest();
+    var contactless_flag = 0;
+    var element = document.getElementById('contentMainForm');
+
+    xhr.onload = function () {
+        const ele = document.getElementById("contentMainForm");
+    };
+
+    function GetHotelLogo() {
+        $.ajax({
+            url: "/FC/GetHotelLogo?hotelId=" + localStorage.ConfigHotelName,
+            cache: false,
+            type: "GET",
+            crossdomain: false,
+            dataType: "json",
+            ContentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (response !== undefined && response !== null) {
+                    let hotelLogo = "data:image/png;base64," + response.Logo;
+                    tmp1.HotelLogo(hotelLogo);
+                    GetDataFromDictionary();
+                } else {
+                    console.log("Unable to get hotelLogo with id: " + localStorage.ConfigHotelName + "!");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    };
+
+tmp1.pageLoadInterval = setInterval(function () {
+    if (document.getElementsByClassName("tab").length > 0 && LanguageHandler.selectedDictionary() != null) {
+        clearInterval(pageLoadInterval);
+        //################################################### Step Wizard on Form For Multiple Profiles ################################################################//
+        //##############################################################################################################################################################//
+        tmp1.currentTab = 0; // Current tab is set to be the first tab (0)
+        showTab(tmp1.currentTab); // Display the current tab
+        tmp1.nextPrev = function (n) {
+            tmp1.Loading(true);
+            var x = document.getElementsByClassName("tab");
+            if (n >= 0) {
+                toAppercaseElements();
+                //Validate Form
+                var validateFlag = ValidationForm();
+                if (validateFlag == true) {
+                     x[tmp1.currentTab].style.display = "none";
+                     tmp1.currentTab = tmp1.currentTab + n;
+                     if (tmp1.currentTab >= x.length) {
+                           placeSignatureBtn();
+                           return false;
+                     }
+                     // Otherwise, display the correct tab:
+                     showTab(tmp1.currentTab);
+                }
+                else {
+                    showTab(tmp1.currentTab);
+                }
+            }
+            else {
+                x[tmp1.currentTab].style.display = "none";
+                tmp1.currentTab = tmp1.currentTab + n;
+                showTab(tmp1.currentTab);
+                tmp1.Loading(false);
+            }
+        }
+    }
+}, 100);
+    $(document).ready(function () {
+    var currentUrl = (window.location.protocol) + "//" + (window.location.hostname) + (window.location.port != "" ? ":" + window.location.port : "") + "/";
+    $('#imgdiv').show();
+    tmp1.IsContactless(false);
+    LanguageHandler.SetHotelID("@ViewBag.config.hotelname");
+    LanguageHandler.SetApi(currentUrl);
+    LanguageHandler.GetTranslations();
+    ResourceHandler.SetHotelID("@ViewBag.config.hotelname");
+    ResourceHandler.SetApi(currentUrl);
+    ResourceHandler.InitializeResources();
+    SignalRHandler.SetHotelID("@ViewBag.config.hotelname");
+    SignalRHandler.SetApi(currentUrl);
+    localStorage.ConfigURL = currentUrl;
+    localStorage.ConfigGroupName = "@ViewBag.config.grpname";
+    localStorage.ConfigHotelName = "@ViewBag.config.hotelname";
+
+        GetHotelLogo();
+
+        if ("@decryptedstring" !== "") {
+            SignalRHandler.showTimerFlag(false);
+            contactless_flag = 1;
+            SignalRHandler.InvokeFromMobile("@decryptedstring");
+        }
+        else {
+            GetSignalRConfiguration();
+        }
+
+    var changeLanguageAuto = ko.computed(function () {
+        if (SignalRHandler.customer() != null) {
+            if (typeof localStorage.CustomerInput !== 'undefined' && localStorage.backButtonFlag == "true") {
+                var customerUpdatedInput = JSON.parse(localStorage.CustomerInput);
+                SignalRHandler.customer(customerUpdatedInput);
+                localStorage.backButtonFlag = false;
+            }
+
+            for (i = 0; i < SignalRHandler.customer().length; i++) {
+                if (SignalRHandler.customer()[i].ShowPrice === false) {
+                    SignalRHandler.customer()[i].Price = null;
+                    let priceUI = document.getElementById('Price');
+                    if (priceUI !== null && priceUI !== undefined)
+                        priceUI.value  = null;
+                }
+            }
+
+             var languageChoosed = setInterval(function () {
+                if (LanguageHandler.availableLanguages().length > 0) {
+                    clearInterval(languageChoosed);
+                    LanguageHandler.ChangeLanguage(SignalRHandler.customer()[0].LanguageCode);
+                    LanguageHandler.selectedLanguage(SignalRHandler.customer()[0].LanguageCode);
+
+                    var languageId = 0;
+                    ko.utils.arrayForEach(LanguageHandler.availableLanguages(), function (lang) {
+                        if (lang.Code == LanguageHandler.selectedLanguage()) {
+                            languageId = lang.Id;
+                        }
+                    });
+
+                    ResourceHandler.GetTitles(languageId);
+
+                     ko.utils.arrayForEach(SignalRHandler.customer(), function (cust) {
+                        cust.LanguageCode = LanguageHandler.selectedLanguage();
+                        cust.LanguageId = languageId.toString();
+                    });
+                }
+             }, 1100);
+
+            localStorage.fname = SignalRHandler.customer()[tmp1.customerIndex()] != null && SignalRHandler.customer()[tmp1.customerIndex()] != undefined ? SignalRHandler.customer()[tmp1.customerIndex()].FirstName : "";
+            localStorage.lname = SignalRHandler.customer()[tmp1.customerIndex()] != null && SignalRHandler.customer()[tmp1.customerIndex()] != undefined ? SignalRHandler.customer()[tmp1.customerIndex()].LastName : "";
+
+            if (SignalRHandler.baseinfo().Mode == 1 && contactless_flag == 0) {
+                $('#imgdiv').hide();
+                tmp1.IsContactless(true);
+                //$('#contentMainForm').hide();
+                //$('#contactless').show();
+                qrfetchsucess()
+                localStorage.Remote = 1;
+                var fname = document.getElementById('firstname');
+                var lname = document.getElementById('lastname');
+                var fnamedisplayed = localStorage.fname;
+                var lnamedisplayed = localStorage.lname;
+                fnamedisplayed = fnamedisplayed[0] + fnamedisplayed[1] + fnamedisplayed.slice(2).replace(/.(?!$)/g, '*')
+                lnamedisplayed = lnamedisplayed[0] + lnamedisplayed[1] + lnamedisplayed.slice(2).replace(/.(?!$)/g, '*')
+                fname.textContent = "Firstname : " + fnamedisplayed;
+                lname.textContent = "Lastname :" + lnamedisplayed;
+                var qrurl_without_dash = currentUrl;
+                if (qrurl_without_dash.endsWith('/'))
+                    qrurl_without_dash = qrurl_without_dash.substring(0, qrurl_without_dash.length - 1);
+                if (!SignalRHandler.String1Encrypted())
+                    SignalRHandler.String1Encrypted("@encryptedstring");
+
+                myqrcode = document.getElementById('qrcode');
+                if (myqrcode != null) {
+                    myqrcode.innerHTML = "";
+                    new QRCode(myqrcode, {
+                        text: currentUrl + "FC/redirect?u=&str=" + SignalRHandler.String1Encrypted() + "&h=" + "@ViewBag.config.hotelname",
+                        width: 150,
+                        height: 150,
+                    });
+                }
+
+                setTimeout(function () {
+                    //Delete Customer From Dictionary
+                    const urldeletestring1 = localStorage.ConfigURL + 'api/MainActions/Delete/' + localStorage.ConfigHotelName + "/" + SignalRHandler.baseinfo().String1;
+                    xhr.open("GET", urldeletestring1);
+                    xhr.setRequestHeader("Content-type", "application/json");
+                    xhr.send();
+                    //Delete Localstorage
+                    SignalRHandler.customer(null);
+                    SignalRHandler.baseinfo().Mode = 0;
+                    SignalRHandler.baseinfo().String1 = "";
+                    localStorage.baseinfo = JSON.stringify(SignalRHandler.baseinfo());
+                    //Show/Hide
+                    tmp1.IsContactless(false);
+                }, 300000);
+            }
+
+            if (SignalRHandler.baseinfo().Mode == 2 || SignalRHandler.baseinfo().Mode == 4) {
+                localStorage.Remote = 1;
+                SignalRHandler.baseinfo().String1Encrypted = "@encryptedstring";
+            }
+            else {
+                localStorage.Remote = 0;
+            }
+            localStorage.baseinfo = JSON.stringify(SignalRHandler.baseinfo());
+            localStorage.string1 = SignalRHandler.customer()[0].String1;
+            if (SignalRHandler.customer != null) {
+                document.getElementById('clientindex').innerHTML = tmp1.customerIndex() + 1;
+                document.getElementById('totalclientsindex ').innerHTML = SignalRHandler.customer().length;
+                $('#fakepage').remove();
+
+                localStorage.room = SignalRHandler.customer()[0].Room;
+                localStorage.kdnr = SignalRHandler.customer()[0].kdnr;
+                localStorage.buchnr = SignalRHandler.customer()[0].Buchnr;
+                localStorage.mode = SignalRHandler.baseinfo().Mode;
+                localStorage.mpehotel = SignalRHandler.customer()[0].mpehotel;
+                localStorage.resno = SignalRHandler.customer()[0].ReservationNo;
+                localStorage.lname = SignalRHandler.customer()[0].LastName;
+            }
+        }
+    });
+    var autoLanguageUpdate = ko.computed(function () {
+        if (LanguageHandler !== null && LanguageHandler.selectedDictionary() !== null) {
+            UpdateLanguageCheckBox("MemberId");
+            UpdateLanguageCheckBox("FirstName");
+            UpdateLanguageCheckBox("LastName");
+            UpdateLanguageCheckBox("Company");
+            UpdateLanguageCheckBox("DateOfBirth");
+            UpdateLanguageCheckBox("Street");
+            UpdateLanguageCheckBox("ZipCode");
+            UpdateLanguageCheckBox("City");
+            UpdateLanguageCheckBox("Passport");
+            UpdateLanguageCheckBox("Nationality");
+            UpdateLanguageCheckBox("MethodOfPayment");
+            UpdateLanguageCheckBox("Country");
+            UpdateLanguageCheckBox("CountryId");
+            UpdateLanguageCheckBox("Email");
+            UpdateLanguageCheckBox("Phone");
+            UpdateLanguageCheckBox("Mobile");
+            UpdateLanguageCheckBox("ReservationNo");
+            UpdateLanguageCheckBox("Arrival");
+            UpdateLanguageCheckBox("Departure");
+            UpdateLanguageCheckBox("Room");
+            UpdateLanguageCheckBox("Signature");
+            UpdateLanguageCheckBox("ShowPrice");
+            UpdateLanguageCheckBox("Price");
+            UpdateLanguageCheckBox("IsInvoice");
+            UpdateLanguageCheckBox("Afm");
+            UpdateLanguageCheckBox("CreditCard");
+            UpdateLanguageCheckBox("AcceptanceText");
+            UpdateLanguageCheckBox("InvoiceAfm");
+            UpdateLanguageCheckBox("InvoiceCompany");
+            UpdateLanguageCheckBox("InvoiceOccupation");
+            UpdateLanguageCheckBox("InvoiceStreet");
+            UpdateLanguageCheckBox("InvoiceZipCode");
+            UpdateLanguageCheckBox("InvoiceCity");
+            UpdateLanguageCheckBox("InvoiceCountry");
+            UpdateLanguageCheckBox("SendLetter");
+            UpdateLanguageCheckBox("SendPhone");
+            UpdateLanguageCheckBox("SendEmail");
+            UpdateLanguageCheckBox("SendTextMessage");
+            UpdateLanguageCheckBox("CheckAllAds");
+            UpdateLanguageCheckBox("CheckedItem1");
+            UpdateLanguageCheckBox("CheckedItem2");
+            UpdateLanguageCheckBox("CheckedItem3");
+            UpdateLanguageCheckBox("CheckedItem4");
+            UpdateLanguageCheckBox("CheckedItem5");
+            UpdateLanguageCheckBox("CheckedItem6");
+            UpdateLanguageCheckBox("CheckedItem7");
+            UpdateLanguageCheckBox("CheckedItem8");
+            UpdateLanguageCheckBox("CheckedItem9");
+            UpdateLanguageCheckBox("CheckedItem10");
+            UpdateLanguageCheckBox("CheckedItem11");
+            UpdateLanguageCheckBox("CheckedItem12");
+            UpdateLanguageCheckBox("CheckedItem13");
+            UpdateLanguageCheckBox("CheckedItem14");
+            UpdateLanguageCheckBox("CheckedItem15");
+            UpdateLanguageCheckBox("CheckedItem16");
+            UpdateLanguageCheckBox("CheckedItem17");
+            UpdateLanguageCheckBox("CheckedItem18");
+            UpdateLanguageCheckBox("CheckedItem19");
+            UpdateLanguageCheckBox("CheckedItem20");
+            UpdateLanguageCheckBox("Label1");
+            UpdateLanguageCheckBox("Label2");
+            UpdateLanguageCheckBox("Label3");
+            UpdateLanguageCheckBox("Label4");
+            UpdateLanguageCheckBox("Label5");
+            UpdateLanguageCheckBox("Label6");
+            UpdateLanguageCheckBox("Label7");
+            UpdateLanguageCheckBox("Label8");
+            UpdateLanguageCheckBox("Label9");
+            UpdateLanguageCheckBox("Label10");
+            UpdateLanguageCheckBox("Label11");
+            UpdateLanguageCheckBox("Label12");
+            UpdateLanguageCheckBox("Label13");
+            UpdateLanguageCheckBox("Label14");
+            UpdateLanguageCheckBox("Label15");
+            UpdateLanguageCheckBox("Label16");
+            UpdateLanguageCheckBox("Label17");
+            UpdateLanguageCheckBox("Label18");
+            UpdateLanguageCheckBox("Label19");
+            UpdateLanguageCheckBox("Label20");
+            UpdateLanguageCheckBox("MemberCard");
+            UpdateLanguageCheckBox("FreeText1");
+            UpdateLanguageCheckBox("FreeText2");
+            UpdateLanguageCheckBox("FreeText3");
+            UpdateLanguageCheckBox("FreeText4");
+            UpdateLanguageCheckBox("FreeText5");
+            UpdateLanguageCheckBox("FreeText6");
+            UpdateLanguageCheckBox("FreeText7");
+            UpdateLanguageCheckBox("FreeText8");
+            UpdateLanguageCheckBox("FreeText9");
+            UpdateLanguageCheckBox("FreeText10");
+            UpdateLanguageCheckBox("FreeText11");
+            UpdateLanguageCheckBox("FreeText12"); 
+        }
+    });
+});
+function placeSignatureBtn() {
+    tmp1.Loading(true);
+
+    var validateFlag = ValidationForm();
+    if (validateFlag == false) {
+        tmp1.Loading(false);
+        return;
+    }
+
+    localStorage.CustomerInput = JSON.stringify(SignalRHandler.customer());
+    // Got To Signature Page
+    var link = localStorage.ConfigURL + "ESignature/GetSettings?hotelId=" + "@ViewBag.config.hotelname";
+    tmp1.Loading(false);
+    window.location.href = link;
+}
+
+$('#resettext').click(function () {
+    if (curSize < 5)
+        $('#content').css('font-size', 5);
+    else if (curSize > 25)
+        $('#content').css('font-size', 25);
+    else
+        $('#content').css('font-size', curSize);
+});
+$('#IncreaseFont_Clicked').click(function () {
+
+    curSize = parseInt($('#contentMainForm').css('font-size')) + 2;
+    if (curSize <= 25)
+        $('#contentMainForm').css('font-size', curSize);
+});
+$('#DecreaseFont_Clicked').click(function () {
+
+    curSize = parseInt($('#contentMainForm').css('font-size')) - 2;
+    if (curSize >= 5)
+        $('#contentMainForm').css('font-size', curSize);
+});
+function GetSignalRConfiguration() {
+    $.ajax({
+        url: "/FC/GetSignalRConfiguration",
+        cache: false,
+        type: "GET",
+        crossdomain: false,
+        dataType: "json",
+        ContentType: "application/json; charset=utf-8",
+        success: function (response) {
+            if (response !== undefined && response !== null) {
+                let signalRConfig = new SignalRModel(response);
+                SignalRHandler.SetSignalRModel(signalRConfig, "@decryptedstring");
+                SignalRHandler.Connect("@ViewBag.config.grpname");
+            } else {
+                console.log("Unable to get SignalR Configuration From System Info!");
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+};
+</script>
+
+<style>
+.entrystyling {
+        color: @format.entryAttributes.textColor;
+        font-family: @format.entryAttributes.fontFamily;
+        opacity: 1;
+        font-weight: @format.entryAttributes.fontWeight;
+        background-color:@format.entryAttributes.backColor;
+        border-color:@format.entryboxAttributes.EntryBoxBorderColor;
+        border-left-width:@($"{format.entryboxAttributes.EntryBoxBorderWidthLeft}px;");
+        border-right-width:    @($"{format.entryboxAttributes.EntryBoxBorderWidthRight}px;");
+        border-bottom-width:@($"{format.entryboxAttributes.EntryBoxBorderWidthBottom}px;");
+        border-top-width:@($"{format.entryboxAttributes.EntryBoxBorderWidthTop}px;");
+        border-style:solid;
+    }
+.entrystyling:focus {
+                margin: 0px;
+                box-shadow: none;
+                border-color:@format.entryboxAttributes.EntryBoxBorderColor;
+                 border-left-width:@($"{format.entryboxAttributes.EntryBoxBorderWidthLeft}px;");
+                border-right-width:    @($"{format.entryboxAttributes.EntryBoxBorderWidthRight}px;");
+                border-bottom-width:@($"{format.entryboxAttributes.EntryBoxBorderWidthBottom}px;");
+                border-top-width:@($"{format.entryboxAttributes.EntryBoxBorderWidthTop}px;");
+            }
+.labelstyling {
+                color: @format.labelAttributes.textColor;
+                font-family: @format.labelAttributes.fontFamily;
+                font-weight: @format.labelAttributes.fontWeight;
+                text-align: @format.labelAttributes.textAlign;
+                margin-left: @($"{format.labelAttributes.LabelsMarginLeft}px;");
+                margin-top: @($"{format.labelAttributes.LabelsMarginTop}px;");
+                margin-bottom: @($"{format.labelAttributes.LabelsMarginBottom}px;");
+                margin-right: @($"{format.labelAttributes.LabelsMarginRight}px;");
+            }
+ .userlogo {
+        color: @format.labelAttributes.textColor;
+        width: 150px;
+    }
+ .entrybox {
+        margin-bottom: @($"{format.entryboxAttributes.EntryBoxMarginBottom}px;");
+        margin-top: @($"{format.entryboxAttributes.EntryBoxMarginTop}px;");
+        margin-left: @($"{format.entryboxAttributes.EntryBoxMarginLeft}px;");
+        margin-right: @($"{format.entryboxAttributes.EntryBoxMarginRight}px;");
+    }
+ .logo {
+        background-color: @format.headerAttributes.headerBackgroundColor;
+        margin-top: 5px;
+        height: auto;
+        width: 80%;
+        object-fit: contain;
+    }
+ .linebox {
+        margin-bottom: @format.lineboxAttributes.lineBoxMarginBottom;
+        margin-top: @format.lineboxAttributes.lineBoxMarginTop;
+        margin-left: @format.lineboxAttributes.lineBoxMarginLeft;
+        margin-right: @format.lineboxAttributes.lineBoxMarginRight;
+    }
+ .entrybox {
+        margin-bottom: @format.entryboxAttributes.EntryBoxMarginBottom;
+        margin-top: @format.entryboxAttributes.EntryBoxMarginTop;
+        margin-left: @format.entryboxAttributes.EntryBoxMarginLeft;
+        margin-right: @format.entryboxAttributes.EntryBoxMarginRight;
+    }
+ .step.active {
+        opacity: 1;
+        background-color: @format.headerAttributes.headerBackgroundColor;
+    }
+ #formIdStyling {
+        width: 75%;
+    }
+.privacystyling {
+        font-family: @privacy.fontFamily;
+        color: @privacy.textColor;
+    }
+    .headerstyling {
+        background-color: @format.headerAttributes.headerBackgroundColor;
+        font-weight: @format.headerAttributes.headerFontWeight;
+        color: @format.headerAttributes.headerFontColor;
+        font-family: @format.headerAttributes.headerfontFamily;
+    }
+.btn--custom {
+    background-color: @format.headerAttributes.headerBackgroundColor;
+    color:black;
+
+}
+#contentMainForm,body {
+  background-color: @format.pageBackgroundColor;
+  overflow-x:hidden;
+}
+ .btn--custom::after {
+        background-color: @format.headerAttributes.headerBackgroundColor;
+    }
+  .header-photo {
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    background-color: @format.headerAttributes.headerBackgroundColor;
+}
+</style>
+
+
+

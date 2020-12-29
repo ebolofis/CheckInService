@@ -1,0 +1,114 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <br />
+            <form data-bind="with: LanguageHandler">
+                <div class="col-xs-12">
+                    <div class="text-center">
+                        <img data-bind="attr: { 'src' : tmp3.HotelLogo() }" style="height:125px;margin-top:10px;">
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <br />
+                </div>
+                <div class="col-xs-12">
+                    <br />
+                </div>
+                <div class="col-xs-12">
+                    <label style="font-family:Montserrat Regular 400; font-size:24px;" data-bind="text: selectedDictionary() != null?selectedDictionary().YourCheckTxt +' '+ selectedDictionary().IsCompleteTxt:null"></label>
+                    <hr />
+                </div>
+                <div class="col-xs-12">
+                    <label style="font-family:Montserrat Regular 400; font-size:12px;" data-bind="text: selectedDictionary() != null?selectedDictionary().WelcometoTxt +' '+ selectedDictionary().HaveNiceStayTxt:null"></label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var tmp3 = this;
+    tmp3.HotelLogo = ko.observable(null);
+
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        const ele = document.getElementById("contentMainForm");
+    };
+
+     function GetHotelLogo() {
+        $.ajax({
+            url: "/FC/GetHotelLogo?hotelId=" + localStorage.ConfigHotelName,
+            cache: false,
+            type: "GET",
+            crossdomain: false,
+            dataType: "json",
+            ContentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (response !== undefined && response !== null) {
+                    let hotelLogo = "data:image/png;base64," + response.Logo;
+                    tmp3.HotelLogo(hotelLogo);
+                } else {
+                     console.log("Unable to get hotelLogo with id: " + localStorage.ConfigHotelName + "!");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    };
+
+    $(document).ready(function () {
+        LanguageHandler.SetHotelID(localStorage.ConfigHotelName);
+        LanguageHandler.SetApi(localStorage.ConfigURL);
+        LanguageHandler.GetTranslations();
+
+        GetHotelLogo();
+
+        if (localStorage.mode > 0) {
+            var url_for_getpassbook = localStorage.ConfigURL + 'ThankYou/GetPassbook?string1=' +
+                localStorage.string1 +
+                "&buchnr=" + localStorage.buchnr +
+                "&room=" + localStorage.room +
+                "&kdnr=" + localStorage.kdnr +
+                "&hotelId=" + localStorage.ConfigHotelName;
+            window.location.href = url_for_getpassbook;
+        }
+
+        const url_for_deletemodel = localStorage.ConfigURL + 'api/MainActions/Delete/' + localStorage.ConfigHotelName + "/" + localStorage.string1;
+        xhr.open("GET", url_for_deletemodel);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send();
+
+
+
+        setTimeout(function () {
+            localStorage.removeItem("CustomerInput");
+            if (localStorage.mode == 0) {
+                var link = localStorage.ConfigURL + "FC/GetSettings?u=" + localStorage.ConfigURL + "&g=" + localStorage.ConfigGroupName + "&h=" + localStorage.ConfigHotelName;
+                window.location.href = link;
+            }
+            else if (localStorage.mode == 2) {
+                var link = localStorage.ConfigURL + "Precheckin/barcode?h=" + localStorage.ConfigHotelName;
+                window.location.href = link;
+            }
+        }, 6000);
+
+    });
+
+    var languageChoosed = setInterval(function () {
+        if (LanguageHandler.availableLanguages().length > 0) {
+            clearInterval(languageChoosed);
+            LanguageHandler.ChangeLanguage(localStorage.GlobalLanguageCode);
+        }
+    }, 1100);
+</script>
+
+
+
+
+
+
+

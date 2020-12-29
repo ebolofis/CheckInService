@@ -1,0 +1,56 @@
+﻿@media only screen and (max-width: 1281px) {
+    .logo-image-container {
+        width: 90%;
+        height: 90%;
+    }
+
+    .precheckin-container {
+        width: 40%;
+        height: 75%;
+    }
+
+    .precheckin-header-container {
+        width: 99%;
+        height: 80%;
+    }
+
+    .precheckin-header {
+        font-size: 1.75rem;
+    }
+
+    .precheckin-body-container {
+        padding: 2%;
+    }
+
+    .precheckin-text {
+        font-size: 1.1875rem;
+    }
+
+    .precheckin-input {
+        width: 90%;
+        height: 75%;
+        padding: 0% 1%;
+        font-size: 1.1875rem;
+    }
+
+    .precheckin-label {
+        width: 90%;
+        height: 75%;
+        padding: 0% 1%;
+        font-size: 1.1875rem;
+    }
+
+    .precheckin-date-button {
+        width: 45%;
+        height: 75%;
+    }
+
+    .precheckin-button {
+        width: 30%;
+        height: 80%;
+    }
+
+    .precheckin-button-text {
+        font-size: 1.1875rem;
+    }
+}

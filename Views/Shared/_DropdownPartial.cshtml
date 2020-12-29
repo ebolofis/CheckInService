@@ -1,0 +1,24 @@
+﻿@using CheckInService.Controllers;
+@using CheckInService.Models;
+@using CheckinBack.Models;
+
+
+@{
+    ViewData["Title"] = "Custom";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var config = ViewBag.Config as SettingsModel;
+    var format = ViewBag.Format as GlobalAttributesModel;
+    var privacy = ViewBag.Privacy as PrivacyPolicyModel;
+
+}
+
+@Html.DropDownList("Departments", new List<SelectListItem>
+{
+new SelectListItem{Text="IT", Value="1", Selected=true},
+new SelectListItem{Text="HR", Value="1"},
+new SelectListItem{Text="Payroll", Value="1"},
+}, "Select Department")
+
+
+

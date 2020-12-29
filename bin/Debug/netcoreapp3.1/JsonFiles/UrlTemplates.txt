@@ -1,0 +1,87 @@
+[
+  {
+   "Id":"0000",
+    "Description": "Fast Checkin Classic",
+    "Url": "<burl>/fc/getsettings?u=&g=<g>&h=<h>",
+    "IsHotelDirectory": false,
+    "Order":0
+  },
+  {
+    "Id":"0001",
+    "Description": "Fast Checkin Contactless",
+    "Url": "<burl>/fc/redirect?u=&str=<str>&h=<h>",
+    "IsHotelDirectory": false,
+    "Order":0
+  },
+  {
+    "Id":"0002",
+    "Description": "Pre-Checkin",
+    "Url": "<burl>/precheckin/barcode?h=<h>",
+    "IsHotelDirectory": false,
+    "Order":0
+  },
+  {
+    "Id":"0003",
+    "Description": "Pre-Checkin For Reservation",
+    "Url": "<burl>/PreCheckIn/BarcodeReady?h=<h>&str=<*str>",   
+    "IsHotelDirectory": false,
+    "Order":0
+  },
+  {
+    "Id":"0004",
+    "Description": "Email Confirmation",
+    "Url": "<burl>/EmailConfirmation/Index?h=<h>&k=<k>",   
+    "IsHotelDirectory": false,
+    "Order":0
+  },
+   {
+    "Id":"0005",
+    "Description": "Readonly Form",
+    "Url": "<burl>/PreCheckIn/BarcodeReadyReadonly?h=<h>&str=<*str>",   
+    "IsHotelDirectory": false,
+    "Order":0
+  },
+   {
+    "Id":"0006",
+    "Description": "Passbook Download",
+    "Url": "<burl>/Wallet?h=<h>&str=<*str>",   
+    "IsHotelDirectory": false,
+    "Order":0
+  },
+  {
+    "Id":"1000",
+    "Description": "Table Reservation",
+    "Url": "<url1>/Home/IndexWithRoom?r=<r>&a=<a>&d=<d>&n=<n>",
+    "IsHotelDirectory": true,
+    "Order":1
+  },
+  {
+    "Id":"1001",
+    "Description": "Time Table",
+    "Url": "<url2>/Home/IndexWithRoom?r=<r>&a=<a>&d=<d>&n=<n>",
+    "IsHotelDirectory": true,
+    "Order":2
+  },
+
+  {
+    "Id":"1002",
+    "Description": "Messaging",
+    "Url": "<burl>/chat/index?h=<h>&re=<re>&a=<a>&d=<d>",
+    "IsHotelDirectory": true,
+    "Order":4
+  },
+  {
+    "Id":"1003",
+    "Description": "House Keeping",
+    "Url": "<burl>/housekeeping/index?h=<h>&z=<z>&r=<r>&a=<a>&d=<d>",
+    "IsHotelDirectory": true,
+    "Order":3
+  },
+   {
+    "Id":"1004",
+    "Description": "View Bill",
+    "Url": "<burl>/viewbill/index?h=<h>&le=<le>&a=<a>&d=<d>",
+    "IsHotelDirectory": true,
+    "Order":5
+  }
+]

@@ -1,0 +1,610 @@
+﻿@model List<CheckedBoxItemModel>
+@using CheckInService.Controllers;
+@using CheckInService.Models;
+@using CheckinBack.Models;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper AuthoringTagHelpers.TagHelpers.EmailTagHelper, AuthoringTagHelpers
+@inject IHtmlHelper htmlHelper
+
+
+@{
+    var config = ViewBag.Config as SettingsModel;
+    var format = ViewBag.Format as GlobalAttributesModel;
+    var privacy = ViewBag.Privacy as PrivacyPolicyModel;
+
+    List<LanguagesMessagesModel> langmessages = new List<LanguagesMessagesModel>();
+    langmessages = ViewBag.langmessages;
+}
+
+    <div class="custom-flex-row custom-flex-5 custom-flex-start linebox" style="height:120px;">
+        @if (Model.Count() == 2 && (Model[0].Width == 75 && Model[1].Width == 25) || (Model[0].Width == 25 && Model[1].Width == 75))
+        {
+            if (Model[0].Width == 25)
+            {
+                if (Model[0].IsMandatory == true && Model[1].IsMandatory == true)
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName + "*"), "", new { @class = "custom-flex-25 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[0].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName + "*"), "", new { @class = "custom-flex-75 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[1].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+                else if (Model[0].IsMandatory == true)
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName + "*"), "", new { @class = "custom-flex-25 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[0].ControlName + "lbl", required = "required", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName), "", new { @class = "custom-flex-75 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[1].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+                else if (Model[1].IsMandatory == true)
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName), "", new { @class = "custom-flex-25 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[0].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName + "*"), "", new { @class = "custom-flex-75 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[1].ControlName + "lbl", required = "required", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+                else
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName), "", new { @class = "custom-flex-25 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[0].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName), "", new { @class = "custom-flex-75 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[1].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+            }
+            else
+            {
+                if (Model[0].IsMandatory == true && Model[1].IsMandatory == true)
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName + "*"), "", new { @class = "custom-flex-75 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[0].ControlName + "lbl", required = "required", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName + "*"), "", new { @class = "custom-flex-25 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[1].ControlName + "lbl", required = "required", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+                else if (Model[0].IsMandatory == true)
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName + "*"), "", new { @class = "custom-flex-75 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[0].ControlName + "lbl", required = "required", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName), "", new { @class = "custom-flex-25 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[1].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+                else if (Model[1].IsMandatory == true)
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName), "", new { @class = "custom-flex-75 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[0].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName + "*"), "", new { @class = "custom-flex-25 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[1].ControlName + "lbl", required = "required", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+                else
+                {
+                    if (Model[1].Width == 25)
+                    {
+                        @htmlHelper.Label(Convert.ToString(Model[0].ControlName), "", new { @class = "custom-flex-75 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[0].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                        @htmlHelper.Label(Convert.ToString(Model[1].ControlName), "", new { @class = "custom-flex-25 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[1].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                    }
+                    else
+                    {
+                        @htmlHelper.Label(Convert.ToString(Model[0].ControlName), "", new { @class = "custom-flex-25 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[0].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                        @htmlHelper.Label(Convert.ToString(Model[1].ControlName), "", new { @class = "custom-flex-75 custom-flex-start labelstyling", @style = "margin-top:-10px;align-self: start;", @id = Model[1].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                    }
+                }
+            }
+        }
+        else if (Model.Count() == 2 && ((Model[0].Width == 33 && Model[1].Width == 67) || (Model[0].Width == 67 && Model[1].Width == 33)))
+        {
+            if (Model[0].Width == 33)
+            {
+                if (Model[0].IsMandatory == true && Model[1].IsMandatory == true)
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName + "*"), "", new { @class = "custom-flex-33 custom-flex-start labelstyling", @id = Model[0].ControlName + "lbl", required = "required", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName + "*"), "", new { @class = "custom-flex-67 custom-flex-start labelstyling", @id = Model[1].ControlName + "lbl", required = "required", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+                else if (Model[0].IsMandatory == true)
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName + "*"), "", new { @class = "custom-flex-33 custom-flex-start labelstyling", @id = Model[0].ControlName + "lbl", required = "required", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName), "", new { @class = "custom-flex-67 custom-flex-start labelstyling", @id = Model[1].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+                else if (Model[1].IsMandatory == true)
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName), "", new { @class = "custom-flex-33 custom-flex-start labelstyling", @id = Model[0].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName + "*"), "", new { @class = "custom-flex-67 custom-flex-start labelstyling", @id = Model[1].ControlName + "lbl", required = "required", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+                else
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName), "", new { @class = "custom-flex-33 custom-flex-start labelstyling", @id = Model[0].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName), "", new { @class = "custom-flex-67 custom-flex-start labelstyling", @id = Model[1].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+            }
+            else if (Model[0].Width == 67)
+            {
+                if (Model[0].IsMandatory == true && Model[1].IsMandatory == true)
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName + "*"), "", new { @class = "custom-flex-67 custom-flex-start labelstyling", @id = Model[0].ControlName + "lbl", required = "required", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName + "*"), "", new { @class = "custom-flex-33 custom-flex-start labelstyling", @id = Model[1].ControlName + "lbl", required = "required", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+                else if (Model[0].IsMandatory == true)
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName + "*"), "", new { @class = "custom-flex-67 custom-flex-start labelstyling", @id = Model[0].ControlName + "lbl", required = "required", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName), "", new { @class = "custom-flex-33 custom-flex-start labelstyling", @id = Model[1].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+                else if (Model[1].IsMandatory == true)
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName), "", new { @class = "custom-flex-67 custom-flex-start labelstyling", @id = Model[0].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName + "*"), "", new { @class = "custom-flex-33 custom-flex-start labelstyling", @id = Model[1].ControlName + "lbl", required = "required", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+                else
+                {
+                    @htmlHelper.Label(Convert.ToString(Model[0].ControlName), "", new { @class = "custom-flex-67 custom-flex-start labelstyling", @id = Model[0].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[0].ControlName + ":null" });
+                    @htmlHelper.Label(Convert.ToString(Model[1].ControlName), "", new { @class = "custom-flex-33 custom-flex-start labelstyling", @id = Model[1].ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + Model[1].ControlName + ":null" });
+                }
+            }
+        }
+        else
+        {
+            foreach (CheckedBoxItemModel model in Model)
+            {
+                if (model.ControlType == ControlTypeEnum.TextBox)
+                {
+
+                }
+                else if (model.ControlType == ControlTypeEnum.CheckBox)
+                {
+                    if (model.IsMandatory == true)
+                    {
+                        @htmlHelper.Label(Convert.ToString(model.ControlName) + "*", "", new { @class = "custom-flex-100 custom-flex-start  labelstyling", @style = "margin-top:50px;", @id = model.ControlName + "lbl", data_bind = "html: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null" })
+                    }
+                    else
+                    {
+                        @htmlHelper.Label(Convert.ToString(model.ControlName), "", new { @class = "custom-flex-100 custom-flex-start  labelstyling", @style = "margin-top:50px;", @id = model.ControlName + "lbl", data_bind = "html: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null" })
+                    }
+                    <label class="container" style="margin-top:30px;">
+                        @Html.CheckBox(model.ControlName, false, new { @class = "custom-flex-15 custom-flex-start checkboxstyling ", @type = "checkbox", @style = "text-align:start;", @id = model.ControlName, data_bind = "text: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null" })
+                        <span class="checkmark"></span>
+                    </label>
+                }
+                else if (model.ControlType == ControlTypeEnum.CheckBox)
+                {
+                    if (model.IsMandatory == true)
+                    {
+                        @htmlHelper.Label(Convert.ToString(model.ControlName) + "*", "", new { @class = "custom-flex-100 custom-flex-start  labelstyling", @style = "margin-top:50px;", @id = model.ControlName + "lbl", data_bind = "html: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null" })
+                    }
+                    else
+                    {
+                        @htmlHelper.Label(Convert.ToString(model.ControlName), "", new { @class = "custom-flex-100 custom-flex-start  labelstyling", @style = "margin-top:50px;", @id = model.ControlName + "lbl", data_bind = "html: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null" })
+                    }
+                    <label class="container" style="margin-top:30px;">
+                        @Html.CheckBox(model.ControlName, false, new { @class = "custom-flex-15 custom-flex-start checkboxstyling ", @type = "checkbox", @style = "text-align:start;", @id = model.ControlName, data_bind = "text: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null" })
+                        <span class="checkmark"></span>
+                    </label>
+                }
+            }
+        }
+    </div>
+
+<div class="custom-flex-5 custom-flex-start" style=" display:flex; justify-content:start;height: 120px;">
+    @foreach (CheckedBoxItemModel model in Model)
+    {
+        switch (model.Width)
+        {
+            case 25:
+    <div class="custom-flex-25 custom-flex-start" style="padding:5px;margin-top:10px;">
+        @if (model.ControlType == ControlTypeEnum.TextBox)
+        {
+            if (Model.Count() == 1)
+            {
+                if (model.ControlName == "Country")
+                {
+                    <select style="height:20px;align-self:center; font-size:14px;width:100%;margin-top:30px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.nationalities(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                    </select>
+                }
+                else if (model.ControlName == "Nationality")
+                {
+                    <select style="height:20px;align-self:center; font-size:14px;width:100%;margin-bottom:-100px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.countries(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                    </select>
+                }
+                else
+                {
+                    var dictionary = new Dictionary<string, object>();
+                    if (model.IsReadOnly) dictionary.Add("readonly", "readonly");
+                    if (model.IsMandatory) dictionary.Add("required", "required");
+                    dictionary.Add("style", "text-align:start;");
+                    dictionary.Add("class", "custom-flex-100 custom-flex-start entrystyling input25");
+                    dictionary.Add("id", model.ControlName);
+
+                    @Html.TextBox("25", null, dictionary)
+                }
+            }
+            else
+            {
+                if (model.ControlName == "Country")
+                {
+                    <select style="height:20px;align-self:center; font-size:14px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.nationalities(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                    </select>
+                }
+                else if (model.ControlName == "Nationality")
+                {
+                    <select style="height:20px;align-self:center; font-size:14px;width:100%;margin-bottom:-100px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.countries(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                    </select>
+                }
+                else
+                {
+                    var dictionary = new Dictionary<string, object>();
+                    if (model.IsReadOnly) dictionary.Add("readonly", "readonly");
+                    if (model.IsMandatory) dictionary.Add("required", "required");
+                    dictionary.Add("style", "text-align:start;");
+                    dictionary.Add("class", "custom-flex-100 custom-flex-start entrystyling input25");
+                    dictionary.Add("id", model.ControlName);
+
+                    @Html.TextBox("25", null, dictionary)
+                }
+            }
+        }
+    </div>
+                break;
+            case 33:
+<div class="custom-flex-33 custom-flex-start" style="padding:5px;margin-top:10px;">
+    @if (model.ControlType == ControlTypeEnum.TextBox)
+    {
+        if (Model.Count() == 1)
+        {
+            if (model.ControlName == "Country")
+            {
+                <select style="height: 20px; margin-top: 30px; align-self: center;  font-size: 14px; width: 100%;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.nationalities(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                </select>
+            }
+            else if (model.ControlName == "Nationality")
+            {
+                <select style="height:20px;align-self:center; font-size:14px;width:100%;margin-bottom:-100px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.countries(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                </select>
+            }
+            else
+            {
+                var dic = new Dictionary<string, object>();
+                if (model.IsReadOnly) dic.Add("readonly", "readonly");
+                if (model.IsMandatory) dic.Add("required", "required");
+                dic.Add("style", "text-align:start;");
+                dic.Add("class", "custom-flex-100 custom-flex-start entrystyling input33");
+                dic.Add("id", model.ControlName);
+                @Html.TextBox("33", null, dic)
+            }
+        }
+        else
+        {
+            if (model.ControlName == "Country")
+            {
+                <select style="height:20px;align-self:center; font-size:14px;width:100%;margin-top:30px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.nationalities(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                </select>
+            }
+            else if (model.ControlName == "Nationality")
+            {
+                <select style="height:20px;align-self:center;font-size:14px;width:100%;margin-bottom:-100px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.countries(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                </select>
+            }
+            else
+            {
+                var dic = new Dictionary<string, object>();
+                if (model.IsReadOnly) dic.Add("readonly", "readonly");
+                if (model.IsMandatory) dic.Add("required", "required");
+                dic.Add("style", "text-align:start;");
+                dic.Add("class", "custom-flex-100 custom-flex-start entrystyling input33");
+                dic.Add("id", model.ControlName);
+                @Html.TextBox("33", null, dic)
+
+            }
+        }
+    }
+
+</div>
+                break;
+            case 50:
+<div class="custom-flex-100 custom-flex-start custom-flex-column" style="padding:5px;margin-top:0px;">
+    @if (model.ControlType == ControlTypeEnum.TextBox)
+    {
+        if (Model.Count() == 1)
+        {
+            if (model.ControlName == "Country")
+            {
+                <select style="height:20px;align-self:center; font-size:14px;width:100%;margin-bottom:-100px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.nationalities(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                </select>
+            }
+            else if (model.ControlName == "Nationality")
+            {
+                <select style="height:20px;align-self:center; font-size:14px;width:100%;margin-bottom:-100px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.countries(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                </select>
+            }
+            else
+            @*{
+                var dic = new Dictionary<string, object>();
+                if (model.IsReadOnly) dic.Add("readonly", "readonly");
+                if (model.IsMandatory) dic.Add("required", "required");
+                dic.Add("style", "text-align:start;");
+                dic.Add("class", "custom-flex-100 custom-flex-start entrystyling input33");
+                dic.Add("id", model.ControlName);
+                @Html.TextBox("33", null, dic)*@
+
+                @Html.TextBox("50", null, new { @class = "custom-flex-100 custom-flex-start entrystyling ", @style = "text-align:start", required = model.IsMandatory ? "required" : "", @id = model.ControlName })
+            }
+        }
+        else
+        {
+            if (model.ControlName == "Country")
+            {
+                <select style="height:20px;align-self:center; font-size:14px;width:100%;margin-top:30px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.nationalities(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                </select>
+            }
+            else if (model.ControlName == "Departure")
+            {
+                @htmlHelper.Label(Convert.ToString(model.ControlName), "", new
+                {
+                    @class = "custom-flex-25 custom-flex-start  labelstyling heightclass",
+                    @style = "margin-top:10px;align-self: start;",
+                    @id = model.ControlName + "lbl",
+                    data_bind = "html: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null"
+                 })
+                <div class="custom-flex-row custom-flex-100" style="width: 100%;">
+                    @Html.TextBox("50", null, new
+                    {
+                   @class = "custom-flex-100 custom-flex-start entrystyling heightclass",
+                   @style = "text-align:start;width:100%;align-self: start;margin-bottom:5px",
+                   @id = model.ControlName,
+                   data_bind = "html: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null"
+                    })
+                    <button class="custom-default-button " id="departureToggle" style="margin-left:10px;width:20px;height:25px; background-color:white"
+                            data-bind="click: SelectDate.bind($data, 'datePicker', 'Departure', 'departureToggle', SignalRHandler.customer() !=null ? SignalRHandler.customer().Departure :null, 'Departure'), clickBubble: false">
+                        <span class="custom-text-black precheckin-text"><i class="far fa-calendar-alt"></i></span>
+                    </button>
+                </div>
+            }
+            else if (model.ControlName == "Arrival")
+            {
+                @htmlHelper.Label(Convert.ToString(model.ControlName), "", new
+                {
+                    @class = "custom-flex-25 custom-flex-start  labelstyling heightclass",
+                    @style = "margin-top:10px;align-self: start;",
+                    @id = model.ControlName + "lbl",
+                    data_bind = "html: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null"
+                 })
+                <div class="custom-flex-row" style="width: 100%;">
+                    @Html.TextBox("50", null, new
+               {
+                   @class = "custom-flex-100 custom-flex-start entrystyling heightclass",
+                   @style = "text-align:start;width:100%;align-self: start;margin-bottom:5px",
+                   @id = model.ControlName,
+                   data_bind = "html: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null"
+               })
+                    <button class="custom-default-button " id="arrivalToggle" style="margin-left:10px;width:20px;height:25px; background-color:white"
+                            data-bind="click: SelectDate.bind($data, 'datePicker', 'Arrival', 'arrivalToggle', SignalRHandler.customer() !=null ? SignalRHandler.customer().Arrival :null, 'Arrival'), clickBubble: false">
+                        <span class="custom-text-black precheckin-text"><i class="far fa-calendar-alt"></i></span>
+                    </button>
+                </div>
+            }
+            else if (model.ControlName == "DateOfBirth")
+            {
+                @htmlHelper.Label(Convert.ToString(model.ControlName), "", new
+                {
+                    @class = "custom-flex-25 custom-flex-start  labelstyling heightclass",
+                    @style = "margin-top:5%;align-self: start;",
+                    @id = model.ControlName + "lbl",
+                    data_bind = "html: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null"
+                 })
+                <div class="custom-flex-row" style="width: 100%;">
+                    @Html.TextBox("50", null, new
+               {
+                   @class = "custom-flex-100 custom-flex-start entrystyling heightclass",
+                   @style = "text-align:start;width:100%;align-self: start;margin-bottom:5px",
+                   @id = model.ControlName,
+               })
+                    <button class="custom-default-button " id="dateofbirthToggle" style="margin-left:10px;width:20px;height:25px; background-color:white"
+                            data-bind="click: SelectDate.bind($data, 'datePicker', 'DateOfBirth', 'dateofbirthToggle', SignalRHandler.customer() !=null ? SignalRHandler.customer().DateOfBirth :null, 'DateOfBirth'), clickBubble: false">
+                        <span class="custom-text-black precheckin-text"><i class="far fa-calendar-alt"></i></span>
+                    </button>
+                </div>
+            }
+            else
+            {
+                @htmlHelper.Label(Convert.ToString(model.ControlName), "", new { @class = "custom-flex-25 custom-flex-start  labelstyling heightclass", @style = "margin-top:2%;align-self: start;", @id = model.ControlName + "lbl", data_bind = "html: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null" })
+                @Html.TextBox("50", null, new { @class = "custom-flex-100 custom-flex-start entrystyling heightclass", @style = "text-align:start;width:100%", required = model.IsMandatory ? "required" : "", @id = model.ControlName })
+            }
+        }
+    }
+</div>
+                break;
+            case 67:
+                <div class="custom-flex-67 custom-flex-start" style="padding:5px;margin-top:10px;">
+                    @if (model.ControlType == ControlTypeEnum.TextBox)
+                    {
+                        if (Model.Count() == 1)
+                        {
+                            if (model.ControlName == "Country")
+                            {
+                                <select style="height:20px;align-self:center; font-size:14px;width:100%;margin-top:30px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.nationalities(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                                </select>
+                            }
+                            else
+                            {
+                                @Html.TextBox("67", null, new { @class = "custom-flex-100 custom-flex-start entrystyling", @style = "text-align:start", required = model.IsMandatory ? "required" : "", @id = model.ControlName })
+                            }
+                        }
+                        else
+                        {
+                            if (model.ControlName == "Country")
+                            {
+                                <select style="height:20px;align-self:center; font-size:14px;width:100%;margin-top:30px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.nationalities(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                                </select>
+                            }
+                            else
+                            {
+                                @Html.TextBox("67", null, new { @class = "custom-flex-100 custom-flex-start entrystyling", @style = "text-align:start", required = model.IsMandatory ? "required" : "",  @id = model.ControlName })
+                            }
+                        }
+                    }
+                </div>
+                break;
+            case 75:
+                <div class="custom-flex-75 custom-flex-start" style="padding:5px;margin-top:10px;">
+                    @if (model.ControlType == ControlTypeEnum.TextBox)
+                    {
+                        if (Model.Count() == 1)
+                        {
+                            if (model.ControlName == "Country")
+                            {
+                                <select style="height:20px;align-self:center; font-size:14px;width:100%;margin-top:30px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.nationalities(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                                </select>
+                            }
+                            else
+                            {
+                                @Html.TextBox("75", null, new { @class = "custom-flex-100 custom-flex-start entrystyling", @style = "text-align:start", required = model.IsMandatory ? "required" : "",  @id = model.ControlName })
+                            }
+                        }
+                        else
+                        {
+                            if (model.ControlName == "Country")
+                            {
+                                <select style="height:20px;align-self:center; font-size:14px;width:100%;margin-top:30px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.nationalities(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                                </select>
+                            }
+                            else
+                            {
+                                @Html.TextBox("75", null, new { @class = "custom-flex-100 custom-flex-start entrystyling", @style = "text-align:start", required = model.IsMandatory ? "required" : "", @id = model.ControlName })
+                            }
+                        }
+                    }
+                </div>
+                break;
+            case 100:
+<div class="custom-flex-100 custom-flex-start custom-flex-column" style="padding:5px;margin-top:10px;">
+    @if (model.ControlType == ControlTypeEnum.TextBox)
+    {
+        if (model.ControlName == "Country")
+        {
+            @htmlHelper.Label(Convert.ToString(model.ControlName), "", new { @class = "custom-flex-100 custom-flex-start labelstyling heightclass", @style = "align-self: start;", @id = model.ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null" });
+            <select style="height:20px;align-self:center; font-size:14px;width:100%;margin-top:30px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.nationalities(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+            </select>
+        }
+        else if (model.ControlName == "Nationality")
+        {
+            @htmlHelper.Label(Convert.ToString(model.ControlName), "", new { @class = "custom-flex-100 custom-flex-start labelstyling heightclass", @style = "align-self: start;", @id = model.ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null" });
+            <select style="height:20px;align-self:center; font-size:14px;width:100%;margin-bottom:-100px;" class="custom-flex-100 custom-flex-end entrystyling" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.countries(), optionsText: 'NatCode', optionsValue: 'NatId',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+            </select>
+        }
+        else if (model.ControlName == "Departure")
+        {
+
+        }
+        else
+        {
+            @htmlHelper.Label(Convert.ToString(model.ControlName), "", new { @class = "custom-flex-100 custom-flex-start labelstyling heightclass", @style = "align-self: start;", @id = model.ControlName + "lbl", data_bind = "text: selectedDictionary() != null?selectedDictionary()." + model.ControlName + ":null" });
+            @Html.TextBox("100", null, new { @class = "custom-flex-100 custom-flex-start entrystyling heightclass", @style = "text-align:start;width:100%", required = model.IsMandatory ? "required" : "", @id = model.ControlName })
+        }
+    }
+</div>
+                break;
+            default:
+                break;
+        }
+    }
+</div>
+<div class="u-margin-bottom-small"></div>
+
+<style>
+    .heightclass{
+
+    }
+    .entrystyling {
+        color: @format.entryAttributes.textColor;
+        font-family: @format.entryAttributes.fontFamily;
+        opacity: 1;
+        font-weight: @format.entryAttributes.fontWeight;
+        background-color:@format.entryAttributes.backColor;
+        border-color:@format.entryboxAttributes.EntryBoxBorderColor;
+        border-left-width:@format.entryboxAttributes.EntryBoxBorderWidthLeft;
+        border-right-width:    @format.entryboxAttributes.EntryBoxBorderWidthRight;
+        border-bottom-width:@format.entryboxAttributes.EntryBoxBorderWidthBottom;
+        border-top-width:@format.entryboxAttributes.EntryBoxBorderWidthTop;
+        border-style:solid;
+
+    }
+  .labelstyling{
+  color:@format.labelAttributes.textColor;
+  font-family:@format.labelAttributes.fontFamily;
+  font-size:@format.labelAttributes.fontSize;
+  font-weight:@format.labelAttributes.fontWeight;
+  text-align:@format.labelAttributes.textAlign;
+  font-size:@format.labelAttributes.fontSize;
+  margin-left:@format.labelAttributes.LabelsMarginLeft;
+  margin-top:@format.labelAttributes.LabelsMarginTop;
+    margin-bottom:@format.labelAttributes.LabelsMarginBottom;
+    margin-right:@format.labelAttributes.LabelsMarginRight;
+      }
+
+      .linebox {
+        margin-bottom: @format.lineboxAttributes.lineBoxMarginBottom;
+        margin-top: @format.lineboxAttributes.lineBoxMarginTop;
+        margin-left: @format.lineboxAttributes.lineBoxMarginLeft;
+        margin-right: @format.lineboxAttributes.lineBoxMarginRight;
+    }
+
+    .entrybox {
+         margin-bottom: @format.entryboxAttributes.EntryBoxMarginBottom;
+        margin-top: @format.entryboxAttributes.EntryBoxMarginTop;
+        margin-left: @format.entryboxAttributes.EntryBoxMarginLeft;
+        margin-right: @format.entryboxAttributes.EntryBoxMarginRight;
+    }
+  .checkboxstyling{
+      margin-left:-100px;
+  }
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  margin-left:5rem;
+  border: 2px solid #000;
+  background-color: #eee;
+  border-radius:15%;
+  box-shadow:inset 1px 1px 0 #fff, 0 0 4px rgba(0,0,0,0.2);
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>
+
+

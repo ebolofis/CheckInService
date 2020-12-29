@@ -1,0 +1,328 @@
+[
+  {
+    "Key": "Increase_Fonts_Alert",
+    "LanguageMsg": {
+      "English": "You can not further increase the font size",
+      "Greek": "Δεν μπορείτε να αυξήσετε περισσότερο το μέγεθος της γραμματοσειράς",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "Decrease_Fonts_Alert",
+    "LanguageMsg": {
+      "English": "You can not further decrease the font size",
+      "Greek": "Δεν μπορείτε να μειώσετε περισσότερο το μέγεθος της γραμματοσειράς",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "WelcomeText",
+    "LanguageMsg": {
+      "English": "Welcome",
+      "Greek": "Καλώς ορίσατε",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "SignatureBtnTxt",
+    "LanguageMsg": {
+      "English": "Place your signature",
+      "Greek": "Υποβολή Υπογραφής ",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "HeaderSignatureTxt",
+    "LanguageMsg": {
+      "English": "Place your signature",
+      "Greek": "Τοποθετήστε την υπογραφή σας",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "Mandatory_Alert",
+    "LanguageMsg": {
+      "English": "This field is mandatory!",
+      "Greek": "Το πεδίο είναι υποχρεωτικό!",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "SignHereTxt",
+    "LanguageMsg": {
+      "English": "Please sign above the line",
+      "Greek": "Παρακαλώ υπογράψτε πάνω από τη γραμμή",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "ClearBtnTxt",
+    "LanguageMsg": {
+      "English": "Clear",
+      "Greek": "Αναίρεση",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "CancelBtnTxt",
+    "LanguageMsg": {
+      "English": "Cancel",
+      "Greek": "Ακύρωση",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "YourCheckTxt",
+    "LanguageMsg": {
+      "English": "Your Check-in",
+      "Greek": "Το Check-in σας",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "IsCompleteTxt",
+    "LanguageMsg": {
+      "English": "is complete",
+      "Greek": "ολοκληρώθηκε",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "WelcometoTxt",
+    "LanguageMsg": {
+      "English": "Welcome to our hotel.",
+      "Greek": "Καλώς ορίσατε στο ξενοδοχείο μας.",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "HaveNiceStayTxt",
+    "LanguageMsg": {
+      "English": "Have a nice stay.",
+      "Greek": "Να έχετε μια ευχάριστη διαμονή",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "Personal_Info",
+    "LanguageMsg": {
+      "English": "Personal Info",
+      "Greek": "Προσωπικές Πληροφορίες",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "ContactDetails",
+    "LanguageMsg": {
+      "English": "Contact Details",
+      "Greek": "Στοιχεία Επικοινωνίας",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "ChooseLanguage",
+    "LanguageMsg": {
+      "English": "Choose language",
+      "Greek": "Επιλογή γλώσσας",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "ChooseTitle",
+    "LanguageMsg": {
+      "English": "Choose title",
+      "Greek": "Επιλογή τίτλου",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "SignatureHeader",
+    "LanguageMsg": {
+      "English": "Lorem Ipum some text goes here lorem ipsum gfi and argentian! Lorem Ipum some text goes here lorem ipsum gfi and argentian! Lorem Ipum some text goes here lorem ipsum gfi and argentian.",
+      "Greek": "Lorem Ipum some text goes here lorem ipsum gfi and argentian! Lorem Ipum some text goes here lorem ipsum gfi and argentian! Lorem Ipum some text goes here lorem ipsum gfi and argentian.",
+      "German": "Lorem Ipum some text goes here lorem ipsum gfi and argentian! Lorem Ipum some text goes here lorem ipsum gfi and argentian! Lorem Ipum some text goes here lorem ipsum gfi and argentian.",
+      "French": "Lorem Ipum some text goes here lorem ipsum gfi and argentian! Lorem Ipum some text goes here lorem ipsum gfi and argentian! Lorem Ipum some text goes here lorem ipsum gfi and argentian.",
+      "Russian": "Lorem Ipum some text goes here lorem ipsum gfi and argentian! Lorem Ipum some text goes here lorem ipsum gfi and argentian! Lorem Ipum some text goes here lorem ipsum gfi and argentian."
+    }
+  },
+  {
+    "Key": "YesBtns",
+    "LanguageMsg": {
+      "English": "Yes",
+      "Greek": "Ναι",
+      "German": "Yes",
+      "French": "Yes",
+      "Russian": "Yes"
+    }
+  },
+  {
+    "Key": "NoBtns",
+    "LanguageMsg": {
+      "English": "Νο",
+      "Greek": "Όχι",
+      "German": "Νο",
+      "French": "Νο",
+      "Russian": "Νο"
+    }
+  },
+  {
+    "Key": "EmailTxt",
+    "LanguageMsg": {
+      "English": "You will recieved this Registration Form as well as our invoice & payment receipt in your e-mail address.",
+      "Greek": "Θα λάβετε αυτό το έντυπο εγγραφής καθώς και την απόδειξη τιμολογίου και πληρωμής στη διεύθυνση ηλεκτρονικού ταχυδρομείου σας.",
+      "German": "You will recieved this Registration Form as well as our invoice & payment receipt in your e-mail address.",
+      "French": "You will recieved this Registration Form as well as our invoice & payment receipt in your e-mail address.",
+      "Russian": "You will recieved this Registration Form as well as our invoice & payment receipt in your e-mail address."
+    }
+  },
+  {
+    "Key": "NoCustomerTxt",
+    "LanguageMsg": {
+      "English": "There is no Customer!",
+      "Greek": "Δεν υπάρχει Πελάτης!",
+      "German": "There is no Customer!",
+      "French": "There is no Customer!",
+      "Russian": "There is no Customer!"
+    }
+  },
+  {
+    "Key": "RequiredFieldsTxt",
+    "LanguageMsg": {
+      "English": "Please fill in all required fields!",
+      "Greek": "Παρακαλώ συμπληρώστε όλα τα υποχρεωτικά πεδία!",
+      "German": "Please fill in all required fields!",
+      "French": "Please fill in all required fields!",
+      "Russian": "Please fill in all required fields!"
+    }
+  },
+  {
+    "Key": "ValidEmailTxt",
+    "LanguageMsg": {
+      "English": "Please enter a valid Email.",
+      "Greek": "Παρακαλώ εισάγετε μια έγκυρη διεύθυνση Εmail.",
+      "German": "Please enter a valid Email.",
+      "French": "Please enter a valid Email.",
+      "Russian": "Please enter a valid Email."
+    }
+  },
+  {
+    "Key": "AcceptGdprTxt",
+    "LanguageMsg": {
+      "English": "Please Accept GDPR.",
+      "Greek": "Παρακαλώ αποδεχτείτε το GDPR.",
+      "German": "Please Accept GDPR.",
+      "French": "Please Accept GDPR.",
+      "Russian": "Please Accept GDPR."
+    }
+  },
+  {
+    "Key": "aText",
+    "LanguageMsg": {
+      "English": "<span style=\"text-align:left;\"> a) upcoming <strong >  special offers, news, events, activities, new products and services </strong> offered by Atlantica advertisting campaigns and/or promotional activities or other information that may be of interest*</span>",
+      "Greek": "α) τρέχουσες ειδικές προσφορές, νέα, γεγονότα, δραστηριότητες, νέα προιόντα και υπηρεσίες που προσφέρονται απο τις διαφημιστικες  καμπάνιες του",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "bText",
+    "LanguageMsg": {
+      "English": "b) performing market research via surveys to better serve my needs*",
+      "Greek": "β) πραγματοποίηση έρευνας αγοράς μέσω ερωτηματολογίου για την καλύτερη εξυπηρέτηση των αναγκών μου*",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "Calls",
+    "LanguageMsg": {
+      "English": "Willl you accept any calls during your stay?*",
+      "Greek": "Θα δεχτείτε κλήσεις κατά την παραμονή σας;*",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "Visits",
+    "LanguageMsg": {
+      "English": "Have you visited our hotel before?",
+      "Greek": "Έχετε ξαναεπισκεφθεί το ξενοδοχείο μας στο παρελθόν;",
+      "German": "",
+      "French": "",
+      "Russian": ""
+    }
+  },
+  {
+    "Key": "MrTitle",
+    "LanguageMsg": {
+      "French": "",
+      "English": "Mr.",
+      "German": "Nein",
+      "Greek": "Κος."
+    }
+  },
+  {
+    "Key": "MrTitle",
+    "LanguageMsg": {
+      "French": "",
+      "English": "Mr.",
+      "German": "Nein",
+      "Greek": "Κος."
+    }
+  },
+  {
+    "Key": "MrsTitle",
+    "LanguageMsg": {
+      "French": "",
+      "English": "Mrs.",
+      "German": "Nein",
+      "Greek": "Κα."
+    }
+  },
+  {
+    "Key": "MsTitle",
+    "LanguageMsg": {
+      "French": "",
+      "English": "Ms.",
+      "German": "Nein",
+      "Greek": "Διδα."
+    }
+  }
+]

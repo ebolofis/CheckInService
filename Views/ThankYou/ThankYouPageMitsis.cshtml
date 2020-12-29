@@ -1,0 +1,101 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutThankYou.cshtml";
+}
+
+<div class="container" style="width:100%;">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left:2%;padding-right:2%;">
+            <br />
+            <form data-bind="with: LanguageHandler">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="text-center">
+                            <img width="350" height="120" src="~/images/Resources/mitsis.png" data-bind="attr: { 'src' : page3.HotelLogo() }">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <br />
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="bordered title-1" data-bind="text: selectedDictionary() != null?selectedDictionary().YourCheckTxt +' '+ selectedDictionary().IsCompleteTxt:null"></div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <br />
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label style="font-family:Montserrat; font-size:13px;" data-bind="text: selectedDictionary() != null?selectedDictionary().WelcometoTxt +' '+ selectedDictionary().HaveNiceStayTxt:null"></label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var page3 = this;
+    page3.HotelLogo = ko.observable(null);
+
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+    };
+
+    function GetHotelLogo() {
+        $.ajax({
+            url: "/FC/GetHotelLogo?hotelId=" + localStorage.ConfigHotelName,
+            cache: false,
+            type: "GET",
+            crossdomain: false,
+            dataType: "json",
+            ContentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (response !== undefined && response !== null) {
+                    let hotelLogo = "data:image/png;base64," + response.Logo;
+                    page3.HotelLogo(hotelLogo);
+                } else {
+                     console.log("Unable to get hotelLogo with id: " + localStorage.ConfigHotelName + "!");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    };
+
+    $(document).ready(function () {
+        GetHotelLogo();
+        LanguageHandler.SetHotelID(localStorage.ConfigHotelName);
+        LanguageHandler.SetApi(localStorage.ConfigURL);
+        LanguageHandler.GetTranslations();
+        localStorage.backButtonFlag = false;
+        var baseInfoModel = JSON.parse(localStorage.baseinfo);
+        if (baseInfoModel.Mode > 0) {
+             var url_for_getpassbook = localStorage.ConfigURL + 'ThankYou/GetPassbook?string1=' + localStorage.ConfigString1 + "&buchnr=" + localStorage.buchnr +
+                    "&room=" + localStorage.room + "&kdnr=" + localStorage.kdnr + "&hotelId=" + localStorage.ConfigHotelName;
+             window.location.href = url_for_getpassbook;
+        }
+
+        const urldeletestring1 = localStorage.ConfigURL + 'api/MainActions/Delete/' + localStorage.ConfigHotelName + "/" + localStorage.ConfigString1;
+        xhr.open("GET", urldeletestring1);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send();
+
+        setTimeout(function () {
+            localStorage.removeItem("CustomerInput");
+            if (baseInfoModel.Mode == 0) {
+                var link = localStorage.ConfigURL + "FC/GetSettings?u=" + localStorage.ConfigURL + "&g=" + localStorage.ConfigGroupName + "&h=" + localStorage.ConfigHotelName;
+                window.location.href = link;
+            }
+            else if (baseInfoModel.Mode == 2) {
+                var link = localStorage.ConfigURL + "Precheckin/barcode?h=" + localStorage.ConfigHotelName;
+                window.location.href = link;
+            }
+        }, 6000);
+    });
+</script>
+
+
+
+
+
+
+

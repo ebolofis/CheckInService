@@ -1,0 +1,73 @@
+﻿@media only screen and (max-width: 961px) {
+    .logo-image-container {
+        width: 90%;
+        height: 90%;
+    }
+
+    .chat-container {
+        width: 80%;
+        height: 90%;
+    }
+
+    .chat-header-container {
+        width: 99%;
+        height: 80%;
+    }
+
+    .chat-header {
+        font-size: 1.6875rem;
+    }
+
+    .chat-history-container {
+        padding: 1% 2%;
+    }
+
+    .chat-history-message-container {
+        margin: 0.2%;
+    }
+
+    .chat-history-message {
+        min-width: 30%;
+        max-width: 70%;
+    }
+
+    .chat-history-message-self {
+        padding-right: 1%;
+    }
+
+    .chat-history-message-other {
+        padding-left: 1%;
+    }
+
+    .chat-history-message-text-send {
+        font-size: 0.8125rem;
+    }
+
+    .chat-history-message-text-see {
+        font-size: 0.8125rem;
+    }
+
+    .chat-history-message-text-container {
+        padding: 2% 4%;
+    }
+
+    .chat-history-message-text-message {
+        font-size: 1.25rem;
+    }
+
+    .chat-message-input {
+        width: 90%;
+        height: 65%;
+        padding: 0% 1%;
+        font-size: 1.125rem;
+    }
+
+    .chat-message-send-button {
+        width: 80%;
+        height: 65%;
+    }
+
+    .chat-message-send-button-text {
+        font-size: 1.125rem;
+    }
+}

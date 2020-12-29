@@ -1,0 +1,1203 @@
+﻿@using CheckInService.Controllers;
+@using CheckInService.Models;
+@using CheckinBack.Models;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var config = ViewBag.Config as SettingsModel;
+    var format = ViewBag.Format as GlobalAttributesModel;
+    var privacy = ViewBag.Privacy as PrivacyPolicyModel;
+    var decryptedstring = ViewBag.DecryptedString as string;
+    var encryptedstring = ViewBag.EncryptedString as string;
+}
+
+<script src="~/js/formpage.js"></script>
+<script src="~/js/html2pdf.bundle.min.js"></script>
+
+<div id="contactless" class="custom-flex-column  custom-flex-center " style="margin-top:150px; border:4px solid #ac9766; width:100%; height:900px;" data-bind="visible: atla1.IsContactless()">
+    <div class="box custom-flex-row custom-flex-10 custom-flex-center" style="margin-top:-0.8rem; height:40%;margin-bottom:20px;border:2px medium #B8860B;">
+        <div class="imgBx custom-flex-100 custom-flex-center">
+            <img class="imgstyle" style="height:120px;" data-bind="attr: { 'src' : atla1.HotelLogo() }" id="headimg" />
+            <h2 style="margin-right:14rem;margin-bottom:-12.5rem;background-color:#ac9766;  font-size:16px; ">Enjoy your stay </h2>
+        </div>
+    </div>
+    <div class="custom-flex-row custom-flex-10 custom-flex-center custom-full-width " style="background-color:#ac9766; text-shadow: -0.5px 0 gray, 0 0.5px gray, 0.5px 0 gray, 0 -0.5px gray;border: 2px solid gold;margin-top: 25px"> <h1>&nbsp;Contactless Fast Check-In </h1></div>
+    <div class="custom-flex-column custom-flex-10 custom-flex-center" style="margin-top:20px; background-color:#ac9766; border:1px solid #ac9766">
+        <div class=" custom-flex-100 custom-flex-start custom-full-width custom-flex-column" style="background-color:whitesmoke; margin-top:50px; width:400px;">
+            <h3 class="custom-flex-100  custom-flex-start labelstyling" style="align-self:start; " id="firstname">First name:</h3>
+            <h3 class="custom-flex-100   custom-flex-start labelstyling" style="align-self:start;" id="lastname">Last name:</h3>
+            <div id="qrcode" class=" custom-flex-center " style="        background-color: #ac9766;
+            margin-top: 25px !important;
+            margin-bottom: 15px;
+            border: 1px solid #B8860B;">
+            </div>
+        </div>
+    </div>
+    <div class="custom-flex-row custom-flex-5 custom-flex-start" style="margin-top: 20px;margin-bottom: 10px;">
+    </div>
+    <div class="custom-flex-row custom-flex-5 custom-flex-start">
+        <div class="custom-flex-row custom-flex-50 custom-flex-start">
+        </div>
+    </div>
+</div>
+
+<div id="contentMainForm" class="custom-full-height custom-flex-column custom-header" style="background-color: whitesmoke;" data-bind="visible: !atla1.IsContactless()">
+    <div class="custom-flex-row custom-flex-10 custom-flex-center headerstyling" style="margin-bottom: 10px;">
+        <div class="custom-flex-5"></div>
+        <div class="custom-flex-90 custom-flex-center">
+            <figure><img style="height:120px;" data-bind="attr: { 'src' : atla1.HotelLogo() }" id="headimg" /> </figure>
+        </div>
+        <div class="custom-flex-5">
+            <div class="text-center badge" data-bind="visible:SignalRHandler.showTimerFlag()" style="background-color:blue; color:white; font-size:15px; font-family:Montserrat">
+                <span id="countdowntimer">10</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ko if: SignalRHandler.customer() == null -->
+    <div data-bind="with: LanguageHandler">
+        <div class="custom-flex-row custom-flex-5 custom-flex-start" style="background-color:rgb(175,208,220);">
+            <div class="custom-flex-row custom-flex-5 custom-flex-start"></div>
+            <img src="~/images/Resources/image8.png" />
+            <div class="custom-flex-row custom-flex-5 custom-flex-start">
+            </div>
+            <div class="custom-flex-row custom-flex-50 custom-flex-start">
+                <label class="custom-flex-100 labelstyling " style="margin-top: 4px;font-size: 16px;font-weight: bold;" data-bind="text: selectedDictionary() != null?selectedDictionary().Personal_Info:null">Personal Info</label>
+            </div>
+            <div class="custom-flex-row custom-flex-35 custom-flex-start">
+            </div>
+            <div class="custom-flex-row custom-flex-10 custom-flex-start">
+                <button class="selection-button" id="DecreaseFont_Clicked" style=" background-color: white;text-align: center;">A-</button>
+            </div>
+            <div class=" custom-flex-row custom-flex-10 custom-flex-start">
+                <button class="selection-button" id="IncreaseFont_Clicked" style="background-color:white;">A+</button>
+            </div>
+        </div>
+        <div class="custom-flex-row custom-flex-50 custom-flex-start" style="margin-top:10px;">
+        </div>
+        <div class="custom-flex-row custom-flex-5 custom-flex-start">
+            <div class="custom-flex-row custom-flex-9 custom-flex-start">
+            </div>
+            <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: selectedDictionary() != null?selectedDictionary().ChooseTitle:null">Choose title</label>
+            <div class="custom-flex-row custom-flex-9 custom-flex-start">
+            </div>
+            <label class="custom-flex-100 custom-flex-start labelstyling" id="chooselang" data-bind="text: selectedDictionary() != null?selectedDictionary().ChooseLanguage:null">Choose language</label>
+        </div>
+        <div class="custom-flex-row custom-flex-17 custom-flex-start">
+            <div class="custom-flex-row custom-flex-6 custom-flex-center">
+            </div>
+            <div class="custom-flex-row custom-flex-61 custom-flex-start">
+                <button class="selection-button" id="Mr" style="background-color: white;" onclick="setColor('Mr',null,null,'#add8e6')" ; data-bind="text: selectedDictionary() != null?selectedDictionary().MrTitle:null">Mr.</button>
+                <button class="selection-button" id="Mrs" style="background-color:white;" onclick="setColor(null,'Mrs',null,'#add8e6')" data-bind="text: selectedDictionary() != null?selectedDictionary().MrsTitle:null">Mrs.</button>
+                <button class="selection-button" id="Ms" style="background-color:white;" onclick="setColor(null,null,'Ms','#add8e6')" data-bind="text: selectedDictionary() != null?selectedDictionary().MsTitle:null">Ms.</button>
+            </div>
+            <div class="custom-flex-row custom-flex-80 custom-flex-center">
+                <div class="custom-flex-row custom-flex-8 custom-flex-start">
+                </div>
+                <select style="height:32px;align-self:center; font-size:14px;" class="custom-flex-76 custom-flex-end entrystyling" id="availableLanguages" data-bind="options: availableLanguages(), optionsText: 'Name', optionsValue: 'Code', value: SignalRHandler.customer() != null?SignalRHandler.customer().LanguageCode:'English', event: { change: GetSelectedLanguage.bind($data) }">
+                </select>
+            </div>
+        </div>
+        <div class="custom-flex-row custom-flex-50 custom-flex-start" style="margin-top:10px;">
+        </div>
+        <div class="custom-flex-row custom-flex-5 custom-flex-start">
+            <div class="custom-flex-row custom-flex-9 custom-flex-start">
+            </div>
+            <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: selectedDictionary() != null?selectedDictionary().FirstName+'*':null">First name</label>
+            <div class="custom-flex-row custom-flex-9 custom-flex-start">
+            </div>
+            <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: selectedDictionary() != null?selectedDictionary().LastName+'*':null">
+                Last name
+            </label>
+        </div>
+        <div class="custom-flex-5 custom-flex-center" style="background-color:whitesmoke;">
+            <div class="custom-flex-50 custom-flex-center">
+                <input class="custom-flex-83 custom-flex-start custom-full-width entrystyling" style="background-color:lightgray;text-align:left;" id="inputFirstName" data-bind="value: SignalRHandler.customer() != null?SignalRHandler.customer().FirstName:null" readonly />
+            </div>
+            <div class="custom-flex-50 custom-flex-center">
+                <input class="custom-flex-83 custom-flex-center entrystyling" style="background-color:lightgray;text-align:left;" id="inputLastName" data-bind="value: SignalRHandler.customer() != null?SignalRHandler.customer().LastName:null" readonly />
+            </div>
+        </div>
+        <div class="custom-flex-row custom-flex-50 custom-flex-start" style="margin-top:10px;">
+        </div>
+        <div class="custom-flex-row custom-flex-5 custom-flex-start">
+            <div class="custom-flex-row custom-flex-5"></div>
+            <div class="custom-flex-row custom-flex-62">
+                <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: selectedDictionary() != null?selectedDictionary().DateOfBirth:null">Date of birth</label>
+            </div>
+            <div class="custom-flex-row custom-flex-1"></div>
+            <div class="custom-flex-row custom-flex-57">
+                <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: selectedDictionary() != null?selectedDictionary().Departure:null">Departure date</label>
+            </div>
+        </div>
+        <div class="custom-flex-5 custom-flex-start">
+            <div class="custom-flex-50 custom-flex-center">
+                <input class="custom-flex-83 custom-flex-start custom-full-width entrystyling" id="DateOfBirth" type="text" placeholder="DD/MM/YYYY" autocomplete="off" />
+            </div>
+            <div class="custom-flex-50 custom-flex-center">
+                <input class="custom-flex-83 custom-full-width entrystyling" id="Departure" type="text" placeholder="DD/MM/YYYY" autocomplete="off" />
+            </div>
+        </div>
+        <div class="custom-flex-row custom-flex-50 custom-flex-start" style="margin-top:20px;">
+        </div>
+        <div class="custom-flex-row custom-flex-5 custom-flex-start"></div>
+        <div class="custom-flex-row custom-flex-5 custom-flex-start" style="background-color:rgb(175,208,220);">
+            <div class="custom-flex-row custom-flex-5 custom-flex-start"></div>
+            <img src="~/images/Resources/image7.png" />
+            <div class="custom-flex-row custom-flex-5 custom-flex-start">
+            </div>
+            <div class="custom-flex-row custom-flex-50 custom-flex-start">
+                <label id="cntcdetails" class="custom-flex-100 labelstyling" style="margin-top:4px;font-size:16px; font-weight:bold" data-bind="text: selectedDictionary() != null?selectedDictionary().ContactDetails:null">  Contact Details</label>
+            </div>
+            <div class="custom-flex-row custom-flex-70 custom-flex-start">
+            </div>
+            <div class="custom-flex-row custom-flex-3 custom-flex-start">
+            </div>
+            <div class=" custom-flex-row custom-flex-3 custom-flex-start">
+            </div>
+        </div>
+        <div class="custom-flex-row custom-flex-2 custom-flex-start">
+        </div>
+        <div class="custom-flex-row custom-flex-50 custom-flex-start" style="margin-top:10px;">
+        </div>
+        <div class="custom-flex-row custom-flex-5 custom-flex-start">
+            <div class="custom-flex-row custom-flex-4 custom-flex-start">
+            </div>
+            <div class="custom-flex-row custom-flex-67 custom-flex-start">
+                <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: selectedDictionary() != null?selectedDictionary().Email:null">Email Address</label>
+            </div>
+            <div class="custom-flex-row custom-flex-37 custom-flex-start">
+                <label class="custom-flex-100 custom-flex-start labelstyling" style="overflow:hidden" data-bind="html: selectedDictionary() != null?selectedDictionary().Mobile:null">
+                    Mobile
+                </label>
+            </div>
+        </div>
+        <div class="custom-flex-5 custom-flex-center" style="background-color:whitesmoke;">
+            <div class="custom-flex-68 custom-flex-center">
+                <input class="custom-flex-87 custom-flex-start custom-full-width entrystyling " placeholder="e.g name@email.com" style="text-align:left;" id="inputEmail" data-bind="value: SignalRHandler.customer() != null?SignalRHandler.customer().Email:null" />
+            </div>
+            <div class="custom-flex-row custom-flex-8 custom-flex-start" style="background-color:whitesmoke;">
+            </div>
+            <div class="custom-flex-50 custom-flex-center">
+                <input class="custom-flex-75 custom-flex-end custom-full-width entrystyling" style="text-align:left;" id="inputMobile" data-bind="value: SignalRHandler.customer() != null?SignalRHandler.customer().Mobile:null" />
+            </div>
+        </div>
+        <div class="custom-flex-row custom-flex-50 custom-flex-start" style="margin-top:10px;">
+        </div>
+        <div class="custom-flex-row custom-flex-5 custom-flex-start">
+            <div class="custom-flex-row custom-flex-4 custom-flex-start">
+            </div>
+            <div class="custom-flex-row custom-flex-67 custom-flex-start">
+                <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: selectedDictionary() != null?selectedDictionary().Street:null">Home Address</label>
+            </div>
+            <div class="custom-flex-row custom-flex-37 custom-flex-start">
+                <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="html: selectedDictionary() != null?selectedDictionary().ZipCode:null">
+                    Zip Code
+                </label>
+            </div>
+        </div>
+        <div class="custom-flex-5 custom-flex-center" style="background-color:whitesmoke;">
+            <div class="custom-flex-68 custom-flex-center">
+                <input class="custom-flex-87 custom-flex-start custom-full-width entrystyling " style="text-align:left;" id="inputStreetAddress" data-bind="value: SignalRHandler.customer() != null?SignalRHandler.customer().Street:null" />
+            </div>
+            <div class="custom-flex-row custom-flex-8 custom-flex-start" style="background-color:whitesmoke;">
+            </div>
+            <div class="custom-flex-50 custom-flex-center">
+                <input class="custom-flex-75 custom-flex-end custom-full-width entrystyling" style="text-align:left;" id="inputZipcode" data-bind="value: SignalRHandler.customer() != null?SignalRHandler.customer().ZipCode:null" />
+            </div>
+        </div>
+        <div class="custom-flex-row custom-flex-50 custom-flex-start" style="margin-top:10px;">
+        </div>
+        <div class="custom-flex-row custom-flex-5 custom-flex-start">
+            <div class="custom-flex-row custom-flex-4 custom-flex-start">
+            </div>
+            <div class="custom-flex-row custom-flex-67 custom-flex-start">
+                <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: selectedDictionary() != null?selectedDictionary().City:null">Home Address</label>
+            </div>
+            <div class="custom-flex-row custom-flex-37 custom-flex-start">
+                <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="html: selectedDictionary() != null?selectedDictionary().Country:null">
+                    Country
+                </label>
+            </div>
+        </div>
+        <div class="custom-flex-5 custom-flex-center" style="background-color:whitesmoke;">
+            <div class="custom-flex-row custom-flex-4 custom-flex-start" style="background-color:whitesmoke;">
+            </div>
+            <div class="custom-flex-55 custom-flex-star">
+                <input class="custom-flex-88 custom-flex-start  entrystyling " style="text-align:left;" id="inputCity" data-bind="value: SignalRHandler.customer() != null?SignalRHandler.customer().City:null" />
+            </div>
+            <div class="custom-flex-row custom-flex-4 custom-flex-start" style="background-color:whitesmoke;">
+            </div>
+            <div class="custom-flex-41 custom-flex-center">
+                <select class="custom-flex-76 custom-flex-center entrystyling" style="background-color:white;height:32px;font-size:14px; width:75%;" id="inputCountry" placeholder="Select" data-bind="options: ResourceHandler.Nationality(), optionsText: 'Description', optionsValue: 'Id',value: SignalRHandler.customer() != null?SignalRHandler.customer().Nationality:88, event: { change: GetSelectedLanguage.bind($data) }">
+                </select>
+            </div>
+        </div>
+        <div class="custom-flex-row custom-flex-5 custom-flex-start">
+        </div>
+        <input style="visibility: hidden;width:0%;text-align:left;" id="inputRoom" data-bind="value: SignalRHandler.customer() != null?SignalRHandler.customer().Room:null" />
+        <div class="custom-flex-row custom-flex-5 custom-flex-start" style="background-color:whitesmoke;">
+            <div class="custom-flex-row custom-flex-4"></div>
+            <div class="custom-flex-row custom-flex-72">
+                <p class="custom-flex-100 custom-flex-start privacystyling" data-bind="text: selectedDictionary() != null?selectedDictionary().Calls:null">Will you accept any calls during your stay? *</p>
+            </div>
+            <div class="custom-flex-row custom-flex-20">
+                <button class="custom-flex-50  selection-button custom-flex-center " style="text-align:center;background-color:white;height:40px; " id="callyes" onclick="setYesNoColor('callyes',null, '#add8e6')" data-bind="text: selectedDictionary() != null?selectedDictionary().YesBtns:null">Yes</button>
+                <button class="custom-flex-50  selection-button custom-flex-center" style="text-align:center;background-color:white;height:40px;" id="callno" onclick="setYesNoColor(null,'callno', '#add8e6')" data-bind="text: selectedDictionary() != null?selectedDictionary().NoBtns:null">No</button>
+            </div>
+        </div>
+        <div class="custom-flex-row custom-flex-1 custom-flex-start" style="margin-top:10px;background-color:white;">
+        </div>
+        <div class="custom-flex-row custom-flex-5 custom-flex-start" style="background-color:whitesmoke;">
+            <div class="custom-flex-row custom-flex-4"></div>
+            <div class="custom-flex-row custom-flex-70">
+                <p class="custom-flex-100 custom-flex-start privacystyling " data-bind="text: selectedDictionary() != null?selectedDictionary().Visits:null">Have you visited our hotel before?</p>
+            </div>
+            <div class="custom-flex-row custom-flex-2"></div>
+            <div class="custom-flex-row custom-flex-20">
+                <button class="custom-flex-50  selection-button custom-flex-center " style="text-align:center;background-color:white; height:40px;" id="visityes" onclick="setYesNoColor('visityes',null, '#add8e6')" data-bind="text: selectedDictionary() != null?selectedDictionary().YesBtns:null">Yes</button>
+                <button class="custom-flex-50  selection-button custom-flex-center" style="text-align:center;background-color:white;height:40px;" id="visitno" onclick="setYesNoColor(null,'visitno', '#add8e6')" data-bind="text: selectedDictionary() != null?selectedDictionary().NoBtns:null">No</button>
+            </div>
+        </div>
+        <div class="custom-flex-row custom-flex-1 custom-flex-start" style="margin-top:20px;">
+        </div>
+        <div class="custom-flex-row custom-flex-3 custom-flex-start" style="background-color:white; margin-top:10px; height:5px;">
+        </div>
+        <div class="custom-flex-row custom-flex-5 custom-flex-start" style="background-color: whitesmoke;">
+            <div class="custom-flex-row custom-flex-5">
+            </div>
+        </div>
+
+        <div id="checkalladsid" class="custom-flex-row custom-flex-5 custom-flex-start" style="   background-color: whitesmoke;">
+            <div class="custom-flex-row custom-flex-4"></div>
+            <div class="custom-flex-row custom-flex-70 privacystyling" id="atxt" style="overflow:visible" data-bind="html: selectedDictionary() != null?selectedDictionary().aText:null">
+            </div>
+            <div class="custom-flex-row custom-flex-2"></div>
+            <div class="custom-flex-row custom-flex-20" style="overflow:hidden;" id="btndivo">
+                <button class="custom-flex-50  selection-button custom-flex-center " id="offersyes" style=" text-align: center;background-color: white;height: 40px;" onclick="setYesNoColor('offersyes',null, '#add8e6')" data-bind="text: selectedDictionary() != null?selectedDictionary().YesBtns:null">
+                    Yes
+                </button>
+                <button class="custom-flex-50  selection-button custom-flex-center" id="offersno" style="text-align: center;background-color: white;height: 40px;" onclick="setYesNoColor(null, 'offersno', '#add8e6')" data-bind="text: selectedDictionary() != null?selectedDictionary().NoBtns:null">
+                    No
+                </button>
+            </div>
+        </div>
+        <div class="custom-flex-row custom-flex-3 custom-flex-start" style="background-color: white; margin-top: 10px; height: 5px;">
+        </div>
+        <div id="surveysdiv" class="custom-flex-row custom-flex-100 custom-flex-start" style="background-color: whitesmoke;">
+            <div class="custom-flex-row custom-flex-4 custom-flex-start" style="        background-color: whitesmoke;">
+            </div>
+            <p class="custom-flex-69 privacystyling " style="text-align:start;" data-bind="text: selectedDictionary() != null?selectedDictionary().bText:null">
+                b) performing market research via surveys to better serve my needs*
+            </p>
+            <div class="custom-flex-row custom-flex-3"></div>
+            <div class="custom-flex-row custom-flex-20">
+                <button class="custom-flex-50  selection-button custom-flex-center " style="text-align:center;background-color:white;height:40px; " id="surveysyes" onclick="setYesNoColor('surveysyes',null, '#add8e6')" data-bind="text: selectedDictionary() != null?selectedDictionary().YesBtns:null">Yes</button>
+                <button class="custom-flex-50  selection-button custom-flex-center" style="text-align:center;background-color:white;height:40px;" id="surveysno" onclick="setYesNoColor(null,'surveysno', '#add8e6')" data-bind="text: selectedDictionary() != null?selectedDictionary().NoBtns:null">No</button>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: SignalRHandler.customer() != null -->
+    <div data-bind="foreach: SignalRHandler.customer()">
+        <div class="tab">
+            <div class="custom-flex-row custom-flex-5 custom-flex-start" style="background-color:rgb(175,208,220);">
+                <div class="custom-flex-row custom-flex-5 custom-flex-start"></div>
+                <img src="~/images/Resources/image8.png" />
+                <div class="custom-flex-row custom-flex-5 custom-flex-start">
+                </div>
+                <div class="custom-flex-row custom-flex-50 custom-flex-start">
+                    <label class="custom-flex-100 labelstyling " style="margin-top: 4px;font-size: 16px;font-weight: bold;" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().Personal_Info:null">Personal Info</label>
+                </div>
+                <div class="custom-flex-row custom-flex-35 custom-flex-start">
+                </div>
+                <div class="custom-flex-row custom-flex-10 custom-flex-start">
+                    <button class="selection-button" id="DecreaseFont_Clicked" style=" background-color: white;text-align: center;">A-</button>
+                </div>
+                <div class=" custom-flex-row custom-flex-10 custom-flex-start">
+                    <button class="selection-button" id="IncreaseFont_Clicked" style="background-color:white;">A+</button>
+                </div>
+            </div>
+            <div class="custom-flex-row custom-flex-50 custom-flex-start" style="margin-top:10px;">
+            </div>
+            <div class="custom-flex-row custom-flex-5 custom-flex-start">
+                <div class="custom-flex-row custom-flex-9 custom-flex-start">
+                </div>
+                <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().ChooseTitle:null">Choose title</label>
+                <div class="custom-flex-row custom-flex-9 custom-flex-start">
+                </div>
+                <label class="custom-flex-100 custom-flex-start labelstyling" id="chooselang" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().ChooseLanguage:null">Choose language</label>
+            </div>
+            <div class="custom-flex-row custom-flex-17 custom-flex-start">
+                <div class="custom-flex-row custom-flex-6 custom-flex-center">
+                </div>
+                <div class="custom-flex-row custom-flex-61 custom-flex-start">
+                    <button class="selection-button" style="background-color: white;" onclick="setColor('Mr_'+ atla1.customerDataIndex(),null,null,'#add8e6')" ; data-bind="attr: {id:'Mr_' + Index}, text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().MrTitle:null">Mr.</button>
+                    <button class="selection-button" style="background-color:white;" onclick="setColor(null,'Mrs_'+ atla1.customerDataIndex(),null,'#add8e6')" data-bind="attr: {id:'Mrs_' + Index}, text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().MrsTitle:null">Mrs.</button>
+                    <button class="selection-button" style="background-color:white;" onclick="setColor(null,null,'Ms_'+ atla1.customerDataIndex(),'#add8e6')" data-bind="attr: {id:'Ms_' + Index}, text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().MsTitle:null">Ms.</button>
+                </div>
+                <div class="custom-flex-row custom-flex-80 custom-flex-center">
+                    <div class="custom-flex-row custom-flex-8 custom-flex-start">
+                    </div>
+                    <select style="height:32px;align-self:center; font-size:14px;" class="custom-flex-76 custom-flex-end entrystyling" id="availableLanguages" data-bind="options: LanguageHandler.availableLanguages(), optionsText: 'Name', optionsValue: 'Code', value: SignalRHandler.customer() != null?SignalRHandler.customer().LanguageCode:'English', event: { change: GetSelectedLanguage.bind($data) }">
+                    </select>
+                </div>
+            </div>
+            <div class="custom-flex-row custom-flex-50 custom-flex-start" style="margin-top:10px;">
+            </div>
+            <div class="custom-flex-row custom-flex-5 custom-flex-start">
+                <div class="custom-flex-row custom-flex-9 custom-flex-start">
+                </div>
+                <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().FirstName+'*':null">First name</label>
+                <div class="custom-flex-row custom-flex-9 custom-flex-start">
+                </div>
+                <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().LastName+'*':null">
+                    Last name
+                </label>
+            </div>
+            <!-- ko if: $index() == 0 -->
+            <div class="custom-flex-5 custom-flex-center" style="background-color:whitesmoke;">
+                <div class="custom-flex-50 custom-flex-center">
+                    <input class="custom-flex-83 custom-flex-start custom-full-width entrystyling" style="background-color:lightgray;text-align:left;" data-bind="value: FirstName, attr: {id:'inputFirstName_' + Index}" readonly />
+                </div>
+                <div class="custom-flex-50 custom-flex-center">
+                    <input class="custom-flex-83 custom-flex-center entrystyling " style="background-color:lightgray;text-align:left;" data-bind="value: LastName, attr: {id:'inputLastName_' + Index}" readonly />
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: $index() > 0 -->
+            <div class="custom-flex-5 custom-flex-center" style="background-color:whitesmoke;">
+                <div class="custom-flex-50 custom-flex-center">
+                    <input class="custom-flex-83 custom-flex-start custom-full-width entrystyling" style="text-align:left;" data-bind="value: FirstName, attr: {id:'inputFirstName_' + Index}" />
+                </div>
+                <div class="custom-flex-50 custom-flex-center">
+                    <input class="custom-flex-83 custom-flex-center entrystyling " style="text-align:left;" data-bind="value: LastName, attr: {id:'inputLastName_' + Index}" />
+                </div>
+            </div>
+            <!-- /ko -->
+            <div class="custom-flex-row custom-flex-50 custom-flex-start" style="margin-top:10px;">
+            </div>
+            <div class="custom-flex-row custom-flex-5 custom-flex-start">
+                <div class="custom-flex-row custom-flex-5"></div>
+                <div class="custom-flex-row custom-flex-62">
+                    <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().DateOfBirth:null">Date of birth</label>
+                </div>
+                <div class="custom-flex-row custom-flex-1"></div>
+                <div class="custom-flex-row custom-flex-57">
+                    <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().Departure:null">Departure date</label>
+                </div>
+            </div>
+            <div class="custom-flex-5 custom-flex-start">
+                <div class="custom-flex-50 custom-flex-center">
+                    <input class="custom-flex-83 custom-flex-start custom-full-width entrystyling" data-bind="attr: {id:'DateOfBirth_' + Index}, value: (DateOfBirth != null ? moment(DateOfBirth).format('DD/MM/YYYY') : null)" type="text" placeholder="DD/MM/YYYY" autocomplete="off" />
+                </div>
+                <div class="custom-flex-50 custom-flex-center">
+                    <input class="custom-flex-83 custom-full-width entrystyling" style="background-color:lightgray;" data-bind="attr: {id:'Departure_' + Index}, value: (Departure != null ? moment(Departure).format('DD/MM/YYYY') : null)" type="text" placeholder="DD/MM/YYYY" autocomplete="off" disabled/>
+                </div>
+            </div>
+            <div class="custom-flex-row custom-flex-50 custom-flex-start" style="margin-top:20px;">
+            </div>
+            <div class="custom-flex-row custom-flex-5 custom-flex-start"></div>
+            <div class="custom-flex-row custom-flex-5 custom-flex-start" style="background-color:rgb(175,208,220);">
+                <div class="custom-flex-row custom-flex-5 custom-flex-start"></div>
+                <img src="~/images/Resources/image7.png" />
+                <div class="custom-flex-row custom-flex-5 custom-flex-start">
+                </div>
+                <div class="custom-flex-row custom-flex-50 custom-flex-start">
+                    <label id="cntcdetails" class="custom-flex-100 labelstyling" style="margin-top:4px;font-size:16px; font-weight:bold" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().ContactDetails:null">  Contact Details</label>
+                </div>
+                <div class="custom-flex-row custom-flex-70 custom-flex-start">
+                </div>
+                <div class="custom-flex-row custom-flex-3 custom-flex-start">
+                </div>
+                <div class=" custom-flex-row custom-flex-3 custom-flex-start">
+                </div>
+            </div>
+            <div class="custom-flex-row custom-flex-2 custom-flex-start">
+            </div>
+            <div class="custom-flex-row custom-flex-50 custom-flex-start" style="margin-top:10px;">
+            </div>
+            <div class="custom-flex-row custom-flex-5 custom-flex-start">
+                <div class="custom-flex-row custom-flex-4 custom-flex-start">
+                </div>
+                <div class="custom-flex-row custom-flex-67 custom-flex-start">
+                    <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().Email:null">Email Address</label>
+                </div>
+                <div class="custom-flex-row custom-flex-37 custom-flex-start">
+                    <label class="custom-flex-100 custom-flex-start labelstyling" style="overflow:hidden" data-bind="html: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().Mobile:null">
+                        Mobile
+                    </label>
+                </div>
+            </div>
+            <div class="custom-flex-5 custom-flex-center" style="background-color:whitesmoke;">
+                <div class="custom-flex-68 custom-flex-center">
+                    <input class="custom-flex-87 custom-flex-start custom-full-width entrystyling " placeholder="e.g name@email.com" style="text-align:left;" data-bind="value: Email, attr: {id:'inputEmail_' + Index}" />
+                </div>
+                <div class="custom-flex-row custom-flex-8 custom-flex-start" style="background-color:whitesmoke;">
+                </div>
+                <div class="custom-flex-50 custom-flex-center">
+                    <input class="custom-flex-75 custom-flex-end custom-full-width entrystyling" style="text-align:left;" data-bind="value: Mobile, attr: {id:'inputMobile_' + Index}" />
+                </div>
+            </div>
+            <div class="custom-flex-row custom-flex-50 custom-flex-start" style="margin-top:10px;">
+            </div>
+            <div class="custom-flex-row custom-flex-5 custom-flex-start">
+                <div class="custom-flex-row custom-flex-4 custom-flex-start">
+                </div>
+                <div class="custom-flex-row custom-flex-67 custom-flex-start">
+                    <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().Street:null">Home Address</label>
+                </div>
+                <div class="custom-flex-row custom-flex-37 custom-flex-start">
+                    <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="value: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().ZipCode:null">
+                        Zip Code
+                    </label>
+                </div>
+            </div>
+            <div class="custom-flex-5 custom-flex-center" style="background-color:whitesmoke;">
+                <div class="custom-flex-68 custom-flex-center">
+                    <input class="custom-flex-87 custom-flex-start custom-full-width entrystyling " style="text-align:left;" data-bind="value: Street, attr: {id:'inputStreetAddress_' + Index}" />
+                </div>
+                <div class="custom-flex-row custom-flex-8 custom-flex-start" style="background-color:whitesmoke;">
+                </div>
+                <div class="custom-flex-50 custom-flex-center">
+                    <input class="custom-flex-75 custom-flex-end custom-full-width entrystyling" style="text-align:left;" data-bind="value: ZipCode, attr: {id:'inputZipcode_' + Index}" />
+                </div>
+            </div>
+            <div class="custom-flex-row custom-flex-50 custom-flex-start" style="margin-top:10px;">
+            </div>
+            <div class="custom-flex-row custom-flex-5 custom-flex-start">
+                <div class="custom-flex-row custom-flex-4 custom-flex-start">
+                </div>
+                <div class="custom-flex-row custom-flex-67 custom-flex-start">
+                    <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().City:null">Home Address</label>
+                </div>
+                <div class="custom-flex-row custom-flex-37 custom-flex-start">
+                    <label class="custom-flex-100 custom-flex-start labelstyling" data-bind="html: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().Country:null">
+                        Country
+                    </label>
+                </div>
+            </div>
+            <div class="custom-flex-5 custom-flex-center" style="background-color:whitesmoke;">
+                <div class="custom-flex-row custom-flex-4 custom-flex-start" style="background-color:whitesmoke;">
+                </div>
+                <div class="custom-flex-55 custom-flex-star">
+                    <input class="custom-flex-88 custom-flex-start  entrystyling " style="text-align:left;" data-bind="value: City, attr: {id:'inputCity_' + Index}" />
+                </div>
+                <div class="custom-flex-row custom-flex-4 custom-flex-start" style="background-color:whitesmoke;">
+                </div>
+                <div class="custom-flex-41 custom-flex-center">
+                    <select class="custom-flex-76 custom-flex-center entrystyling" style="background-color:white;height:32px;font-size:14px; width:75%;" placeholder="Select" data-bind="options: ResourceHandler.Nationality(), optionsText: 'Description', optionsValue: 'Id',value: Nationality, attr: {id:'inputCountry_' + Index}, event: { change: GetSelectedLanguage.bind($data) }">
+                    </select>
+                </div>
+            </div>
+            <div class="custom-flex-row custom-flex-5 custom-flex-start">
+            </div>
+            <input style="visibility: hidden;width:0%;text-align:left;" data-bind="value: Room, attr: {id:'inputRoom_' + Index}" />
+            <div class="custom-flex-row custom-flex-5 custom-flex-start" style="background-color:whitesmoke;">
+                <div class="custom-flex-row custom-flex-4"></div>
+                <div class="custom-flex-row custom-flex-72">
+                    <p class="custom-flex-100 custom-flex-start privacystyling" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().Calls:null">Will you accept any calls during your stay? *</p>
+                </div>
+                <div class="custom-flex-row custom-flex-20">
+                    <button class="custom-flex-50  selection-button custom-flex-center " style="text-align:center;background-color:white;height:40px;" onclick="setYesNoColor('callyes_'+ atla1.customerDataIndex(),null, '#add8e6')" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().YesBtns:null, attr: {id:'callyes_' + Index}">Yes</button>
+                    <button class="custom-flex-50  selection-button custom-flex-center" style="text-align:center;background-color:white;height:40px;" onclick="setYesNoColor(null,'callno_'+ atla1.customerDataIndex(), '#add8e6')" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().NoBtns:null, attr: {id:'callno_' + Index}">No</button>
+                </div>
+            </div>
+            <div class="custom-flex-row custom-flex-1 custom-flex-start" style="margin-top:10px;background-color:white;">
+            </div>
+            <div class="custom-flex-row custom-flex-5 custom-flex-start" style="background-color:whitesmoke;">
+                <div class="custom-flex-row custom-flex-4"></div>
+                <div class="custom-flex-row custom-flex-70">
+                    <p class="custom-flex-100 custom-flex-start privacystyling " data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().Visits:null">Have you visited our hotel before?</p>
+                </div>
+                <div class="custom-flex-row custom-flex-2"></div>
+                <div class="custom-flex-row custom-flex-20">
+                    <button class="custom-flex-50  selection-button custom-flex-center " style="text-align:center;background-color:white; height:40px;" onclick="setYesNoColor('visityes_'+ atla1.customerDataIndex(),null, '#add8e6')" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().YesBtns:null, attr: {id:'visityes_' + Index}">Yes</button>
+                    <button class="custom-flex-50  selection-button custom-flex-center" style="text-align:center;background-color:white;height:40px;" onclick="setYesNoColor(null,'visitno_'+ atla1.customerDataIndex(), '#add8e6')" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().NoBtns:null, attr: {id:'visitno_' + Index}">No</button>
+                </div>
+            </div>
+            <div class="custom-flex-row custom-flex-1 custom-flex-start" style="margin-top:20px;">
+            </div>
+            <div class="custom-flex-row custom-flex-3 custom-flex-start" style="background-color:white; margin-top:10px; height:5px;">
+            </div>
+            <div class="custom-flex-row custom-flex-5 custom-flex-start" style="background-color: whitesmoke;">
+                <div class="custom-flex-row custom-flex-5">
+                </div>
+            </div>
+            <div class="custom-flex-row custom-flex-5 custom-flex-start" style="background-color: whitesmoke;" data-bind="attr: {id:'checkalladsid_' + Index}">
+                <div class="custom-flex-row custom-flex-4"></div>
+                <div class="custom-flex-row custom-flex-70 privacystyling" id="atxt" style="overflow:visible" data-bind="html: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().aText:null">
+                </div>
+                <div class="custom-flex-row custom-flex-2"></div>
+                <div class="custom-flex-row custom-flex-20" style="overflow:hidden;" id="btndivo">
+                    <button class="custom-flex-50  selection-button custom-flex-center " style=" text-align: center;background-color: white;height: 40px;" onclick="setYesNoColor('offersyes_'+ atla1.customerDataIndex(),null, '#add8e6')" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().YesBtns:null, attr: {id:'offersyes_' + Index}">
+                        Yes
+                    </button>
+                    <button class="custom-flex-50  selection-button custom-flex-center" style="text-align: center;background-color: white;height: 40px;" onclick="setYesNoColor(null, 'offersno_'+ atla1.customerDataIndex(), '#add8e6')" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().NoBtns:null, attr: {id:'offersno_' + Index}">
+                        No
+                    </button>
+                </div>
+            </div>
+            <div class="custom-flex-row custom-flex-3 custom-flex-start" style="background-color: white; margin-top: 10px; height: 5px;">
+            </div>
+            <div class="custom-flex-row custom-flex-100 custom-flex-start" style="background-color: whitesmoke;" data-bind="attr: {id:'surveysdiv_' + Index}">
+                <div class="custom-flex-row custom-flex-4 custom-flex-start" style="background-color: whitesmoke;">
+                </div>
+                <p class="custom-flex-69 privacystyling " style="text-align:start;" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().bText:null">
+                    b) performing market research via surveys to better serve my needs*
+                </p>
+                <div class="custom-flex-row custom-flex-3"></div>
+                <div class="custom-flex-row custom-flex-20">
+                    <button class="custom-flex-50  selection-button custom-flex-center " style="text-align:center;background-color:white;height:40px; " id="surveysyes" onclick="setYesNoColor('surveysyes_'+ atla1.customerDataIndex(),null, '#add8e6')" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().YesBtns:null, attr: {id:'surveysyes_' + Index}">Yes</button>
+                    <button class="custom-flex-50  selection-button custom-flex-center" style="text-align:center;background-color:white;height:40px;" id="surveysno" onclick="setYesNoColor(null,'surveysno_'+ atla1.customerDataIndex(), '#add8e6')" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().NoBtns:null, attr: {id:'surveysno_' + Index}">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="overflow:auto; margin-top:40px;">
+        <div style="float:right;">
+            <button type="button" style="background-color:darkgoldenrod;" id="prevBtn" onclick="atla1.nextPrev(-1)" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().Previous:null">Previous</button>
+            <button type="button" style="background-color:rgb(175,208,220);" id="nextBtn" onclick="atla1.nextPrev(1)" data-bind="text: LanguageHandler.selectedDictionary() != null?LanguageHandler.selectedDictionary().Next:null">Next</button>
+        </div>
+    </div>
+    <!-- Circles which indicates the steps of the form: -->
+    <div style="text-align:center;margin-top:20px;">
+        <div data-bind="foreach: SignalRHandler.customer()">
+            <span class="step"></span>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>
+
+<script type="text/javascript">
+    var atla1 = this;
+    atla1.IsContactless = ko.observable(false);
+    atla1.HotelLogo = ko.observable(null);
+    atla1.Loading = ko.observable(false);
+    atla1.pageLoadInterval = null;
+    atla1.String1Tmp = "";
+    atla1.customerDataIndex = ko.observable(0);
+
+
+    var myhtml = document.getElementById("contentMainForm");
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        const ele = document.getElementById("contentMainForm");
+    };
+
+     function GetHotelLogo() {
+        $.ajax({
+            url: "/FC/GetHotelLogo?hotelId=" + localStorage.ConfigHotelName,
+            cache: false,
+            type: "GET",
+            crossdomain: false,
+            dataType: "json",
+            ContentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (response !== undefined && response !== null) {
+                    let hotelLogo = "data:image/png;base64," + response.Logo;
+                    atla1.HotelLogo(hotelLogo);
+                    GetDataFromDictionary();
+                } else {
+                     console.log("Unable to get hotelLogo with id: " + localStorage.ConfigHotelName + "!");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    };
+
+     function GetDataFromDictionary() {
+        var finalGroup = localStorage.ConfigGroupName + "-" + localStorage.ConfigHotelName;
+        $.ajax({
+            url: "/FC/GetFromDictionary?HotelId=" + localStorage.ConfigHotelName + "&Group=" + finalGroup,
+            cache: false,
+            type: "GET",
+            crossdomain: false,
+            dataType: "json",
+            ContentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data !== undefined && data !== null) {
+                    atla1.String1Tmp = data.String1;
+                    if (atla1.String1Tmp) {
+                        SignalRHandler.String1Encrypted(data.String1Encrypted);
+                        SignalRHandler.InvokeFromMobile(atla1.String1Tmp);
+                    }
+                } else {
+                    console.log("Unable to get String1 From Dictionsry!");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    };
+
+     function GetSignalRConfiguration() {
+        $.ajax({
+            url: "/FC/GetSignalRConfiguration",
+            cache: false,
+            type: "GET",
+            crossdomain: false,
+            dataType: "json",
+            ContentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (response !== undefined && response !== null) {
+                    let signalRConfig = new SignalRModel(response);
+                    SignalRHandler.SetSignalRModel(signalRConfig, "@decryptedstring");
+                    SignalRHandler.Connect("@ViewBag.config.grpname");
+                } else {
+                     console.log("Unable to get SignalR Configuration From System Info!");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    };
+
+    atla1.pageLoadInterval = setInterval(function () {
+        if (document.getElementsByClassName("tab").length > 0 && LanguageHandler.selectedDictionary() != null) {
+            clearInterval(pageLoadInterval);
+            //################################################### Step Wizard on Form For Multiple Profiles ################################################################//
+            //##############################################################################################################################################################//
+            var currentTab = 0; // Current tab is set to be the first tab (0)
+            showTab(currentTab); // Display the current tab
+            atla1.nextPrev = function(n) {
+                // This function will figure out which tab to display
+                var x = document.getElementsByClassName("tab");
+                if (n >= 0) {
+                    //Validate Form
+                    var validateFlag = ValidationForm();
+                    if (validateFlag == true) {
+                        // Hide the current tab:
+                        x[currentTab].style.display = "none";
+                        // Increase or decrease the current tab by 1:
+                        currentTab = currentTab + n;
+                        // if you have reached the end of the form... :
+                        if (currentTab >= x.length) {
+                            //...the form gets submitted:
+                            placeSignatureBtn();
+                            return false;
+                        }
+                        // Otherwise, display the correct tab:
+                        showTab(currentTab);
+                    }
+                    else {
+                         showTab(currentTab);
+                    }
+                }
+                else {
+                    x[currentTab].style.display = "none";
+                    currentTab = currentTab + n;
+                    showTab(currentTab);
+                }
+            }
+        }
+    }, 100);
+
+    function showTab(n) {
+          // This function will display the specified tab of the form ...
+          var x = document.getElementsByClassName("tab");
+          x[n].style.display = "block";
+          // ... and fix the Previous/Next buttons:
+         if (n == 0) {
+             document.getElementById("prevBtn").style.display = "none";
+          } else {
+             document.getElementById("prevBtn").style.display = "inline";
+          }
+         if (n == (x.length - 1)) {
+             document.getElementById("nextBtn").innerHTML = LanguageHandler.selectedDictionary().SignatureBtnTxt;
+          } else {
+              document.getElementById("nextBtn").innerHTML = LanguageHandler.selectedDictionary().Next;
+          }
+          // ... and run a function that displays the correct step indicator:
+          fixStepIndicator(n)
+    }
+
+    function fixStepIndicator(n) {
+        atla1.customerDataIndex(n);
+        InitializeDatePickers();
+        clearTimeout(atla1.timeoutCleanForm)
+        if (SignalRHandler.baseinfo().Mode != 2) {
+            cleanCustomerForm();
+        }
+        //Add Required Values to other Profiles
+        GenerateRestProfilesData();
+        //Scroll top page
+        window.scrollTo(0, 0);
+
+        // This function removes the "active" class of all steps...
+        var i, x = document.getElementsByClassName("step");
+        for (i = 0; i < x.length; i++) {
+            x[i].className = x[i].className.replace(" active", "");
+        }
+        //... and adds the "active" class to the current step:
+        x[n].className += " active";
+    }
+
+    var contactless_flag = 0;
+    var element = document.getElementById('contentMainForm');
+    localStorage.removeItem('f2');
+    localStorage.removeItem('lname');
+    localStorage.removeItem('resno');
+
+    $(document).ready(function () {
+        atla1.IsContactless(false);
+        var currentUrl = (window.location.protocol) + "//" + (window.location.hostname) + (window.location.port != "" ? ":" + window.location.port : "") + "/";
+
+        LanguageHandler.SetHotelID("@ViewBag.config.hotelname");
+        LanguageHandler.SetApi(currentUrl);
+        LanguageHandler.GetTranslations();
+        if (localStorage.GlobalLanguageCode) {
+            LanguageHandler.ChangeLanguage(localStorage.GlobalLanguageCode);
+        }
+        ResourceHandler.SetHotelID("@ViewBag.config.hotelname");
+        ResourceHandler.SetApi(currentUrl);
+        ResourceHandler.InitializeResources();
+        SignalRHandler.SetApi(currentUrl);
+        SignalRHandler.SetHotelID("@ViewBag.config.hotelname");
+        GetSignalRConfiguration();
+
+        GetHotelLogo()
+
+        if ("@decryptedstring" !== "") {
+            contactless_flag = 1;
+            SignalRHandler.InvokeFromMobile("@decryptedstring");
+        }
+
+        if (SignalRHandler.customer() !=null)
+        SignalRHandler.customer() = null;
+
+        localStorage.ConfigURL = currentUrl;
+        localStorage.ConfigGroupName = "@ViewBag.config.grpname";
+        localStorage.ConfigHotelName = "@ViewBag.config.hotelname";
+
+        var changeLanguageAuto = ko.computed(function () {
+            if (SignalRHandler.customer() != null) {
+                LanguageHandler.ChangeLanguage(SignalRHandler.customer()[0].LanguageCode);
+                localStorage.GlobalLanguageCode = SignalRHandler.customer()[0].LanguageCode;
+                localStorage.baseinfo = JSON.stringify(SignalRHandler.baseinfo());
+
+                if (SignalRHandler.baseinfo().Mode == 2) {
+                    localStorage.Remote = 1;
+                }
+                else {
+                    localStorage.Remote = 0;
+                }
+                localStorage.string1 = SignalRHandler.customer()[0].String1;
+                localStorage.room = SignalRHandler.customer()[0].Room;
+                localStorage.kdnr = SignalRHandler.customer()[0].kdnr;
+                localStorage.buchnr = SignalRHandler.customer()[0].Buchnr;
+                localStorage.mode = SignalRHandler.baseinfo().Mode;
+                localStorage.mpehotel = SignalRHandler.customer()[0].mpehotel;
+
+
+                if (SignalRHandler.baseinfo().Mode == 1 && contactless_flag == 0) {
+                    atla1.IsContactless(true);
+                    qrfetchsucess();
+                    localStorage.Remote = 1;
+                    var fname = document.getElementById('firstname');
+                    var lname = document.getElementById('lastname');
+                    var fnamedisplayed = SignalRHandler.customer()[0].FirstName;
+                    var lnamedisplayed = SignalRHandler.customer()[0].LastName;
+                    fnamedisplayed = fnamedisplayed[0] + fnamedisplayed[1] + fnamedisplayed.slice(2).replace(/.(?!$)/g, '*')
+                    lnamedisplayed = lnamedisplayed[0] + lnamedisplayed[1] + lnamedisplayed.slice(2).replace(/.(?!$)/g, '*')
+                    fname.textContent = "   Firstname : " + fnamedisplayed;
+                    lname.textContent = "   Lastname :" + lnamedisplayed;
+                    var qrurl_without_dash = currentUrl
+                    if (qrurl_without_dash.endsWith('/'))
+                        qrurl_without_dash = qrurl_without_dash.substring(0, qrurl_without_dash.length - 1);
+                    if (!SignalRHandler.String1Encrypted())
+                        SignalRHandler.String1Encrypted("@encryptedstring");
+
+                                                InfoMessage();
+                    myqrcode = document.getElementById('qrcode');
+                    if (myqrcode != null) {
+                        myqrcode.innerHTML = "";
+                                    new QRCode(myqrcode, {
+                                        text: currentUrl + "FC/redirect?u=&str=" +  SignalRHandler.String1Encrypted() + "&h=" + "@ViewBag.config.hotelname",
+                                                    width: 150,
+                                                    height: 150,
+                                    });
+                    }
+                    setTimeout(function () {
+                        //Delete Customer From Dictionary
+                        const urldeletestring1 = localStorage.ConfigURL + 'api/MainActions/Delete/' + localStorage.ConfigHotelName + "/" + SignalRHandler.baseinfo().String1;
+                        xhr.open("GET", urldeletestring1);
+                        xhr.setRequestHeader("Content-type", "application/json");
+                        xhr.send();
+                        //Delete Localstorage
+                        SignalRHandler.customer(null);
+                        SignalRHandler.baseinfo().Mode = 0;
+                        SignalRHandler.baseinfo().String1 = "";
+                        localStorage.baseinfo = JSON.stringify(SignalRHandler.baseinfo());
+                        //Show/Hide
+                        atla1.IsContactless(false);
+                    }, 60000);
+                }
+                else {
+                    atla1.IsContactless(false);
+                    setTimeout(function () {
+                        atla1.getPdfImageFlag = false;
+                        showTab(atla1.customerDataIndex());
+                    }, 3000);
+                }
+
+                localStorage.resno = SignalRHandler.customer()[0].ReservationNo;
+                localStorage.lname = SignalRHandler.customer()[0].LastName;
+            }
+        });
+    });
+
+    function GetSelectedLanguage(lang) {
+        var e = document.getElementById("availableLanguages");
+        if (e.selectedIndex > 0) {
+            var selectedLng = e.options[e.selectedIndex].value;
+            LanguageHandler.ChangeLanguage(selectedLng);
+            localStorage.GlobalLanguageCode = selectedLng;
+        }
+    }
+
+    function placeSignatureBtn() {
+        var emailValidationFlag = validate();
+        if (!emailValidationFlag) {
+            iziToast.warning({
+                title: "Warning",
+                message: "Please Enter a valid Email!",
+                timeout:2000
+            });
+            window.scrollTo(0, 0);
+            return;
+        }
+
+        localStorage.CustomerInput = JSON.stringify(SignalRHandler.customer());
+
+        //Go to Signature Page
+        var link = localStorage.ConfigURL + "ESignature/GetSettings?hotelId=" +  "@ViewBag.config.hotelname";
+        window.location.href = link;
+    }
+
+    function ValidationForm() {
+        var emailValidationFlag = validate();
+        if (!emailValidationFlag) {
+            window.scrollTo(0, 0);
+            return false;
+        }
+        return true;
+    }
+
+    function validateEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@@\"]+(\.[^<>()[\]\\.,;:\s@@\"]+)*)|(\".+\"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
+    function validate() {
+        var $result = $("#inputEmail_" + atla1.customerDataIndex());
+        var email = $("#inputEmail_" + atla1.customerDataIndex()).val();
+        if (validateEmail(email)) {
+            return true;
+        } else {
+            $result.css("color", "red");
+        }
+        return false;
+    }
+
+    $('#resettext').click(function () {
+        if (curSize != 16)
+            $('#content').css('font-size', 16);
+    });
+
+    $('#IncreaseFont_Clicked').click(function () {
+        curSize = parseInt($('#contentMainForm').css('font-size')) + 1;
+        if (curSize < 20)
+            $('#contentMainForm').css('font-size', curSize);
+    });
+
+    $('#DecreaseFont_Clicked').click(function () {
+        curSize = parseInt($('#contentMainForm').css('font-size')) - 1;
+        if (curSize >= 18)
+            $('#contentMainForm').css('font-size', curSize);
+    });
+
+    function setYesNoColor(yes, no, color) {
+        if (no == null) {
+            var property = document.getElementById(yes);
+            property.style.backgroundColor = color;
+            if (yes == "offersyes_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index) {
+                SignalRHandler.customer()[atla1.customerDataIndex()].CheckAllAds = true;
+                var property2 = document.getElementById("offersno_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index);
+            }
+            else if (yes == "surveysyes_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index) {
+                SignalRHandler.customer()[atla1.customerDataIndex()].CheckedItem1Value = true;
+                var property2 = document.getElementById("surveysno_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index);
+            }
+            else if (yes == "visityes_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index) {
+                SignalRHandler.customer()[atla1.customerDataIndex()].SendTextMessageValue = true;
+                var property2 = document.getElementById("visitno_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index);
+            }
+            else if (yes == "callyes_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index) {
+                SignalRHandler.customer()[atla1.customerDataIndex()].SendPhoneValue = true;
+                var property2 = document.getElementById("callno_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index);
+            }
+            property2.style.backgroundColor = "white";
+        }
+        if (yes == null) {
+            var property = document.getElementById(no);
+            property.style.backgroundColor = color;
+            if (no == "offersno_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index) {
+                SignalRHandler.customer()[atla1.customerDataIndex()].CheckAllAds = false;
+                var property2 = document.getElementById("offersyes_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index);
+            }
+            else if (no == "surveysno_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index) {
+                SignalRHandler.customer()[atla1.customerDataIndex()].CheckedItem1Value = false;
+                var property2 = document.getElementById("surveysyes_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index);
+            }
+            else if (no == "visitno_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index) {
+                SignalRHandler.customer()[atla1.customerDataIndex()].SendTextMessageValue = false;
+                var property2 = document.getElementById("visityes_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index);
+            }
+            else if (no == "callno_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index) {
+                SignalRHandler.customer()[atla1.customerDataIndex()].SendPhoneValue = false;
+                var property2 = document.getElementById("callyes_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index);
+            }
+            property2.style.backgroundColor = "white";
+        }
+    }
+
+    function setColor(btn1, btn2, btn3, color) {
+        if (btn2 == null && btn3 == null) {
+            var property = document.getElementById(btn1);
+            property.style.backgroundColor = color;
+            SignalRHandler.customer()[atla1.customerDataIndex()].titel = "Mr";
+            var property2 = document.getElementById("Mrs_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index);
+            property2.style.backgroundColor = "white";
+            var property3 = document.getElementById("Ms_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index);
+            property3.style.backgroundColor = "white";
+        }
+
+        if (btn1 == null && btn3 == null) {
+            var property = document.getElementById(btn2);
+            property.style.backgroundColor = "lightblue";
+            SignalRHandler.customer()[atla1.customerDataIndex()].titel = "Mrs";
+            var property2 = document.getElementById("Mr_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index);
+            property2.style.backgroundColor = "white";
+            var property3 = document.getElementById("Ms_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index);
+            property3.style.backgroundColor = "white";
+        }
+
+        if (btn1 == null && btn2 == null) {
+            var property = document.getElementById(btn3);
+            property.style.backgroundColor = color;
+            SignalRHandler.customer()[atla1.customerDataIndex()].titel = "Ms";
+            var property2 = document.getElementById("Mr_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index);
+            property2.style.backgroundColor = "white";
+            var property3 = document.getElementById("Mrs_" + SignalRHandler.customer()[atla1.customerDataIndex()].Index);
+            property3.style.backgroundColor = "white";
+        }
+    }
+
+    function GenerateRestProfilesData() {
+        if (atla1.customerDataIndex() > 0) {
+            if (SignalRHandler.customer()[atla1.customerDataIndex()].Email == null || SignalRHandler.customer()[atla1.customerDataIndex()].Email == "" || SignalRHandler.customer()[atla1.customerDataIndex()].Email == undefined) {
+                SignalRHandler.customer()[atla1.customerDataIndex()].Email = SignalRHandler.customer()[0].Email;
+                document.getElementById('inputEmail_' + atla1.customerDataIndex()).value = SignalRHandler.customer()[atla1.customerDataIndex()].Email;
+            }
+        }
+    }
+
+    function InitializeDatePickers() {
+        $("#DateOfBirth_" + atla1.customerDataIndex()).datepicker({
+            startDate: "01/01/1900",
+            endDate: "01/01/2050",
+            format: "dd/mm/yyyy"
+        }).on('hide', function (e) {
+            SignalRHandler.customer()[atla1.customerDataIndex()].DateOfBirth = moment(e.date, "DD/MM/YYYY").format();
+        });
+        $("#Departure_" + atla1.customerDataIndex()).datepicker({
+            startDate: "01/01/1900",
+            endDate: "01/01/2050",
+            format: "dd/mm/yyyy"
+        });
+    };
+
+    function cleanCustomerForm() {
+        if (SignalRHandler.customer() != null) {
+            atla1.timeoutCleanForm = setTimeout(function () {
+                //Delete Customer From Dictionary
+                const urldeletestring1 = localStorage.ConfigURL + 'api/MainActions/Delete/' + localStorage.ConfigHotelName + "/" + SignalRHandler.baseinfo().String1;
+                xhr.open("GET", urldeletestring1);
+                xhr.setRequestHeader("Content-type", "application/json");
+                xhr.send();
+                //Delete Localstorage
+                SignalRHandler.customer(null);
+                SignalRHandler.baseinfo().Mode = 0;
+                SignalRHandler.baseinfo().String1 = "";
+                localStorage.baseinfo = JSON.stringify(SignalRHandler.baseinfo());
+                console.log("Customer has been Deleted from Form because was created more than 5 minutes before!");
+            }, 600000);
+        }
+    }
+</script>
+
+<style>
+    .privacystyling{
+        font-family:@privacy.fontFamily;
+    }
+    .entrystyling{
+     color:   @format.entryAttributes.textColor;
+    font-family: @format.entryAttributes.fontFamily;
+    }
+    .hiddenstyling{
+        visibility:hidden;
+        width:0px;
+        height:0px;
+        height:0px;
+        margin:0px;
+        padding:0px;
+        font-size:0px;
+        border:0 solid white;
+    }
+   html {
+       font-size:62.5%;
+       overflow:auto;
+   }
+    .btn:link,
+    .btn:hover
+    .btn:visited {
+        display: flex;
+        padding: 10px 30px;
+        font-weight: 300;
+        text-decoration: none;
+        border-radius: 0px;
+        -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
+        transition: background-color 0.2s, border 0.2s, color 0.2s;
+    }
+    .btn-full:link,
+    .btn-full:visited
+   {
+        background-color: rgb(175,208,220);
+        border: 1px solid @format.headerAttributes.headerBackgroundColor;
+        color: #000;
+        margin-right: 15px;
+        border-radius:3%;
+    }
+        .btn:hover,
+        .btn:active
+         {
+            background-color: rgb(175,208,220);
+              filter: brightness(85%);
+        }
+    .btn-full:hover,
+    .btn-full:active {
+        border: 1px solid whitesmoke;
+    }
+    .labelstyling{
+        font-family:@format.labelAttributes.fontFamily;
+        color:@format.labelAttributes.textColor;
+    }
+    .headerstyling{
+        background-color:@format.headerAttributes.headerBackgroundColor;
+        font-size:@format.headerAttributes.headerFontSize;
+        font-weight:@format.headerAttributes.headerFontWeight;
+        color:@format.headerAttributes.headerFontColor;
+        font-family:@format.headerAttributes.headerfontFamily;
+    }
+    #inputFirstName:focus {
+        outline: none !important;
+        border: 1px solid gray;
+        box-shadow: 0 0 10px gray;
+    }
+    #inputLastName:focus {
+        outline: none !important;
+        border: 1px solid gray;
+        box-shadow: 0 0 10px gray;
+    }
+    #contentMainForm {
+        font-size: 1.8rem;
+        border: 10px solid white;
+        overflow: hidden;
+        background-color:@format.pageBackgroundColor;
+    }
+     .header-photo {
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    background-color: @format.headerAttributes.headerBackgroundColor;
+}
+     body{ padding:0;}
+     html {
+        border:10px solid white;
+         margin: 0;
+         padding:0;
+       height:50%;
+     }
+.header-photo img {
+    opacity: 0.9;
+    width: 25%;
+    height: 75%;
+    -webkit-transform: scale(1.15);
+    -ms-transform: scale(1.15);
+    transform: scale(1.15);
+    -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
+    transition: transform 0.5s, opacity 0.5s;
+}
+.header-photo img:hover {
+    opacity: 1;
+    -webkit-transform: scale(1.03);
+    -ms-transform: scale(1.03);
+    transform: scale(1.03);
+}
+    .selection-button:hover {
+        cursor: pointer;
+        filter: brightness(85%);
+    }
+    select {
+    width: 7%;
+    margin: 0;
+    font-size: 100%;
+    padding: 5px 10px 5px 10px;
+    font-family: Segoe UI, Helvetica, sans-serif;
+    border: 0;
+    border: 1px solid #D0D0D0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+    }
+
+    /* ###################### Multiple Profile Step Wiward On form ################### */
+/* ############################################################################### */
+
+/* Hide all steps by default: */
+.tab {
+    display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+/* Mark the active step: */
+    .step.active {
+        opacity: 1;
+        background-color: rgb(175,208,220);
+    }
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+    background-color: #4CAF50;
+}
+</style>
+
+
+

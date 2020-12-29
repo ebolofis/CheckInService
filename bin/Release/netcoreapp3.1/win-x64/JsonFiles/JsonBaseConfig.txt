@@ -1,0 +1,92 @@
+{
+"Templates":
+[
+{"Template":"Custom",
+"Fields":[],
+"IsSection":true,
+"DefaultFormat":
+{
+  "selectedTemplate": "Custom",
+  "pageBackgroundColor": "#fff",
+  "sectionBackgroundColor": "rgba(11,156,49,0.8)",
+  "sectionFontColor": "#000",
+  "lineboxAttributes": {
+    "lineBoxMarginLeft": 0,
+    "lineBoxMarginBottom": 0,
+    "lineBoxMarginRight": 0,
+    "lineBoxMarginTop": 0
+  },
+  "entryboxAttributes": {
+    "EntryBoxMarginLeft": 2,
+    "EntryBoxMarginBottom": 2,
+    "EntryBoxMarginRight": 4,
+    "EntryBoxMarginTop": 0,
+    "EntryBoxBorderColor": "#EC1717",
+    "EntryBoxBorderWidthLeft": 0,
+    "EntryBoxBorderWidthBottom": 1,
+    "EntryBoxBorderWidthRight": 0,
+    "EntryBoxBorderWidthTop": 0
+  },
+  "labelAttributes": {
+    "fontSize": 13,
+    "textColor": "#000",
+    "fontWeight": "",
+    "LabelsMarginLeft": 0,
+    "LabelsMarginBottom": 0,
+    "LabelsMarginRight": 0,
+    "LabelsMarginTop": 0,
+    "textAlign": "",
+    "fontFamily": "Verdana"
+  },
+  "entryAttributes": {
+    "fontSize": 15,
+    "backColor": "#FFFFFF",
+    "textColor": "#000",
+    "fontWeight": "",
+    "EntriesMarginLeft": 0,
+    "EntriesMarginBottom": 0,
+    "EntriesMarginRight": 0,
+    "EntriesMarginTop": 0,
+    "textAlign": "",
+    "fontFamily": "Arial"
+  },
+  "headerAttributes": {
+    "headerBackgroundColor": "#3CC85B",
+    "headerFontColor": "#fff",
+    "headerDescription": {
+      "English": "Test",
+      "Greek": "Δοκιμή",
+      "German": "",
+      "French": "Test French",
+      "Russian": ""
+    },
+    "headerFontSize": 20,
+    "headerfontFamily": "Arial",
+    "headerFontWeight": ""
+  }
+},
+"ImageName":"Custom.png",
+"IsPrivacyPolicy":true
+},
+{"Template":"Template1",
+"Fields":["FirstName","LastName","DateOfBirth","Departure","Email","Street","ZipCode","City","Country","Mobile","Nationality","CheckedItem1","SendPhone", "CheckAllAds", "SendTextMessage"],
+"IsSection":true,
+"DefaultFormat":
+{"selectedTemplate":"Template1","pageBackgroundColor":"#FFFFFF","sectionBackgroundColor":"#FFFFFF","sectionFontColor":"#000000",
+"lineboxAttributes":{"lineBoxMarginLeft":0,"lineBoxMarginBottom":0,"lineBoxMarginRight":0,"lineBoxMarginTop":0},
+"entryboxAttributes":{"EntryBoxMarginLeft":0,"EntryBoxMarginBottom":0,"EntryBoxMarginRight":0,"EntryBoxMarginTop":0},
+"labelAttributes":{"fontSize":25,"textColor":"#000000","fontWeight":"","LabelsMarginLeft":0,"LabelsMarginBottom":0,"LabelsMarginRight":0,"LabelsMarginTop":0,"textAlign":"Left","fontFamily":"Arial"},
+"entryAttributes":{"fontSize":15,"textColor":"#000000","fontWeight":"","EntriesMarginLeft":0,"EntriesMarginBottom":0,"EntriesMarginRight":0,"EntriesMarginTop":0,"textAlign":"Left","fontFamily":"Arial"},
+"headerAttributes":{"headerBackgroundColor":"#FFFFFF","headerFontColor":"#000000","headerDescription":{"English":"Test","Greek":"Δοκιμή","German":"","French":"Test French","Russian":""},"headerFontSize":20,"headerfontFamily":"Arial","headerFontWeight":""}},
+"ImageName":"Temp1.png",
+"IsPrivacyPolicy":true
+},
+{"Template":"Template2",
+"Fields":["FirstName","LastName","Passport","Street","ZipCode","City","Country","Email","Mobile","Room","SendEmail","SendLetter","Nationality"],
+"IsSection":false,
+"DefaultFormat":
+{"selectedTemplate":"Template2","pageBackgroundColor":"#FFFFFF","sectionBackgroundColor":"#FFFFFF","sectionFontColor":"#000000","lineboxAttributes":{"lineBoxMarginLeft":5,"lineBoxMarginBottom":5,"lineBoxMarginRight":5,"lineBoxMarginTop":5},"entryboxAttributes":{"EntryBoxMarginLeft":10,"EntryBoxMarginBottom":10,"EntryBoxMarginRight":12,"EntryBoxMarginTop":13},"labelAttributes":{"fontSize":13,"textColor":"#000000","fontWeight":"","LabelsMarginLeft":0,"LabelsMarginBottom":0,"LabelsMarginRight":0,"LabelsMarginTop":0,"textAlign":"Left","fontFamily":"Montserrat"},"entryAttributes":{"fontSize":13,"textColor":"#000000","fontWeight":"","EntriesMarginLeft":0,"EntriesMarginBottom":0,"EntriesMarginRight":0,"EntriesMarginTop":0,"textAlign":"Left","fontFamily":"Montserrat"},"headerAttributes":{"headerBackgroundColor":"#FFFFFF","headerFontColor":"#000000","headerDescription":{"English":"Title","Greek":"Τίτλος","German":"Title German","French":"","Russian":""},"headerFontSize":20,"headerfontFamily":"Montserrat","headerFontWeight":"1"}},
+"ImageName":"Temp2.png",
+"IsPrivacyPolicy":true
+}
+]}

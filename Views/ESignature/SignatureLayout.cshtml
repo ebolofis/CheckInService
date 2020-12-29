@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/lib/jquery/dist/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+</head>
+<body data-bind="with: LanguageHandler">
+    <div class="container" style="width:100%;">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="text-center">
+                    <img data-bind="attr: { 'src' : tmp2.HotelLogo() }" style="height:120px; width:300px; margin-top:20px;">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h1 style="margin-top:45px; text-align:start">Fast Check-In</h1>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <hr class="dotted" style="background-color:rgb(175,208,220); height:2px;">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <label style="font-family:Arial; font-size:14px;" data-bind="html: selectedDictionary() != null?selectedDictionary().privacyPolicyDescription:null"></label>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <br />
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="text-center">
+                            <canvas id="sig-canvas" style="border: 1px solid black;">
+                            </canvas>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="text-center">
+                            <label id="signheretxtcss" data-bind="text: selectedDictionary() != null?selectedDictionary().SignHereTxt:null"> Please Sign Above the Line</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <br />
+            </div>
+            <div class="col-xs-8 col-xs-offset-2">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button type="button" style="background-color:rgb(175,208,320); opacity:1; color:white;color:black;" class="btn btn-success btn-block ld-ext-right" id="sig-submitBtn" data-bind="enable: !tmp2.Loading()">
+                            Check-In
+                            <span data-bind="visible: tmp2.Loading()" class="ld ld-ring ld-spin"></span>
+                        </button>
+                    </div>
+                </div>
+                <br />
+                <div class="row" style="margin-bottom:30px;">
+                    <div class="col-xs-6">
+                        <button type="button" style="background-color:rgb(175,208,320); color:black;" class="btn btn-success btn-block" id="sig-clearBtn" data-bind="text: selectedDictionary() != null?selectedDictionary().ClearBtnTxt:null"> Clear</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button type="button" style="background-color:rgb(175,208,320); color:black; " onclick="CancelFunction()" class="btn btn-success btn-block" id="sig-clearBtn" data-bind="text: selectedDictionary() != null?selectedDictionary().CancelBtnTxt:null"> Cancel </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+</script>
+<script src="~/js/signaturepage.js"></script>

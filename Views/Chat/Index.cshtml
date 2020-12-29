@@ -1,0 +1,112 @@
+﻿@{
+    Layout = null;
+    string hotelIdVB = ViewBag.HotelId;
+    string reservationIdVB = ViewBag.ReservationId;
+    string arrivalVB = ViewBag.Arrival;
+    string departureVB = ViewBag.Departure;
+}
+
+<!DOCTYPE html>
+
+<html class="main-html" id="mainHtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <!-- Library Styling -->
+    <link href="~/css/sweet_alert_Izi_Toast/iziToast.min.css" rel="stylesheet" />
+    <!-- Basic Styling -->
+    <link href="~/css/General/Flex.css" rel="stylesheet" />
+    <link href="~/css/General/Fontawesome.css" rel="stylesheet" />
+    <link href="~/css/General/Fonts.css" rel="stylesheet" />
+    <link href="~/css/General/General.css" rel="stylesheet" />
+    <!-- View Styling -->
+    <link href="~/css/Chat/Chat.css" rel="stylesheet" />
+    <!-- Resolution Styling -->
+    <link href="~/css/Chat/Resolutions/Chat_1280px.css" rel="stylesheet" />
+    <link href="~/css/Chat/Resolutions/Chat_1024px.css" rel="stylesheet" />
+    <link href="~/css/Chat/Resolutions/Chat_960px.css" rel="stylesheet" />
+    <link href="~/css/Chat/Resolutions/Chat_640px.css" rel="stylesheet" />
+    <link href="~/css/Chat/Resolutions/Chat_480px.css" rel="stylesheet" />
+    <link href="~/css/Chat/Resolutions/Chat_320px.css" rel="stylesheet" />
+</head>
+<body class="main-body" id="mainBody">
+    <div class="custom-flex-column custom-full-height">
+        <div class="custom-flex-15 custom-flex-horizontal-center custom-flex-vertical-center chat-service-header-container">
+            <div class="custom-flex-horizontal-center custom-flex-vertical-center logo-image-container" data-bind="with: $root.hotel()">
+                <img class="logo-image" data-bind="attr: { 'src' : RelativeLogoPath() }" />
+            </div>
+        </div>
+        <div class="custom-flex-85 custom-flex-horizontal-center custom-flex-vertical-center chat-service-body-container">
+            <div class="custom-flex-column chat-container" id="mainContainer">
+                <div class="custom-flex-10 custom-flex-horizontal-center custom-flex-vertical-center">
+                    <div class="custom-flex-horizontal-center custom-flex-vertical-center chat-header-container">
+                        <span class="custom-text-black custom-text-bold chat-header" id="mainHeader" data-bind="text: 'Chat Service'"></span>
+                    </div>
+                </div>
+                <div class="custom-flex-80 chat-history-container">
+                    <div class="custom-flex-column custom-full-width vertical-scroll" id="chatHistory" data-bind="foreach: $root.previousMessages()">
+                        <div class="custom-full-width chat-history-message-container">
+                            <div class="custom-flex-column chat-history-message" data-bind="css: { 'chat-history-message-self' : Sender == $root.chatUserName, 'chat-history-message-other' : Sender != $root.chatUserName }">
+                                <div class="custom-flex-row">
+                                    <span class="custom-text-black chat-history-message-text-send" data-bind="text: (CreationDate != null ? moment(CreationDate).format('DD/MM/YYYY') : '') + ' ' + (CreationTime != null ? CreationTime : '')"></span>
+                                    &nbsp;
+                                    <span class="custom-text-black chat-history-message-text-see"><i class="fa-check-circle" data-bind="css: { 'fas' : IsSeen(), 'chat-history-message-text-see-seen' : IsSeen(), 'far' : !IsSeen() }"></i></span>
+                                </div>
+                                <div class="chat-history-message-text-container" data-bind="css: { 'chat-history-message-text-container-self' : Sender == $root.chatUserName, 'chat-history-message-text-container-other' : Sender != $root.chatUserName }">
+                                    <span class="custom-text-black chat-history-message-text-message" data-bind="text: (MessageText != null ? MessageText : '')"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-flex-10">
+                    <div class="custom-flex-row custom-full-width">
+                        <div class="custom-flex-80 custom-flex-horizontal-center custom-flex-vertical-center">
+                            <input class="custom-input custom-text-black chat-message-input entry-element" id="chatMessageInput" data-bind="value: $root.chatMessage, attr: { 'disabled' : !$root.checkedIn() }" type="text" placeholder="Type your message..." autocomplete="off" />
+                        </div>
+                        <div class="custom-flex-20 custom-flex-horizontal-center custom-flex-vertical-center">
+                            <button class="custom-default-button custom-info-button chat-message-send-button" data-bind="click: $root.SendMessage, clickBubble: false, attr: { 'disabled' : !$root.checkedIn() || $root.sendingMessage() }" tabindex="-1">
+                                <span class="custom-text-white chat-message-send-button-text" data-bind="text: 'Send'"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Library Code -->
+    <script src="~/knockout/knockout-latest.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/moment.js/moment.min.js"></script>
+    <script src="~/lib/sweet_alert_Izi_Toast/iziToast.min.js"></script>
+    <!-- Enumerator Code -->
+    <script src="~/js/General/Enumerators/HotelEnumerators.js"></script>
+    <!-- Model Code -->
+    <script src="~/js/General/Models/HotelModels.js"></script>
+    <script src="~/js/General/Models/MessageModels.js"></script>
+    <script src="~/js/General/Models/SettingsModels.js"></script>
+    <!-- View Code -->
+    <script src="~/js/Chat/Chat.js"></script>
+    <script type="text/javascript">
+        var hotelIdHTML = '@hotelIdVB';
+        var reservationIdHTML = '@reservationIdVB';
+        var arrivalHTML = '@arrivalVB';
+        var departureHTML = '@departureVB';
+        var ViewHandler = new ChatViewModel();
+        ko.applyBindings(ViewHandler);
+        ViewHandler.InitializeView();
+        $(document).ready(function () {
+            $("body").keyup(function (e) {
+                if (e.keyCode == 10) { // Control + Enter
+                }
+                else if (e.keyCode == 13) { // Enter & Shift + Enter
+                    ViewHandler.SendMessage();
+                }
+                else {
+                }
+            });
+        });
+    </script>
+</body>
+</html>

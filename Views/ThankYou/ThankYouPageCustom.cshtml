@@ -1,0 +1,239 @@
+﻿@using CheckInService.Controllers;
+@using CheckInService.Models;
+@using CheckinBack.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var format = ViewBag.Format as GlobalAttributesModel;
+}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <br />
+            <form data-bind="with: LanguageHandler">
+                <div class="col-xs-12">
+                    <div class="text-center">
+                        <div class="custom-flex-row custom-flex-10 custom-flex-center headerstyling" style="margin-bottom: 10px;">
+                             <img style="height:120px;" data-bind="attr: { 'src' : tmp3.HotelLogo() }" id="headimg" /> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <br />
+                </div>
+                <div class="col-xs-12">
+                    <br />
+                </div>
+                <div class="col-xs-12">
+                    <label class="labelstyling" style="font-family:Montserrat Regular 400; font-size:24px;" data-bind="text: selectedDictionary() != null?selectedDictionary().YourCheckTxt +' '+ selectedDictionary().IsCompleteTxt:null"></label>
+                    <hr />
+                </div>
+                <div class="col-xs-12">
+                    <label class="labelstyling" style="font-family:Montserrat Regular 400; font-size:12px;" data-bind="text: selectedDictionary() != null?selectedDictionary().WelcometoTxt +' '+ selectedDictionary().HaveNiceStayTxt:null"></label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    var tmp3 = this;
+    tmp3.HotelLogo = ko.observable(null);
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+    };
+
+     function GetHotelLogo() {
+        $.ajax({
+            url: "/FC/GetHotelLogo?hotelId=" + localStorage.ConfigHotelName,
+            cache: false,
+            type: "GET",
+            crossdomain: false,
+            dataType: "json",
+            ContentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (response !== undefined && response !== null) {
+                    let hotelLogo = "data:image/png;base64," + response.Logo;
+                    tmp3.HotelLogo(hotelLogo);
+                } else {
+                     console.log("Unable to get hotelLogo with id: " + localStorage.ConfigHotelName + "!");
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    };
+
+    $(document).ready(function () {
+        GetHotelLogo();
+        LanguageHandler.SetHotelID(localStorage.ConfigHotelName);
+        LanguageHandler.SetApi(localStorage.ConfigURL);
+        LanguageHandler.GetTranslations();
+        localStorage.backButtonFlag = false;
+        var baseInfoModel = JSON.parse(localStorage.baseinfo);
+        if (baseInfoModel.Mode > 0) {
+            var url_for_getpassbook = localStorage.ConfigURL + 'ThankYou/GetPassbook?string1=' +
+            localStorage.string1 + "&buchnr=" + localStorage.buchnr + "&room=" + localStorage.room + "&kdnr=" + localStorage.kdnr + "&hotelId=" + localStorage.ConfigHotelName;
+            window.location.href = url_for_getpassbook;
+        }
+
+        const url_for_deletemodel = localStorage.ConfigURL + 'api/MainActions/Delete/' + localStorage.ConfigHotelName + "/" + localStorage.string1;
+        xhr.open("GET", url_for_deletemodel);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send();
+
+        setTimeout(function () {
+        localStorage.removeItem("CustomerInput");
+            
+        if (baseInfoModel.Mode == 0) {
+            var link = localStorage.ConfigURL + "FC/GetSettings?u=" + localStorage.ConfigURL + "&g=" + localStorage.ConfigGroupName + "&h=" + localStorage.ConfigHotelName;
+            window.location.href = link;
+        }
+        else if (baseInfoModel.Mode == 2)
+            {
+              var link = localStorage.ConfigURL + "Precheckin/barcode?h=" + localStorage.ConfigHotelName;
+              window.location.href = link;
+             }
+        }, 6000);
+    });
+
+    var languageChoosed = setInterval(function () {
+        if (LanguageHandler.availableLanguages().length > 0) {
+            clearInterval(languageChoosed);
+            var customerData = JSON.parse(localStorage.CustomerInput);
+            LanguageHandler.ChangeLanguage(customerData[0].LanguageCode);
+        }
+    }, 1100); 
+</script>
+
+<style>
+    .entrystyling{
+     color:   @format.entryAttributes.textColor;
+    font-family: @format.entryAttributes.fontFamily;
+
+
+
+    }
+    .hiddenstyling {
+        visibility: hidden;
+        width: 0%;
+        height: 0px;
+        height: 0px;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .headerstyling{
+        background-color:@format.headerAttributes.headerBackgroundColor;
+        font-size:@format.headerAttributes.headerFontSize;
+        font-weight:@format.headerAttributes.headerFontWeight;
+        color:@format.headerAttributes.headerFontColor;
+        font-family:@format.headerAttributes.headerfontFamily;
+    }
+    #inputFirstName:focus {
+        outline: none !important;
+        border: 1px solid gray;
+        box-shadow: 0 0 10px gray;
+    }
+    #inputLastName:focus {
+        outline: none !important;
+        border: 1px solid gray;
+        box-shadow: 0 0 10px gray;
+    }
+    select {
+    width: 7%;
+    margin: 0;
+    font-size: 100%;
+    padding: 5px 10px 5px 10px;
+    font-family: Segoe UI, Helvetica, sans-serif;
+    border: 0;
+    border: 1px solid #D0D0D0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+    }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    html,
+    body {
+        background-color: #fff;
+        color: #555;
+        font-family: 'Lato', 'Arial', sans-serif;
+        font-weight: 300;
+        font-size: 16px;
+        text-rendering: optimizeLegibility;
+        overflow-x: hidden;
+    }
+    h1 {
+        text-align: center;
+    }
+    .container {
+        flex-direction: row;
+    }
+    .btn:link,
+    .btn:hover
+    .btn:visited {
+        display: flex;
+        padding: 10px 30px;
+        font-weight: 300;
+        text-decoration: none;
+        border-radius: 0px;
+        -webkit-transition: background-color 0.2s, border 0.2s, color 0.2s;
+        transition: background-color 0.2s, border 0.2s, color 0.2s;
+    }
+    .btn{
+        background-color:@format.sectionBackgroundColor;
+        color:#fff;
+    }
+    .btn-full:link,
+    .btn-full:visited
+   {
+        background-color: @format.sectionBackgroundColor;
+        border: 1px solid @format.sectionBackgroundColor;
+        color: #fff;
+        margin-right: 15px;
+        border-radius:3%;
+    }
+        .btn:hover,
+        .btn:active
+         {
+            background-color: @format.sectionBackgroundColor;
+              filter: brightness(85%);
+               color:#fff;
+        }
+    .btn-full:hover,
+    .btn-full:active {
+        border: 1px solid #cf6d17;
+         color:#fff;
+    }
+  .header-photo {
+    /*width: 100%;
+    margin: 0;
+    overflow: hidden;*/
+    background-color: @format.headerAttributes.headerBackgroundColor;
+}
+.header-photo img {
+    opacity: 0.9;
+    width: 25%;
+    height: 75%;
+    -webkit-transform: scale(1.15);
+    -ms-transform: scale(1.15);
+    transform: scale(1.15);
+    -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
+    transition: transform 0.5s, opacity 0.5s;
+}
+.header-photo img:hover {
+    opacity: 1;
+    -webkit-transform: scale(1.03);
+    -ms-transform: scale(1.03);
+    transform: scale(1.03);
+}
+.dotted{
+    background-color:@format.sectionBackgroundColor;
+    height:2px;
+}
+</style>

@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap');
+
+*,
+*::before,
+*::after{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body{
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Poppins', sans-serif;
+}
+
+
+.box {
+	position: relative;
+	height: 100%;
+	width: 30vh;
+	height:10vh;
+}
+
+.box .imgBx{
+	width: 100%;
+	height: 100%;
+	transform: scaleX(0);
+	transform-origin: left;
+	animation: reveal 1s ease-in-out forwards;
+}
+
+.box .imgBx img{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.box .imgBx::before{
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #def;
+	z-index: 1;
+	transform-origin: left; 
+	animation: reveal 1s ease-in-out reverse forwards;
+	animation-delay: 3s; 
+
+}
+
+.box .imgBx h2{
+	position: absolute;
+	right: -80px;
+	bottom: 40px;
+	padding: 10px;
+	background: whitesmoke;
+	z-index: 2;
+	box-shadow: 0 10px 15px rgba(0,0,0, .2);
+	transform: scaleX(0);
+	transform-origin: left;
+	animation: reveal 1s ease-in-out forwards;
+	animation-delay: 1s;
+	transition: bottom .5s;
+}
+
+.box .imgBx h2::before{
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #f9f9f9;
+	z-index: 1;
+	transform-origin: right; 
+	animation: reveal 1s ease-in-out reverse forwards;
+	animation-delay: 2s;
+
+}
+
+@keyframes reveal{
+	0%{
+		transform: scaleX(0);
+	}
+	100%{
+		transform: scaleX(1);
+	}
+}

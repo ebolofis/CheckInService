@@ -1,0 +1,60 @@
+{
+  "selectedTemplate": "Custom",
+  "pageBackgroundColor": "#C0C0C0",
+  "sectionBackgroundColor": "#808040",
+  "sectionFontColor": "#000",
+  "lineboxAttributes": {
+    "lineBoxMarginLeft": 0,
+    "lineBoxMarginBottom": 0,
+    "lineBoxMarginRight": 0,
+    "lineBoxMarginTop": 0
+  },
+  "entryboxAttributes": {
+    "EntryBoxMarginLeft": 0,
+    "EntryBoxMarginBottom": 0,
+    "EntryBoxMarginRight": 0,
+    "EntryBoxMarginTop": 0,
+    "EntryBoxBorderColor": "#FF0000",
+    "EntryBoxBorderWidthLeft": 1,
+    "EntryBoxBorderWidthBottom": 1,
+    "EntryBoxBorderWidthRight": 1,
+    "EntryBoxBorderWidthTop": 1
+  },
+  "labelAttributes": {
+    "fontSize": 25,
+    "textColor": "#FF8000",
+    "fontWeight": "",
+    "LabelsMarginLeft": 0,
+    "LabelsMarginBottom": 0,
+    "LabelsMarginRight": 0,
+    "LabelsMarginTop": 0,
+    "textAlign": "",
+    "fontFamily": "Arial"
+  },
+  "entryAttributes": {
+    "fontSize": 15,
+    "backColor": "#FFFFFF",
+    "textColor": "#0000FF",
+    "fontWeight": "",
+    "EntriesMarginLeft": 0,
+    "EntriesMarginBottom": 0,
+    "EntriesMarginRight": 0,
+    "EntriesMarginTop": 0,
+    "textAlign": "",
+    "fontFamily": "Arial"
+  },
+  "headerAttributes": {
+    "headerBackgroundColor": "#FFFF80",
+    "headerFontColor": "#0080FF",
+    "headerDescription": {
+      "English": "Test",
+      "Greek": "Δοκιμή",
+      "German": "",
+      "French": "Test French",
+      "Russian": ""
+    },
+    "headerFontSize": 20,
+    "headerfontFamily": "Arial",
+    "headerFontWeight": ""
+  }
+}

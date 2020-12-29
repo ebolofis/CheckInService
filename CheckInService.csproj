@@ -1,0 +1,184 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>
+    <AssemblyVersion>3.3.3.0</AssemblyVersion>
+    <FileVersion>3.3.3.0</FileVersion>
+    <Version>3.0.0</Version>
+    <Description>CheckIn Service</Description>
+    <Copyright>Hit SA</Copyright>
+    <PackageProjectUrl>https://hit.com.gr/</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <Compile Remove="Certificates\**" />
+    <Compile Remove="wwwroot\images\Logos\Logos\**" />
+    <Compile Remove="wwwroot\lib\html2pdf\**" />
+    <Content Remove="bin\**" />
+    <Content Remove="Certificates\**" />
+    <Content Remove="wwwroot\images\Logos\Logos\**" />
+    <Content Remove="wwwroot\lib\html2pdf\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="Certificates\**" />
+    <EmbeddedResource Remove="wwwroot\images\Logos\Logos\**" />
+    <EmbeddedResource Remove="wwwroot\lib\html2pdf\**" />
+    <None Remove="bin\**" />
+    <None Remove="Certificates\**" />
+    <None Remove="wwwroot\images\Logos\Logos\**" />
+    <None Remove="wwwroot\lib\html2pdf\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="JsonFiles\UrlTemplates.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="JsonFiles\UrlTemplates.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JsonTemplateFiles\jsonHotelDirectory.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="bootstrap" Version="3.4.1" />
+    <PackageReference Include="jQuery" Version="3.4.1" />
+    <PackageReference Include="jQuery.UI.Combined" Version="1.12.1" />
+    <PackageReference Include="knockoutjs" Version="3.5.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Core" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="3.1.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
+    <PackageReference Include="NLog" Version="4.7.2" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.2" />
+    <PackageReference Include="StackExchange.Redis" Version="2.1.58" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CheckinBack\CheckinBack.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="HiQPdf.NetCore">
+      <HintPath>ExternalDLLS\HiQPdf.NetCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="WebConfig\servicesettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\Logos\hotellogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\Logos\WalletLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\Logos\WalletLogoRetina.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\TemplateLogo\hotellogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\images\TemplateLogo\WalletLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\TemplateLogo\WalletLogoRetina.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ExternalDLLS\HiQPdf.dep">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ExternalDLLS\HiQPdf.NetCore.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ExternalDLLS\HiQPdf.NetCore.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ExternalDLLS\HiQPdf.rda">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="JsonFiles\JsonBaseConfig.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="JsonTemplateFiles\jsonConfig.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="JsonTemplateFiles\JsonFormats.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="JsonTemplateFiles\JsonLanguageConfig.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="JsonTemplateFiles\JsonMessageLanguageConfig.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="JsonTemplateFiles\JsonPrivacyPolicy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ServiceScripts\CreateService.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ServiceScripts\DeleteService.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ServiceScripts\RunAsConsole.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ServiceScripts\StartService.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ServiceScripts\StopService.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="WebConfig\CheckinService.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\Debug\netcoreapp3.1\" />
+    <Folder Include="PDFS\" />
+    <Folder Include="wwwroot\css\barcodepage\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\css\mediaqueries\" />
+    <Folder Include="wwwroot\css\EmailVerification\" />
+    <Folder Include="wwwroot\css\qrcode\" />
+    <Folder Include="wwwroot\css\sweet_alert_Izi_Toast\" />
+    <Folder Include="wwwroot\images\Logos\Logos\" />
+    <Folder Include="wwwroot\images\Resources\" />
+    <Folder Include="wwwroot\images\TemplateImages\" />
+    <Folder Include="wwwroot\lib\bootstrap\dist\css\" />
+    <Folder Include="wwwroot\lib\sweet_alert_Izi_Toast\" />
+    <Folder Include="wwwroot\lib\qrcode\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="wwwroot\Language\language-module.js" />
+    <None Include="wwwroot\Language\LanguageModels.js" />
+    <None Include="wwwroot\Resource\resource-module.js" />
+    <None Include="wwwroot\Resource\ResourceModels.js" />
+  </ItemGroup>
+
+</Project>
